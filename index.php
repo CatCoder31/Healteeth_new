@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+ 
 <html>
    <head>
       <meta charset="utf-8">
@@ -13,6 +14,42 @@
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,400;0,800;0,900;1,100;1,200;1,300;1,400;1,800;1,900&display=swap" rel="stylesheet">
       <link rel="stylesheet" type="text/css" href="css/nav.css">
       <link rel="stylesheet" type="text/css" href="css/indexnav.css">
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+       <!-- SweetAlert CSS -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+
+      <!-- SweetAlert JavaScript -->
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+        $('form').submit(function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get form data
+            var formData = $(this).serialize();
+
+            // Send form data using Ajax
+            $.ajax({
+                type: 'POST',
+                url: 'mailer_healteeth.php',
+                data: formData,
+                success: function() {
+                    // Reset the form
+                    $('form')[0].reset();
+
+                    // Display a success message using SweetAlert
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Thank you for contacting us! We have sent a response to your email.',
+                    });
+                }
+            });
+        });
+    });
+</script>
+
    </head>
    <style>
       
@@ -411,30 +448,43 @@ foreach ($result as $row){
 
           <div class="col-lg-8 mt-5 mt-lg-0">
 
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-              <div class="row">
-                <div class="col-md-6 form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-                </div>
-                <div class="col-md-6 form-group mt-3 mt-md-0">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
-                </div>
-              </div>
-              <div class="form-group mt-3">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-              </div>
-              <div class="form-group mt-3">
-                <textarea class="form-control" name="message"  style="resize: none;" rows="5" placeholder="Message" required></textarea>
-              </div>
-             
-              <div class="text-center"><button type="button" class="btn btn-lg btn-outline-info contact_us_btn">Send Message</button></div>
-            </form>
+           <form action="mailer_healteeth.php" method="post" role="form" class="php-email-form">
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+        </div>
+        <div class="col-md-6 form-group mt-3 mt-md-0">
+            <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+        </div>
+    </div>
+    <div class="form-group mt-3">
+        <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+    </div>
+    <div class="form-group mt-3">
+        <textarea class="form-control" name="message" style="resize: none;" rows="5" placeholder="Message" required></textarea>
+    </div>
+
+    <!-- Hidden input field for file name -->
+    <?php $fileName = basename($_SERVER['PHP_SELF']); ?>
+    <input type="hidden" name="current_page" value="<?php echo $fileName; ?>">
+
+    <div class="text-center">
+        <input type="submit" class="btn btn-lg btn-outline-info contact_us_btn" value="Send Message">
+    </div>
+</form>
 
           </div>
 
         </div>
 
       </div>
+
+
+
+
+
+
+
     </section><!-- End Contact Section -->
 
 
