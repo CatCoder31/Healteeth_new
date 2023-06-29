@@ -342,6 +342,14 @@
     display: none;
 }
 }
+
+.register_p{
+         font-family: 'Montserrat';
+         color: #4052a4;
+         font-weight: light;
+         text-decoration:none;
+}
+
       </style>
    <body>
      <!-- <nav class="navbar navbar-white bg-white flex-nowrap">
@@ -423,7 +431,7 @@
                                  <div class="text-center pt-1 mb-5 pb-1">
                                     <input type="submit" class="btn btn-outline-info btn-lg btn_form" value="SIGN IN">
                                     <br>  <br>     
-                                    <a href="forgot-password.php">Forgot Password?</a>
+                                    <a href="forgot-password.php" class="register_p">Forgot Password?</a>
                                     <br>
                                  <!--   <a class="text-muted" href="reset.php">Forgot password?</a> -->
                                  </div>

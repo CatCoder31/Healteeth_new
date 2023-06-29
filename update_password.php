@@ -2,7 +2,7 @@
 // update_password.php
 
 // Retrieve the email and new password from the form submission
-$email = $_POST['email'];
+$token = $_POST['token'];
 $newPassword = $_POST['new_password'];
 
 // Database connection parameters
@@ -21,7 +21,8 @@ if ($conn->connect_error) {
 
 // Update the password in the database
 $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-$updateQuery = "UPDATE user SET password = '$hashedPassword' WHERE email_address = '$email'";
+$updateQuery = "UPDATE user SET password = '$hashedPassword' WHERE token = '$token'";
+//$previousToken=$token;
 if ($conn->query($updateQuery) === TRUE) {
     // Display a success message to the user
     echo "Password reset successful. You can now log in with your new password.";

@@ -11,16 +11,30 @@ $email = $_POST['email'];
 
 
 
-// Generate a unique token
-$token = bin2hex(random_bytes(32));
+   // Generate a random token
+    $token = bin2hex(random_bytes(32));
 
-// Store the token, email, and timestamp in the database (replace 'your_database' and 'your_table' with your actual database and table names)
-// Also, add additional fields such as 'is_used' to mark if the token has been used or not
-$insertQuery = "INSERT INTO your_table (email, token, timestamp) VALUES ('$email', '$token', NOW())";
-// Execute the insert query using your database connection
+    // Database connection parameters
+    $servername = 'localhost';
+    $username = 'root';
+    $password = ''; // Replace with your database password
+    $dbname = 'healteeth';
 
-// Create the reset link with the token=email because no token field in user
-$resetLink = "http://localhost/Healteeth/reset_password.php?email=$email";
+    // Create a new MySQLi instance
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Check the connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Prepare and execute the SQL statement to update the token in the user table
+    $stmt = $conn->prepare('UPDATE user SET token = ? WHERE email_address = ?');
+    $stmt->bind_param('ss', $token, $email);
+    $stmt->execute();
+
+// Create the reset link with the token=email because no token field in user update the $resetlink url when deployed will only work right now in local server
+$resetLink = "http://localhost/Healteeth/reset_password.php?token=$token";
 
 // Compose the email
 $subject = 'Password Reset';
@@ -28,6 +42,7 @@ $message = <<<HTML
 <!DOCTYPE html>
 <html>
          <head>
+      
             <style>
                /* Reset CSS */
                body, h1, h2, h3, h4, h5, h6, p, ul, ol, li {
@@ -35,7 +50,7 @@ $message = <<<HTML
                   padding: 0;
                }
                body {
-                  font-family: Arial, sans-serif;
+                 font-family: 'Montserrat';
                   background-color: #f1f1f1;
                }
                /* Container */
@@ -96,7 +111,13 @@ $message = <<<HTML
                 .button:hover {
                   background-color: #0056b3;
                 }
+                p{
+                  font-family: 'Montserrat';
+                }
             </style>
+                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <script src="https://kit.fontawesome.com/b1be178591.js" crossorigin="anonymous"></script>
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,400;0,800;0,900;1,100;1,200;1,300;1,400;1,800;1,900&display=swap" rel="stylesheet">
          </head>
          <body>
             <div class="container">
