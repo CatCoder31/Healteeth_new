@@ -2,6 +2,7 @@
    // Initialize the session
    include 'config2.php';
    $user_id=$_SESSION['id'];
+   
    $full_name = $_SESSION['full_name'];
    // Check if the user is logged in, if not then redirect him to login page
    if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
@@ -310,10 +311,7 @@
 .view_btn:hover{
    color:white;
 }
-.container-fluid{
-   margin-left:5%;
-   margin-right:5%;
-}
+
 .container-fluid-card{
    padding:1%;
    width: 15rem
@@ -339,80 +337,116 @@
 
  
       <div class="container-fluid">
-         <div class="card-group">
-               <?php
-                  if(isset($_GET['status'])){
-                      $status = $_GET['status'];
-                  }
-                  else{
-                      $status = '%';
-                  }
-                  
-                  $get_data = "SELECT * FROM `appointments` INNER JOIN category on appointments.category=category.category_id INNER JOIN services ON appointments.service=services.service_id WHERE patient_id = $user_id AND status LIKE '$status';";
-                  $run_data = mysqli_query($con,$get_data);
-                  $i = 0;
-                  while($row = mysqli_fetch_array($run_data))
-                  {
-                  $sl = ++$i;
-                  $id = $row['id'];
-                  $name = $row['patient_name'];
-                  $adate = date('F j, Y', (strtotime($row['appointment_date'])));
-                  $atime = ['appointment_time'];
-                  $service = $row['service_name'];
-                  $category = $row['category_name'];
-                  $status = $row['status'];
-                  
-                  echo  '<div class="container-fluid-card">
-                  <div class="card ">
-                     <div class="container">
-                        <form action="" id="contact-form" role="form" name="contact-form">
-                           <div class="controls">
-                              <div class="row">
-                                 <div class="cards">
-                                    <div class="form-group">
-                                       <label for="form_name" class="labels"><b>Appointment No</b> '.$id.'</a>
-                                    </div>
-                                 </div>
-                              </div>';
-                  echo                 '<div class="row">
-                                 <div class="cards">
-                                    <div class="form-group">
-                                       <label for="form_name" class="labels"><b>Name</b> '.$name.'</label>
-                                    </div>
-                                 </div>
-                              </div>';
-                  echo                 '<div class="row">
-                                 <div class="cards">
-                                    <div class="form-group">
-                                       <label for="form_name" class="labels"><b>Appointment Date</b> '.$adate.'</label>
-                                    </div>
-                                 </div>
-                              </div>';
-                  echo                 '<div class="row">
-                                 <div class="cards">
-                                    <div class="form-group">
-                                       <label for="form_name" class="labels"><b>Status</b> '.$status.'</label>
-                                    </div>
-                                 </div>
-                              </div>';
-                  echo                 '<div class="row">
-                                 <div class="cards">
-                                    <div class="form-group">
-                                      <a href="view-appointment.php?appointment-id='.$row['id'].'" class="btn btn-outline-info view_btn">View Appointment </a>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </form>
-                     </div>
-                  </div>
-               </div>';
-                  }
-                  ?>
-            </div>
-         </div>
-      </div>
-      </div>
+
+
+
+
+
+
+
+     
+<?php
+    if (isset($_GET['status'])) {
+        $status = $_GET['status'];
+    } else {
+        $status = '%';
+    }
+
+    $logged_email = $_SESSION['email_address'];
+
+    // Get the email of the logged-in user
+    $user_email = $logged_email; // Replace with the actual logged-in user's email
+
+    // Pagination variables
+    $results_per_page = 5;
+    $get_data = "SELECT * FROM `appointments` INNER JOIN category ON appointments.category=category.category_id INNER JOIN services ON appointments.service=services.service_id WHERE patient_id = $user_id AND status LIKE '$status' AND email = '$user_email';";
+    $run_data = mysqli_query($con, $get_data);
+    $total_rows = mysqli_num_rows($run_data);
+    $total_pages = ceil($total_rows / $results_per_page);
+
+    // Get current page from the URL parameter
+    if (isset($_GET['page'])) {
+        $current_page = $_GET['page'];
+    } else {
+        $current_page = 1;
+    }
+
+    // Calculate the starting and ending row numbers for the current page
+    $start_row = ($current_page - 1) * $results_per_page;
+    $end_row = $start_row + $results_per_page;
+
+    // Fetch the data with the updated LIMIT clause
+    $get_data = "SELECT * FROM `appointments` INNER JOIN category ON appointments.category=category.category_id INNER JOIN services ON appointments.service=services.service_id WHERE patient_id = $user_id AND status LIKE '$status' AND email = '$user_email' LIMIT $start_row, $results_per_page;";
+    $run_data = mysqli_query($con, $get_data);
+?>
+
+<div class="container">
+    <?php if ($total_rows > 0) { ?>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Appointment Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $i = ($current_page - 1) * $results_per_page + 1;
+                while ($row = mysqli_fetch_array($run_data)) {
+                    $name = $row['patient_name'];
+                    $adate = date('F j, Y', strtotime($row['appointment_date']));
+                    $status = $row['status'];
+                ?>
+                    <tr>
+                        <td><?php echo $i; ?></td>
+                        <td><?php echo $name; ?></td>
+                        <td><?php echo $adate; ?></td>
+                        <td><?php echo $status; ?></td>
+                        <td><a href="view-appointment.php?appointment-id=<?php echo $row['id']; ?>" class="btn btn-outline-info view_btn">View Appointment</a></td>
+                    </tr>
+                <?php
+                    $i++;
+                } ?>
+            </tbody>
+        </table>
+
+        <!-- Pagination links -->
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <?php for ($page = 1; $page <= $total_pages; $page++) { ?>
+                    <li class="page-item <?php echo ($page == $current_page) ? 'active' : ''; ?>">
+                        <a class="page-link" href="?page=<?php echo $page; ?>"><?php echo $page; ?></a>
+                    </li>
+                <?php } ?>
+            </ul>
+        </nav>
+    <?php } else { ?>
+        <div class="text-center">
+            <p>No appointments found.</p>
+            <a href="appointment-book.php" class="btn btn-outline-info view_btn">Create New Appointment</a>
+        </div>
+    <?php } ?>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
    </body>
 </html>
 <!-- ================================================
