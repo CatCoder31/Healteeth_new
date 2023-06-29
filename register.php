@@ -1,122 +1,3 @@
-<?php
-   // Include config file
-   require_once "config.php";
-    
-   // Define variables and initialize with empty values
-   $name = $email = $password = $confirm_password = $phonenumber = $address ="";
-   $name_err = $email_err = $password_err = $confirm_password_err = "";
-   
-   // Processing form data when form is submitted
-   if($_SERVER["REQUEST_METHOD"] == "POST"){
-    
-       // Validate email
-       if(empty(trim($_POST["email"]))){
-           $email_err = "Please enter a email.";
-       } elseif(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
-           $email_err = "Invalid email format";
-       } else{
-           // Prepare a select statement
-           $sql = "SELECT id FROM user WHERE email_address = ?";
-           
-           if($stmt = mysqli_prepare($con, $sql)){
-               // Bind variables to the prepared statement as parameters
-               mysqli_stmt_bind_param($stmt, "s", $param_email);
-               
-               // Set parameters
-               $param_email = trim($_POST["email"]);
-               
-               // Attempt to execute the prepared statement
-               if(mysqli_stmt_execute($stmt)){
-                   /* store result */
-                   mysqli_stmt_store_result($stmt);
-                   
-                   if(mysqli_stmt_num_rows($stmt) == 1){
-                       $email_err = "This email is already taken.";
-                   } else{
-                       $email = trim($_POST["email"]);
-                   }
-               } else{
-                   echo "Oops! Something went wrong. Please try again later.";
-               }
-   
-               // Close statement
-               mysqli_stmt_close($stmt);
-           }
-       }
-       
-   
-   // Validate password
-       if(empty(trim($_POST["name"]))){
-           $name_err = "Please enter your name.";     
-       } else{
-           $name = trim($_POST["name"]);
-       }
-   
-       if(empty(trim($_POST["phonenumber"]))){
-           $phonenumber_err = "Please enter your Contact Number.";     
-       } else{
-           $phonenumber = trim($_POST["phonenumber"]);
-       }
-   
-       if(empty(trim($_POST["address"]))){
-           $address_err = "Please enter your addresss.";     
-       } else{
-           $address = trim($_POST["address"]);
-       }
-   
-       // Validate password
-       if(empty(trim($_POST["password"]))){
-           $password_err = "Please enter a password.";     
-       } elseif(strlen(trim($_POST["password"])) < 6){
-           $password_err = "Password must have atleast 6 characters.";
-       } else{
-           $password = trim($_POST["password"]);
-       }
-       
-       // Validate confirm password
-       if(empty(trim($_POST["confirm_password"]))){
-           $confirm_password_err = "Please confirm password.";     
-       } else{
-           $confirm_password = trim($_POST["confirm_password"]);
-           if(empty($password_err) && ($password != $confirm_password)){
-               $confirm_password_err = "Password did not match.";
-           }
-       }
-       
-       // Check input errors before inserting in database
-       if(empty($name_err) && empty($email_err) && empty($password_err) && empty($confirm_password_err) && empty($phonenumber_err) && empty($address_err)){
-           
-           // Prepare an insert statement
-           $sql = "INSERT INTO user (full_name, email_address, password, contact_number, full_address) VALUES (?, ?, ?, ?, ?)";
-            
-           if($stmt = mysqli_prepare($con, $sql)){
-               // Bind variables to the prepared statement as parameters
-               mysqli_stmt_bind_param($stmt, "sssss", $param_name, $param_email, $param_password, $param_phonenumber, $param_address);
-               
-               // Set parameters
-               $param_name = $name;
-               $param_email = $email;
-               $param_password = md5($password); // Creates a password hash
-               $param_phonenumber = $phonenumber;
-               $param_address=$address;
-               
-               // Attempt to execute the prepared statement
-               if(mysqli_stmt_execute($stmt)){
-                   // Redirect to login page
-                   header("location: login.php");
-               } else{
-                   echo "Oops! Something went wrong. Please try again later.";
-               }
-   
-               // Close statement
-               mysqli_stmt_close($stmt);
-           }
-       }
-       
-       // Close connection
-       mysqli_close($con);
-   }
-   ?>
 <!DOCTYPE html>
 <html>
    <head>
@@ -132,6 +13,7 @@
       <script src="https://kit.fontawesome.com/b1be178591.js" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,400;0,800;0,900;1,100;1,200;1,300;1,400;1,800;1,900&display=swap" rel="stylesheet">
+       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
       <style type="text/css">
          @media (min-width: 768px) {
@@ -349,13 +231,61 @@
 @media (max-width: 1000px){
    .logo_img{
    width: 300px;
-      max-width: 50%;
+      max-width: 40%;
 }
    .header_photo {
     width: 100%;
     display: none;
 }
 }
+
+
+  .register_p {
+    font-family: 'Montserrat';
+    color: #4052a4;
+    font-weight: light;
+  }
+
+  .back-2signin {
+    padding-top: 10px;
+  }
+
+  .text-centerModal {
+    text-align: center;
+    font-family: 'Montserrat';
+    font-weight: light;
+    font-size: 1rem;
+    color: #4052a4;
+    position: relative;
+  }
+
+  .text-center2 {
+    text-align: center;
+    font-family: 'Montserrat';
+    font-weight: bold;
+    font-size: 2rem;
+    color: #4052a4;
+    position: relative;
+  }
+
+  .modal-body {
+    padding: 7%;
+  }
+
+  .modal-content {
+    border-radius: 60px;
+  }
+  .logo_img_Modal{
+    max-width: 30%;
+  }
+   .resetButton {
+    width: 100%;
+    border-radius: 50px;
+  }
+
+  .emailError{
+    color: red;
+  }
       </style>
    </head>
    <body>
@@ -373,45 +303,45 @@
                            <h2 class="signin_h2 text-center">REGISTER</h2>
                               <p class="signin_p">Register on HealTeeth for top-notch dental care and convenience.</p>
                               <br>
-                              <form method="post" autocomplete="off"    id="f" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                                 <div class="form-outline mb-4">
-                                    <input type="text" name="name" placeholder="Full Name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>">
-                                    <span class="invalid-feedback"><?php echo $name_err; ?></span>
-                                 </div>
 
+                              
+                                  
+                              <form method="post" autocomplete="off"  id="register" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                                  <div class="form-outline mb-4">
-                                    <input type="email" name="email" placeholder="Email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
-                                    <span class="invalid-feedback"><?php echo $email_err; ?></span>
-
+                                    <input type="text" name="name" placeholder="Full Name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" >
                                     
                                  </div>
 
+                                 <div class="form-outline mb-4">
+                                    <input type="email" name="email" placeholder="Email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" >
+                                   <span id="emailError" class="error"></span>
+                                 </div>
+
 
                                  <div class="form-outline mb-4">
-                                    <input type="password" name="password" id="password" placeholder="Password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
+                                    <input type="password" name="password" id="password" placeholder="Password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
                                     <div class="btn_change field-icon">
                 <button class="btn_change" onclick="change(); return false;">
                     <i class="fa-solid fa-eye" style="color: #65cad7;" aria-hidden="true"></i>
                 </button>
             </div>   
-                                    <span class="invalid-feedback"><?php echo $password_err; ?></span>
+             <span id="confpasswordError" class="error">
                                     </div>
                                     <div class="form-outline mb-4">
-                                    <input type="password" name="confirm_password" id="cfpassword" placeholder="Confirm Password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
-                                    
-                                    <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
+                                    <input type="password" name="confirm_password" id="cfpassword" placeholder="Confirm Password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" >
+                                     <span id="confpasswordError" class="error">
                                  </div>
                                  
 
                                  <div class="form-outline mb-4">
-                                    <input type="tel" name="phonenumber" placeholder="+63-933-555-3585"  required class="form-control <?php echo (!empty($phonenumber_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $phonenumber; ?>">
+                                    <input type="tel" name="phonenumber" placeholder="+63-933-555-3585"  required class="form-control <?php echo (!empty($phonenumber_err)) ? 'is-invalid' : ''; ?>" >
                                     <span class="invalid-feedback"><?php echo $phonenumber_err; ?></span>
                                  </div>
 
 
 
                                  <div class="form-outline mb-4">
-                                    <input type="text" name="address" placeholder="Address" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $address; ?>">
+                                    <input type="text" name="address" placeholder="Address" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>" >
                                     <span class="invalid-feedback"><?php echo $address_err; ?></span>
                                     <div class="col-md-12 signin_p">
                                        <br>
@@ -469,19 +399,22 @@
         </div>
       </div>
     </div>
+    
+ <!-- Bootstrap modal for success message -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+           <img src="assets/image/Healteeth Logo.png" class="logo_img_Modal" alt="">
+          <p class="text-center2">You just made an <span style="color: #65cad7">Account!</span></p>
+          <p class="text-centerModal">Your account has been created successfully.</p>
+          <button type="button" class="btn btn-outline-info btn-lg resetButton" onclick="window.location='login.php';">Go to Login</button>
+        </div>
+      </div>
+    </div>
+  </div>
 <script>
- var form = document.getElementById('f');
-
-function myFunction() {
-  if (form.checkValidity()) {
-    alert("Account Created Successfully!");
-  }
-}
-      </script>
-</script>   
-   </body>
-   <script>
- function change() {
+  function change() {
         var x = document.getElementById("password");
         if (x.type === "password") {
             x.type = "text";
@@ -489,6 +422,44 @@ function myFunction() {
             x.type = "password";
         }
     }   
-   </script>
 
+ $(document).ready(function() {
+  // Handle form submission
+  $('#register').submit(function(e) {
+    e.preventDefault(); // Prevent the form from submitting normally
+
+    // Perform an AJAX request
+    $.ajax({
+      type: 'POST',
+      url: 'register-process.php',
+      data: $(this).serialize(),
+      dataType: 'json',
+      success: function(response) {
+        // Check if the response indicates success
+        if (response.success) {
+          // Show success message using Bootstrap modal
+          $('#successModal').modal('show');
+
+          // Redirect to login.php after a delay of 3 seconds
+          setTimeout(function() {
+            window.location.href = 'login.php';
+          }, 9000);
+        } else {
+          // Handle other scenarios, such as validation errors
+          $('#emailError').text(response.emailError);
+          $('#passwordError').text(response.passwordError);
+          $('#confpasswordError').text(response.confpasswordError);
+          // Add more lines like the one above for other error messages if needed
+        }
+      },
+      error: function(xhr, status, error) {
+        console.error(xhr.responseText);
+        // Handle any error that occurred during form submission
+      }
+    });
+  });
+});
+
+</script>  
+   </body>
 </html>
