@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+ 
 <html>
    <head>
       <meta charset="utf-8">
@@ -13,6 +14,43 @@
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,400;0,800;0,900;1,100;1,200;1,300;1,400;1,800;1,900&display=swap" rel="stylesheet">
       <link rel="stylesheet" type="text/css" href="css/nav.css">
       <link rel="stylesheet" type="text/css" href="css/indexnav.css">
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+       <!-- SweetAlert CSS -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+
+      <!-- SweetAlert JavaScript -->
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+      
+
+  <script>
+    $(document).ready(function() {
+        $('form').submit(function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get form data
+            var formData = $(this).serialize();
+
+            // Send form data using Ajax
+            $.ajax({
+                type: 'POST',
+                url: 'mailer_healteeth.php',
+                data: formData,
+                success: function() {
+                    // Reset the form
+                    $('form')[0].reset();
+
+                    // Display a success message using SweetAlert
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Thank you for contacting us! We have sent a response to your email.',
+                    });
+                }
+            });
+        });
+    });
+</script>
+
    </head>
    <style>
       
@@ -130,6 +168,7 @@
 .service_card_img{
    width: 35%;
    margin: auto;
+   padding-top:5%;
    border-radius: 50%;
 }
 
@@ -161,7 +200,7 @@ transform: scale(1.1);
 }
 
 .card:hover{
-   background-color: #65cad7;
+   background-color: #f8f8f8;
 }
 
 @media all and (max-width: 775px) {
@@ -266,6 +305,141 @@ transform: scale(1.1);
 .about_btn:hover{
    color: white;
 }
+
+
+ .container-fluid-service {
+    align-items: center;
+    justify-content: center;
+    padding-left:11%;
+    padding-right:11%;
+  }
+
+  .card {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    width: 22em;
+    max-width: 100%;
+    padding: 2em 0;
+    background: #FFF;
+    transition: all .35s ease;
+  }
+
+  .card::before,
+  .card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #000;
+    height: 4px;
+  }
+
+  .card::before {
+    width: 0;
+    opacity: 0;
+    transition: opacity 0s ease, width 0s ease;
+    transition-delay: .5s;
+  }
+
+  .card::after {
+    width: 100%;
+    background: white;
+    transition: width .5s ease;
+  }
+
+  .card .content {
+    width: 18em;
+    max-width: 80%;
+  }
+
+  .card .logo {
+    margin: 0 0 1em;
+    width: 10.625em;
+    transition: all .35s ease;
+  }
+
+  .card h6 {
+    color: #999;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 0;
+    letter-spacing: 2px;
+  }
+
+  .card .hover_content {
+    overflow: hidden;
+    max-height: 0;
+    transform: translateY(1em);
+    transition: all .55s ease;
+  }
+
+  .card .hover_content p {
+    margin: 1.5em 0 0;
+    line-height: 1.4em;
+  }
+
+  .card:hover {
+    width: 24em;
+    box-shadow: 0 10px 20px 0 rgba(32, 32, 36, .12);
+  }
+
+  .card:hover::before {
+    width: 100%;
+    opacity: 1;
+    transition: opacity .5s ease, width .5s ease;
+    transition-delay: 0s;
+  }
+
+  .card:hover::after {
+    width: 0;
+    opacity: 0;
+    transition: width 0s ease;
+  }
+
+  .card:hover .logo {
+    margin-bottom: .5em;
+  }
+
+  .card:hover .hover_content {
+    max-height: 10em;
+    transform: none;
+  }
+
+  .loading-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: #4052a4;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .card:hover .loading-line {
+    transform: scaleX(1);
+  }
+
+  .contact-container{
+    width:110%;
+  }
+
+.container-fluid-contact{
+  padding-left:12%;
+  padding-right:12%;
+  padding-top:5%;
+  padding-bottom:5%;
+}
+
+.contact_us_title{
+  font-weight: bold;
+  font-size: 2.2rem;
+}
+  
    </style>
    <body>
      <?php include 'index_nav.php'; ?>
@@ -327,115 +501,113 @@ transform: scale(1.1);
       </div>
     </section><!-- End About Section -->
 
-    <div class="container container_service" id="services">
-        
-        <h2 class="services_h2">Our Services</h2>
-        <p class="services_p">fillings, root canals, extractions, cosmetic dentistry, teeth whitening, and implants. Exceptional care in a friendly environment for a healthy, beautiful smile.</p>
-<?php
-//Columns must be a factor of 12 (1,2,3,4,6,12)
-$numOfCols = 6;
-$rowCount = 0;
-$bootstrapColWidth = 12 / $numOfCols;
-?>
-<div class="row service_row">
-<?php
-include 'config.php';
-$result = mysqli_query($con, "SELECT * FROM category");
-foreach ($result as $row){
-   $image = $row['image'];
-   $service_name = $row['category_name'];
-   $service_price = $row['descr'];
-?>  
+ 
+<div class="container-fluid-service">
+  <h2 class="services_h2">Our Services</h2>
+  <p class="services_p">fillings, root canals, extractions, cosmetic dentistry, teeth whitening, and implants. Exceptional care in a friendly environment for a healthy, beautiful smile.</p>
 
-       <div class="col-md-<?php echo $bootstrapColWidth; ?> service_cards">
-       <div class="col col_service">
-            <div class="card card_service ">
-                  <img src='assets/upload_images/<?php echo $image;?>' class="service_card_img">
-                  <div class="card-body">
-                    <h5 class="card-title align-bottom"><?php echo $service_name;?></h5>
-                    <p class="card-text"><?php echo $service_price;?></p>
-                  </div>
-               </div>
-               
+  <?php
+  // Columns must be a factor of 12 (1,2,3,4,6,12)
+  $numOfCols = 6;
+  $rowCount = 0;
+  $bootstrapColWidth = 12 / $numOfCols;
+  ?>
+ <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 card-container">
+    <?php
+    include 'config.php';
+    $result = mysqli_query($con, "SELECT * FROM category");
+    foreach ($result as $row) {
+      $image = $row['image'];
+      $service_name = $row['category_name'];
+      $service_price = $row['descr'];
+      ?>
+
+      <div class="col mb-4">
+        <div class="card">
+          <img src="assets/upload_images/<?php echo $image; ?>" class="card-img-top service_card_img">
+          <div class="card-body">
+            <h5 class="card-title"><?php echo $service_name; ?></h5>
+          </div>
+          <div class="loading-line"></div>
+          <div class="hover_content">
+             <p class="card-text"><?php echo $service_price; ?></p>
+          </div>
         </div>
-        </div>
-
-
-<?php
-    $rowCount++;
-    if($rowCount % $numOfCols == 0) echo '</div><br><div class="row">';
-}
-?>
+      </div>
+    <?php
+      $rowCount++;
+      if ($rowCount % $numOfCols == 0) echo '</div><br><div class="column">';
+    }
+    ?>
+  </div>
 </div>
-      </div>
-      <br>
+<!-- /.container -->
 
 
- <!-- ======= Contact Section ======= -->
- <section id="contact" class="contact">
-      <div class="container">
-
-        <div class="section-title">
-        <h2 class="contact_h2">Contact Us</h2>
-        <p class="services_p">HealTeeth: Exceptional dental care that puts your smile first. Contact us today for expert services and personalized treatments. Your oral health is our top priority.</p>
-      </div>
-
-      <div>
-        <iframe style="border:0; width: 100%; height: 350px;" src="https://www.google.com/maps/embed/v1/place?q=874-898+P.+Herrera,+Maynila,+Kalakhang+Maynila&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8" frameborder="0" allowfullscreen></iframe>
-      </div>
 
 
-      <div class="container">
-        <div class="row mt-5">
-
-          <div class="col-lg-4">
-            <div class="info">
-              <div class="address">
-                <h4 class="contact_us_title">Location</h4>
-                <p class="contact_us_p">874 P. Herrera Manila Metro Manila</p>
-              </div>
-
-              <div class="email">
-                <h4 class="contact_us_title">Email</h4>
-                <p class="contact_us_p">contactUs@healteeth.com</p>
-              </div>
-
-              <div class="phone">
-                <h4 class="contact_us_title">Call</h4>
-                <p class="contact_us_p">+63 45 859 0667</p>
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="col-lg-8 mt-5 mt-lg-0">
-
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-              <div class="row">
-                <div class="col-md-6 form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-                </div>
-                <div class="col-md-6 form-group mt-3 mt-md-0">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
-                </div>
-              </div>
-              <div class="form-group mt-3">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-              </div>
-              <div class="form-group mt-3">
-                <textarea class="form-control" name="message"  style="resize: none;" rows="5" placeholder="Message" required></textarea>
-              </div>
-             
-              <div class="text-center"><button type="button" class="btn btn-lg btn-outline-info contact_us_btn">Send Message</button></div>
-            </form>
-
-          </div>
-
+<div class="container-fluid-contact" id="contact">
+  <div class="row">
+    <div class="col-md-6 d-flex align-items-center">
+      <div class="contact-container">
+         <h4 class="contact_us_title">Care at Healteeth is our Pleasure</h4>
+         <p class="contact_us_p">Get in touch with us using the form below</p>
+      <!-- Contact Form -->
+    <form action="mailer_healteeth.php" method="post" role="form" class="php-email-form">
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
         </div>
+        <div class="col-md-6 form-group mt-3 mt-md-0">
+            <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+        </div>
+    </div>
+    <div class="form-group mt-3">
+        <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+    </div>
+    <div class="form-group mt-3">
+        <textarea class="form-control" name="message" style="resize: none;" rows="5" placeholder="Message" required></textarea>
+    </div>
 
+    <!-- Hidden input field for file name -->
+    <?php $fileName = basename($_SERVER['PHP_SELF']); ?>
+    <input type="hidden" name="current_page" value="<?php echo $fileName; ?>">
+
+    <div class="text-left">
+        <input type="submit" class="btn btn-lg btn-outline-info contact_us_btn" value="Send Message">
+    </div>
+</form>
       </div>
-    </section><!-- End Contact Section -->
+    </div>
+    <div class="col-md-6 d-flex align-items-center">
+      <!-- Google Map -->
+      <div style="width: 100%; position: relative; overflow: hidden; border-radius: 30px;">
+        <div style="position: relative; padding-bottom: 60%; height: 0;">
+          <iframe
+            src="https://www.google.com/maps/embed/v1/place?q=874-898+P.+Herrera,+Maynila,+Kalakhang+Maynila&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"
+            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; border: none;"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
 
 
     <!-- footer section -->
@@ -507,6 +679,9 @@ foreach ($result as $row){
 
 
 
+
+
+
 <!--
       <div class="container-fluid bg-light">
          <div class="row justify-content-center">
@@ -565,4 +740,30 @@ Healthteeth dentists are specialized in different fields to address all your den
   </div>
 -->
    </body>
+   <script>
+// JavaScript code to handle hover events and toggle popover display
+var cards = document.querySelectorAll('.card');
+
+cards.forEach(function(card) {
+  var popover = card.querySelector('.popover');
+  var timeoutId;
+
+  card.addEventListener('mouseover', function() {
+    clearTimeout(timeoutId); // Clear any previous timeout
+
+    // Delay the display of popover by 0.5 seconds
+    timeoutId = setTimeout(function() {
+      popover.style.display = 'block';
+    }, 300);
+  });
+
+  card.addEventListener('mouseout', function() {
+    clearTimeout(timeoutId); // Clear the timeout if the mouseout happens before the delay
+
+    // Hide the popover immediately
+    popover.style.display = 'none';
+  });
+});
+
+</script>
 </html>

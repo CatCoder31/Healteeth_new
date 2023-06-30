@@ -425,13 +425,6 @@
                                     </div>
                                  </div>
                               </div>';
-                  echo                 '<div class="row">
-                                 <div class="col-md-12">
-                                    <div class="form-group">
-                                       <label for="form_name" class="view_appointment"><b>Price: ₱</b> '.$price.'</label>
-                                    </div>
-                                 </div>
-                              </div>';
 
                               if ($status == "Cancel") {
                
@@ -439,7 +432,7 @@
                                  <div class="col-md-12">
                                     <div class="form-group">
                                     
-                                       <label for="form_name" class="view_appointment"><b>Status:</b> <span style="color:red">'.$status.'</span></label>
+                                       <label for="form_name" class="view_appointment"><b>Status:</b> <span style="color:red">'.$status.'led</span></label>
                                     </div>
                                  </div>
                               </div>';
