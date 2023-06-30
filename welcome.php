@@ -28,6 +28,8 @@
 
       <!-- SweetAlert JavaScript -->
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+      <!-- CSS -->
+
 
   <script>
     $(document).ready(function() {
@@ -174,6 +176,7 @@
 .service_card_img{
    width: 35%;
    margin: auto;
+   padding-top:5%;
    border-radius: 50%;
 }
 
@@ -182,6 +185,7 @@
         float: none; /* Added */
         margin-bottom: 10px; /* Added */
         display: flex;
+        width:100%;
 }
 .card{
    padding-top:7%;
@@ -189,6 +193,7 @@
 }
 .service_cards{
    margin: auto;
+   padding:1%;
    transition: transform .2s;
   top: 0;
 }
@@ -201,11 +206,18 @@
 }
 
 .service_cards:hover{
-transform: scale(1.1);
+}
+
+
+.card{
+   padding:2% !important;
+   transition: transform .2s;
 }
 
 .card:hover{
-   background-color: #65cad7;
+   background-color: #f8f8f8;
+   border-radius:20px;
+   transform: scale(1.1);
 }
 
 @media all and (max-width: 775px) {
@@ -310,6 +322,79 @@ transform: scale(1.1);
 .about_btn:hover{
    color: white;
 }
+
+
+.card-service {
+    position: relative;
+    width:190%;
+  }
+
+
+
+
+  .service_cards {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+@media (max-width: 576px) {  
+  .xs {color:red;font-weight:bold;}
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width:768px) {  
+  .sm {color:red;font-weight:bold;}
+}
+ 
+/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+@media (min-width: 768px) and (max-width:992px) {  
+ .md {color:red;font-weight:bold;}
+}
+ 
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width:1200px) { 
+ .lg {color:red;font-weight:bold;}
+}
+ 
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {  
+    .xl {color:red;font-weight:bold;}
+}
+
+
+.container-fluid-service{
+   padding-left:10%;
+   padding-right:10%;
+}
+ 
+  @keyframes popAnimation {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+.popover {
+  display: none;
+  position: absolute;
+  top: 60%;
+  left: 30%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  animation: popAnimation 0.3s ease;
+}
+
+.card:hover .popover {
+  opacity: 1;
+}
    </style>
    <body>
       <?php include'nav_patient.php'; ?>
@@ -370,48 +455,51 @@ transform: scale(1.1);
     </section><!-- End About Section -->
 
 
-        <div class="container container_service">
-        
-        <h2 class="services_h2">Our Services</h2>
-        <p class="services_p">fillings, root canals, extractions, cosmetic dentistry, teeth whitening, and implants. Exceptional care in a friendly environment for a healthy, beautiful smile.</p>
-<?php
-//Columns must be a factor of 12 (1,2,3,4,6,12)
-$numOfCols = 6;
-$rowCount = 0;
-$bootstrapColWidth = 12 / $numOfCols;
-?>
-<div class="row service_row">
-<?php
-include 'config.php';
-$result = mysqli_query($con, "SELECT * FROM category");
-foreach ($result as $row){
-   $image = $row['image'];
-   $service_name = $row['category_name'];
-   $service_price = $row['descr'];
-?>  
 
-       <div class="col-md-<?php echo $bootstrapColWidth; ?> service_cards">
-       <div class="col col_service">
-            <div class="card card_service ">
-                  <img src='assets/upload_images/<?php echo $image;?>' class="service_card_img">
-                  <div class="card-body">
-                    <h5 class="card-title align-bottom"><?php echo $service_name;?></h5>
-                    <p class="card-text"><?php echo $service_price;?></p>
-                  </div>
-               </div>
-               
+<div class="container-fluid-service">
+  <h2 class="services_h2">Our Services</h2>
+  <p class="services_p">fillings, root canals, extractions, cosmetic dentistry, teeth whitening, and implants. Exceptional care in a friendly environment for a healthy, beautiful smile.</p>
+
+  <?php
+  // Columns must be a factor of 12 (1,2,3,4,6,12)
+  $numOfCols = 6;
+  $rowCount = 0;
+  $bootstrapColWidth = 12 / $numOfCols;
+  ?>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 card-container">
+    <?php
+    include 'config.php';
+    $result = mysqli_query($con, "SELECT * FROM category");
+    foreach ($result as $row){
+      $image = $row['image'];
+      $service_name = $row['category_name'];
+      $service_price = $row['descr'];
+      ?>
+
+      <div class="col mb-4">
+        <div class="card">
+          <img src="assets/upload_images/<?php echo $image; ?>" class="service_card_img">
+          <div class="card-body">
+            <h5 class="card-title"><?php echo $service_name; ?></h5>
+            <p class="card-text"><?php echo $service_price; ?></p>
+          </div>
+          <div class="popover">
+            <h5><?php echo $service_name; ?></h5>
+            <p><?php echo $service_price; ?></p>
+          </div>
         </div>
-        </div>
-
-
-<?php
-    $rowCount++;
-    if($rowCount % $numOfCols == 0) echo '</div><br><div class="row">';
-}
-?>
-</div>
       </div>
-      <br>
+    <?php
+      $rowCount++;
+      if($rowCount % $numOfCols == 0) echo '</div><br><div class="column">';
+    }
+    ?>
+  </div>
+</div>
+<!-- /.container -->
+
+
+
 
  <!-- ======= Contact Section ======= -->
  <section id="contact" class="contact">
@@ -620,4 +708,30 @@ Healthteeth dentists are specialized in different fields to address all your den
          </div>
       </div>
    </body>
+ <script>
+// JavaScript code to handle hover events and toggle popover display
+var cards = document.querySelectorAll('.card');
+
+cards.forEach(function(card) {
+  var popover = card.querySelector('.popover');
+  var timeoutId;
+
+  card.addEventListener('mouseover', function() {
+    clearTimeout(timeoutId); // Clear any previous timeout
+
+    // Delay the display of popover by 0.5 seconds
+    timeoutId = setTimeout(function() {
+      popover.style.display = 'block';
+    }, 300);
+  });
+
+  card.addEventListener('mouseout', function() {
+    clearTimeout(timeoutId); // Clear the timeout if the mouseout happens before the delay
+
+    // Hide the popover immediately
+    popover.style.display = 'none';
+  });
+});
+
+</script>
 </html>

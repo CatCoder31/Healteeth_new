@@ -510,18 +510,19 @@
         <div class="controls">
           <h2 class="why_us_h2">Enter your Personal Information</h2>
           <div class="form-row">
-            <div class="form-group col-md-5">
-              <input id="form_name" type="text" name="patient_name" class="form-control" placeholder="Name" required="required" data-error="Full Name is required." value = "<?php echo $row['full_name'];?>">
+            <div class="form-group col-md-6">
+              <input id="form_name" type="text" name="patient_name" class="form-control" placeholder="Name" required="required" data-error="Full Name is required." value = "<?php echo $row['full_name'];?>" disabled>
+              
             </div>
-            <div class="form-group col-md-4">
-              <input id="form_email" type="email" name="email" class="form-control" placeholder="name@example.com" required="required" data-error="Valid Email is required." value = "<?php echo $row['email_address'];?>">
+            <div class="form-group col-md-6">
+              <input id="form_email" type="email" name="email" class="form-control" placeholder="name@example.com" required="required" data-error="Valid Email is required." value = "<?php echo $row['email_address'];?>" disabled>
             </div>
          </div>
          <div class="form-row">
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-6">
               <input id="form_name" type="text" name="phone" class="form-control" placeholder="+63459440436" required="required" data-error="Contact Number is required." value = "<?php echo $row['contact_number'];?>">
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-6">
               <input id="form_name" type="text" name="address" class="form-control" placeholder="Makati" required="required" data-error="Address is required." value = "<?php echo $row['full_address'];?>">
             </div>
           </div>
@@ -590,13 +591,14 @@
    
   <script type="text/javascript" src="js/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script> 
   <script type="text/javascript" src="js/plugins/jquery-validation/jquery.validate.min.js"></script> 
-  <script type="text/javascript" src="js/plugins/jquery-validation/additional-methods.min.js"></script> 
+  <script type="text/javascript" src="js/plugins/jquery-validation/additional-methods.min.js"></script> z
   <script type="text/javascript" src="js/plugins/formatter/jquery.formatter.min.js"></script> <!--plugins.js - Some Specific JS codes for Plugin Settings-->
    
   <script type="text/javascript" src="js/plugins.min.js"></script> <!--custom-script.js - Add your own theme custom JS-->
    
   <script type="text/javascript" src="js/custom-script.js"></script> 
   <script>
+   
    $("select[name='categorypick']" ).change(function () {
       var categoryID = $(this).val();
       if(categoryID) {

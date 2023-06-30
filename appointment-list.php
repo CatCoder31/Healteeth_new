@@ -159,7 +159,17 @@
 }
 
 
+.table-header{
+  font-weight:bold;
+         color: #4052a4;
+         font-family: 'Montserrat';
+}
 
+.table-content{
+  font-weight:light;
+         color: #4052a4;
+         font-family: 'Montserrat';
+}
 @media all and (max-width: 775px) {
    .service_cards{
    margin: auto;
@@ -189,6 +199,9 @@
          font-family: 'Montserrat';
   position: relative;
 }
+
+
+
 
       }
 
@@ -325,6 +338,34 @@
 .form-group {
    margin-bottom: 0.4rem; 
 }
+
+
+.hover-row {
+   padding-top: 5%;
+   padding-bottom: 5%;
+        transition: all .2s ease-in-out;
+        border-radius:100px !important;
+    }
+
+.hover-row:hover {
+        background-color: #f5f5f5;
+        transform: scale(1.1);
+        border-radius:100px !important;
+    }
+
+    tbody, td, tfoot, th, thead, tr {
+    border: none !important;
+   padding: 1.8% !important;
+}
+
+  .page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #4052a4;
+    border-color: #4052a4;
+    font-weight: bold;
+    font-family: 'Montserrat';
+}
    </style>
    <body>
       <?php include'nav_patient.php'; ?>
@@ -382,14 +423,14 @@
 
 <div class="container">
     <?php if ($total_rows > 0) { ?>
-        <table class="table">
+        <table class="table table-borderless">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Appointment Date</th>
-                    <th>Status</th>
-                    <th>Action</th>
+                    <th class="table-header">#</th>
+                    <th class="table-header">Name</th>
+                    <th class="table-header">Appointment Date</th>
+                    <th class="table-header">Status</th>
+                    <th class="table-header">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -400,12 +441,12 @@
                     $adate = date('F j, Y', strtotime($row['appointment_date']));
                     $status = $row['status'];
                 ?>
-                    <tr>
-                        <td><?php echo $i; ?></td>
-                        <td><?php echo $name; ?></td>
-                        <td><?php echo $adate; ?></td>
-                        <td><?php echo $status; ?></td>
-                        <td><a href="view-appointment.php?appointment-id=<?php echo $row['id']; ?>" class="btn btn-outline-info view_btn">View Appointment</a></td>
+                    <tr class="hover-row">
+                        <td class="table-content"><?php echo $i; ?></td>
+                        <td class="table-content"><?php echo $name; ?></td>
+                        <td class="table-content"><?php echo $adate; ?></td>
+                        <td class="table-content"><?php echo $status; ?></td>
+                        <td class="text-center"><a href="view-appointment.php?appointment-id=<?php echo $row['id']; ?>" class="btn btn-outline-info view_btn">View Appointment</a></td>
                     </tr>
                 <?php
                     $i++;
@@ -413,8 +454,16 @@
             </tbody>
         </table>
 
-        <!-- Pagination links -->
-        <nav aria-label="Page navigation">
+      
+    <?php } else { ?>
+        <div class="text-center">
+            <p>No appointments found.</p>
+            <a href="appointment-book.php" class="btn btn-outline-info view_btn">Create New Appointment</a>
+        </div>
+    <?php } ?>
+</div>
+  <!-- Pagination links -->
+        <nav class="nav justify-content-center" aria-label="Page navigation">
             <ul class="pagination">
                 <?php for ($page = 1; $page <= $total_pages; $page++) { ?>
                     <li class="page-item <?php echo ($page == $current_page) ? 'active' : ''; ?>">
@@ -423,14 +472,6 @@
                 <?php } ?>
             </ul>
         </nav>
-    <?php } else { ?>
-        <div class="text-center">
-            <p>No appointments found.</p>
-            <a href="appointment-book.php" class="btn btn-outline-info view_btn">Create New Appointment</a>
-        </div>
-    <?php } ?>
-</div>
-
 
 
 
