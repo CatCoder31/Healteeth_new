@@ -363,7 +363,7 @@
                                  </div>
 
                                 
-                                
+                              
                                  
                               </form>
                            </div>
@@ -381,24 +381,61 @@
 
 
       <!-- Modal for TERMS AND AGREEMENT -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Terms and Agreement</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <p style="text-align: justify;"><b>Healteeth Dental Clinic</b> respects the privacy of the users. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website <b>Healteeth Dental Clinic</b>. Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access the site.</p>
-            <p style="text-align: justify;">We reserve the right to make changes to this Privacy Policy at any time and for any reason. We will alert you about any changes by updating the "Last Updated" date of this Privacy Policy on the Site. and you waive the right to receieve specific notice of each such change or modification.</p>
-            <p style="text-align: justify;">You are encouraged to periodically review this Privacy Policy to stay informed of updates. You will be deemed to have been made aware of, will be subject to, and will be deemed to have accepted the changes in any revised Privacy Policy by your continued use of the Site after the date such revised Privacy Policy is posted.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-          </div>
+     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+           <img src="assets/image/Healteeth Logo.png" class="logo_img_Modal" alt="">
+          <h1>Dental Appointment Policies</h1>
+  <h2>1. Appointment Scheduling:</h2>
+  <ul>
+    <li>Appointments are scheduled on a first-come, first-served basis.</li>
+    <li>Patients are encouraged to schedule appointments in advance to secure their preferred date and time.</li>
+    <li>Emergency appointments may be available for urgent dental issues.</li>
+  </ul>
+
+  <h2>2. Cancellation and Rescheduling:</h2>
+  <ul>
+    <li>Patients should provide at least 24-48 hours' notice for any cancellations or rescheduling.</li>
+    <li>Failure to provide sufficient notice may result in a cancellation fee.</li>
+    <li>Multiple cancellations or no-shows may affect future appointment scheduling.</li>
+  </ul>
+
+  <h2>3. Late Arrival:</h2>
+  <ul>
+    <li>Patients are encouraged to arrive 10-15 minutes prior to their scheduled appointment time.</li>
+    <li>Late arrival may result in a shortened appointment or rescheduling, depending on the dentist's schedule.</li>
+  </ul>
+
+  <h2>4. Payment and Insurance:</h2>
+  <ul>
+    <li>Payment is typically due at the time of service, unless other arrangements have been made.</li>
+    <li>Accepted payment methods may include cash, credit cards, and insurance coverage.</li>
+    <li>Patients are responsible for understanding their insurance coverage and providing accurate information.</li>
+  </ul>
+
+  <h2>5. Treatment Plans and Consent:</h2>
+  <ul>
+    <li>Treatment plans, including procedures, costs, and alternative options, will be discussed with the patient before starting any dental work.</li>
+    <li>Patients are encouraged to ask questions and provide informed consent before proceeding with any treatment.</li>
+  </ul>
+
+  <h2>6. Confidentiality and Privacy:</h2>
+  <ul>
+    <li>Patient information and medical records are handled with strict confidentiality and comply with applicable privacy laws.</li>
+    <li>Patient consent is required for any sharing of medical information with third parties, except as required by law.</li>
+  </ul>
+
+  <h2>7. Emergency Situations:</h2>
+  <ul>
+    <li>Dental emergencies will be addressed as soon as possible to alleviate pain and discomfort.</li>
+    <li>After-hours emergency contact information will be provided for urgent dental needs.</li>
+  </ul>
+        
         </div>
       </div>
     </div>
+  </div>
     
  <!-- Bootstrap modal for success message -->
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
