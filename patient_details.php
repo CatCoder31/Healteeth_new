@@ -266,7 +266,6 @@ FROM appointments
 INNER JOIN category ON appointments.category = category.category_id 
 INNER JOIN services ON appointments.service = services.service_id 
 INNER JOIN user ON appointments.doctor_Id = user.id 
-WHERE appointments.patient_id = $userId AND status='Approved'";
                      $run_data = mysqli_query($con,$get_data);
                      $i = 0;
                      while($row = mysqli_fetch_array($run_data))
@@ -317,7 +316,7 @@ WHERE appointments.patient_id = $userId AND status='Approved'";
             <!-- Modal -->
             <?php
 
-               $get_data = "SELECT * FROM `appointments` WHERE status='Approved' ";
+               $get_data = "SELECT * FROM `appointments` WHERE status='Done' ";
                $run_data = mysqli_query($con,$get_data);
                
                while($row = mysqli_fetch_array($run_data))
@@ -351,7 +350,7 @@ WHERE appointments.patient_id = $userId AND status='Approved'";
                INNER JOIN category ON appointments.category = category.category_id 
                INNER JOIN services ON appointments.service = services.service_id 
                INNER JOIN user ON appointments.doctor_Id = user.id 
-               WHERE status='Approved'";
+               WHERE status='Done'";
                
                $run_data = mysqli_query($con,$get_data);
                
