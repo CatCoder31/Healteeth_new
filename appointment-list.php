@@ -361,44 +361,37 @@
                   $service = $row['service_name'];
                   $category = $row['category_name'];
                   $status = $row['status'];
-                  
-                  echo  '<div class="container-fluid-card">
+                  ?>
+                  <div class="container-fluid-card">
                   <div class="card ">
                      <div class="container">
                         <form action="" id="contact-form" role="form" name="contact-form">
                            <div class="controls">
-                              <div class="row">
+                  <div class="row">
                                  <div class="cards">
                                     <div class="form-group">
-                                       <label for="form_name" class="labels"><b>Appointment No</b> '.$id.'</a>
+                                       <label for="form_name" class="labels"><b>Name</b> <?php echo $name?></label>
                                     </div>
                                  </div>
-                              </div>';
-                  echo                 '<div class="row">
+                              </div>
+                  <div class="row">
                                  <div class="cards">
                                     <div class="form-group">
-                                       <label for="form_name" class="labels"><b>Name</b> '.$name.'</label>
+                                       <label for="form_name" class="labels"><b>Appointment Date</b> <?php echo $adate?></label>
                                     </div>
                                  </div>
-                              </div>';
-                  echo                 '<div class="row">
+                              </div>
+                  <div class="row">
                                  <div class="cards">
                                     <div class="form-group">
-                                       <label for="form_name" class="labels"><b>Appointment Date</b> '.$adate.'</label>
+                                       <label for="form_name" class="labels"><b>Status</b> <?php echo $status?></label>
                                     </div>
                                  </div>
-                              </div>';
-                  echo                 '<div class="row">
+                              </div>
+                  <div class="row">
                                  <div class="cards">
                                     <div class="form-group">
-                                       <label for="form_name" class="labels"><b>Status</b> '.$status.'</label>
-                                    </div>
-                                 </div>
-                              </div>';
-                  echo                 '<div class="row">
-                                 <div class="cards">
-                                    <div class="form-group">
-                                      <a href="view-appointment.php?appointment-id='.$row['id'].'" class="btn btn-outline-info view_btn">View Appointment </a>
+                                      <a href="view-appointment.php?appointment-id='<?php echo $row['id']?>'" class="btn btn-outline-info view_btn">View Appointment </a>
                                     </div>
                                  </div>
                               </div>
@@ -406,7 +399,8 @@
                         </form>
                      </div>
                   </div>
-               </div>';
+               </div>
+               <?php
                   }
                   ?>
             </div>

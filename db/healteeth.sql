@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 22, 2023 at 02:36 PM
+-- Generation Time: Jun 29, 2023 at 12:53 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -133,30 +133,30 @@ CREATE TABLE `user` (
   `full_address` varchar(100) NOT NULL,
   `role` varchar(11) NOT NULL DEFAULT 'Patient',
   `token` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id`, `full_name`, `email_address`, `password`, `contact_number`, `full_address`, `role`, `token`) VALUES
-(4, 'Gene Lloyd Tabunggao', 'doctor@healteeth.com', '0192023a7bbd73250516f069df18b500', '925119375', 'Cembo Makati City', 'Doctor', NULL),
-(5, 'Staff', 'staff@healteeth.com', '4297f44b13955235245b2497399d7a93', '2147483647', 'taguig', 'Staff', NULL),
-(6, 'user', 'user@healteeth.com', '0192023a7bbd73250516f069df18b500', '2147483647', 'makati', 'Patient', NULL),
-(7, 'Lloyd Tabunggao', 'lloydtab@gmail.com', '0192023a7bbd73250516f069df18b500', '09212575670', 'Cembo Makati', 'Patient', NULL),
-(8, 'Joshua Lumelay', 'joshualumelay@gmail.com', 'fcea920f7412b5da7be0cf42b8c93759', '2147483647', 'emq ep apartment south side makati city', 'Patient', NULL),
-(9, 'Laika Mae Amano', 'lamano@gmail.com', '0192023a7bbd73250516f069df18b500', '09182409635', 'Pembo Makati', 'Doctor', NULL),
-(10, 'erwin ons', 'erwinson@gmail.com', '0192023a7bbd73250516f069df18b500', '09509972084', 'Sitio Upper Landing, Daanlungsod, Medellin, Cebu', 'Patient', NULL),
-(11, 'Labio Tabunggao', 'ltabunggao@gmail.com', '7c5ebba9c7ab1ed409995d91e843f508', '09289768084', 'University of Makati', 'Patient', NULL),
-(13, 'Tallulah Ballard', 'qinococy@mailinator.com', 'f3ed11bbdb94fd9ebdefbaf646ab94d3', '+1 (717) 661-2154', 'A adipisci repudiand', 'Patient', NULL),
-(16, 'John Benedict Gabriel Areta', 'jbareta2@gmail.com', '$2y$10$lsF50iEXx8ty0HANTN/qBuD1iNgNJkugU6MiIu3GA/OfM.nNa7lJC', '09760590742', 'Unit 431 bldg 4 guadalupe bliss', 'Patient', '2e7d2413449e67c95877fa689bb9d3a2f247d4a7962549d339cf9667d5336696'),
-(17, 'John Benedict Gabriel Areta', 'aretabenedict201@gmail.com', '$2y$10$6mZo8VUQb28FUR8J8CTM5uFnVUff24UAjhzrftFY21QGivzUdEuyS', '09760590742', 'Unit 431 bldg 4 guadalupe bliss', 'Patient', '54d9b7861a65dcf58e438c28c3ceca6f15c5c7e65bd49086556fbf4bcde9ea54'),
-(18, 'Christian Horne', 'jirygeko@mailinator.com', 'f3ed11bbdb94fd9ebdefbaf646ab94d3', '+1 (596) 146-4651', 'Provident nisi aspe', 'Patient', NULL),
-(19, 'Vaughan Schroeder', 'qofeni@mailinator.com', 'f3ed11bbdb94fd9ebdefbaf646ab94d3', '+1 (303) 923-8661', 'Cupidatat culpa anim', 'Patient', NULL),
-(20, 'Lael Fry', 'defecoco@mailinator.com', 'f3ed11bbdb94fd9ebdefbaf646ab94d3', '+1 (206) 502-2246', 'Aliquid modi aperiam', 'Patient', NULL),
-(21, 'Desirae Williamson', 'sawacefah@mailinator.com', 'fdddfcec20747a299c24c0fe64d9cbe2', '+1 (859) 564-2155', 'Sint nostrum aliqua', 'Patient', NULL),
-(22, 'hebehebe', 'Jbareta22@gmail.com', 'd8578edf8458ce06fbc5bb76a58c5ca4', '09760590742', 'Unit 431 bldg 4 guadalupe bliss', 'Patient', NULL),
-(23, 'Ralph Flores', 'vitoqigog@mailinator.com', '$2y$10$zhTeiMaqs21E/GpT3hy0C.YU7nOtBKdwoMAUKSD6cyEpUiVhXyuE2', '+1 (445) 152-4144', 'Officiis consequatur', 'Patient', NULL);
+(1, 'Gene Lloyd Tabunggao', 'genelloyd@gmail.com', '$2y$10$fUpbsUwPJWRuz7CbH7KtV.3d1KASiCIuoI47xI.to4FH1M5OIFWVa', '925119375', 'Cembo Makati City', 'Doctor', NULL),
+(2, 'Staff', 'staff@healteeth.com', '$2y$10$fUpbsUwPJWRuz7CbH7KtV.3d1KASiCIuoI47xI.to4FH1M5OIFWVa', '2147483647', 'taguig', 'Staff', NULL),
+(3, 'Labio Tabunggao', 'gltab@gmail.com', '$2y$10$fUpbsUwPJWRuz7CbH7KtV.3d1KASiCIuoI47xI.to4FH1M5OIFWVa', '2147483647', 'makati', 'Patient', NULL),
+(4, 'Lloyd Tabunggao', 'lloydtab@gmail.com', '$2y$10$fUpbsUwPJWRuz7CbH7KtV.3d1KASiCIuoI47xI.to4FH1M5OIFWVa', '09212575670', 'Cembo Makati', 'Patient', NULL),
+(5, 'Joshua Lumelay', 'joshualumelay@gmail.com', '$2y$10$fUpbsUwPJWRuz7CbH7KtV.3d1KASiCIuoI47xI.to4FH1M5OIFWVa', '2147483647', 'emq ep apartment south side makati city', 'Patient', NULL),
+(6, 'Laika Mae Amano', 'lamano@gmail.com', '$2y$10$fUpbsUwPJWRuz7CbH7KtV.3d1KASiCIuoI47xI.to4FH1M5OIFWVa', '09182409635', 'Pembo Makati', 'Doctor', NULL),
+(7, 'erwin ons', 'erwinson@gmail.com', '$2y$10$fUpbsUwPJWRuz7CbH7KtV.3d1KASiCIuoI47xI.to4FH1M5OIFWVa', '09509972084', 'Sitio Upper Landing, Daanlungsod, Medellin, Cebu', 'Patient', NULL),
+(8, 'Labio Tabunggao', 'ltabunggao@gmail.com', '$2y$10$fUpbsUwPJWRuz7CbH7KtV.3d1KASiCIuoI47xI.to4FH1M5OIFWVa', '09289768084', 'University of Makati', 'Patient', NULL),
+(9, 'Tallulah Ballard', 'qinococy@mailinator.com', '$2y$10$fUpbsUwPJWRuz7CbH7KtV.3d1KASiCIuoI47xI.to4FH1M5OIFWVa', '+1 (717) 661-2154', 'A adipisci repudiand', 'Patient', NULL),
+(10, 'John Benedict Gabriel Areta', 'jbareta2@gmail.com', '$2y$10$lsF50iEXx8ty0HANTN/qBuD1iNgNJkugU6MiIu3GA/OfM.nNa7lJC', '09760590742', 'Unit 431 bldg 4 guadalupe bliss', 'Patient', '2e7d2413449e67c95877fa689bb9d3a2f247d4a7962549d339cf9667d5336696'),
+(11, 'John Benedict Gabriel Areta', 'aretabenedict201@gmail.com', '$2y$10$6mZo8VUQb28FUR8J8CTM5uFnVUff24UAjhzrftFY21QGivzUdEuyS', '09760590742', 'Unit 431 bldg 4 guadalupe bliss', 'Patient', '54d9b7861a65dcf58e438c28c3ceca6f15c5c7e65bd49086556fbf4bcde9ea54'),
+(12, 'Christian Horne', 'jirygeko@mailinator.com', '$2y$10$fUpbsUwPJWRuz7CbH7KtV.3d1KASiCIuoI47xI.to4FH1M5OIFWVa', '+1 (596) 146-4651', 'Provident nisi aspe', 'Patient', NULL),
+(13, 'Vaughan Schroeder', 'qofeni@mailinator.com', '$2y$10$fUpbsUwPJWRuz7CbH7KtV.3d1KASiCIuoI47xI.to4FH1M5OIFWVa', '+1 (303) 923-8661', 'Cupidatat culpa anim', 'Patient', NULL),
+(14, 'Lael Fry', 'defecoco@mailinator.com', '$2y$10$fUpbsUwPJWRuz7CbH7KtV.3d1KASiCIuoI47xI.to4FH1M5OIFWVa', '+1 (206) 502-2246', 'Aliquid modi aperiam', 'Patient', NULL),
+(15, 'Desirae Williamson', 'sawacefah@mailinator.com', '$2y$10$fUpbsUwPJWRuz7CbH7KtV.3d1KASiCIuoI47xI.to4FH1M5OIFWVa', '+1 (859) 564-2155', 'Sint nostrum aliqua', 'Patient', NULL),
+(16, 'hebehebe', 'Jbareta22@gmail.com', '$2y$10$fUpbsUwPJWRuz7CbH7KtV.3d1KASiCIuoI47xI.to4FH1M5OIFWVa', '09760590742', 'Unit 431 bldg 4 guadalupe bliss', 'Patient', NULL),
+(17, 'Ralph Flores', 'vitoqigog@mailinator.com', '$2y$10$zhTeiMaqs21E/GpT3hy0C.YU7nOtBKdwoMAUKSD6cyEpUiVhXyuE2', '+1 (445) 152-4144', 'Officiis consequatur', 'Patient', NULL);
 
 --
 -- Indexes for dumped tables
@@ -225,7 +225,7 @@ ALTER TABLE `services`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

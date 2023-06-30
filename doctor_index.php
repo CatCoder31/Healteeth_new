@@ -169,7 +169,7 @@
                      <div class="card-counter danger">
                         <i class="fa fa-calendar-times-o"></i>
                         <?php
-                           $sql = "SELECT * FROM `appointments` INNER JOIN category on appointments.category=category.category_id INNER JOIN services ON appointments.service=services.service_id WHERE status = 'Cancel'";
+                           $sql = "SELECT * FROM `appointments` INNER JOIN category on appointments.category=category.category_id INNER JOIN services ON appointments.service=services.service_id WHERE appointment_date = CURRENT_DATE AND  status = 'Cancel'";
                            $query = $con->query($sql);
                            $countVoters = $query->num_rows;
                            ?>
@@ -181,12 +181,39 @@
                      <div class="card-counter success">
                         <i class="fa fa-calendar-o"></i>
                         <?php
-                           $sql = "SELECT * FROM `appointments` INNER JOIN category on appointments.category=category.category_id INNER JOIN services ON appointments.service=services.service_id WHERE status='Pending'";
+                           $sql = "SELECT * FROM `appointments` INNER JOIN category on appointments.category=category.category_id INNER JOIN services ON appointments.service=services.service_id WHERE appointment_date = CURRENT_DATE AND  status='Pending'";
                            $query = $con->query($sql);
                            $countPending = $query->num_rows;
                            ?>
                         <span class="count-numbers"><?php echo $countPending; ?></span>
                         <span class="count-name">Pending</span>
+                     </div>
+                  </div>
+                  <div class="col-md-3">
+                     <div class="card-counter yellow">
+                        <i class="fa fa-check-square"></i>
+                        <?php
+                           $sql = "SELECT * FROM `appointments` INNER JOIN category on appointments.category=category.category_id INNER JOIN services ON appointments.service=services.service_id WHERE appointment_date = CURRENT_DATE AND  status='Done'";
+                           $query = $con->query($sql);
+                           $countDone = $query->num_rows;
+                           ?>
+                        <span class="count-numbers"><?php echo $countDone; ?></span>
+                        <span class="count-name">Done</span>
+                     </div>
+                  </div>
+               </div>
+               <br>
+               <div class="row">
+                  <div class="col-md-3">
+                     <div class="card-counter red">
+                        <i class="fa fa-exclamation-circle"></i>
+                        <?php
+                           $sql = "SELECT * FROM `appointments` INNER JOIN category on appointments.category=category.category_id INNER JOIN services ON appointments.service=services.service_id WHERE appointment_date = CURRENT_DATE AND  status='No Show'";
+                           $query = $con->query($sql);
+                           $countNo = $query->num_rows;
+                           ?>
+                        <span class="count-numbers"><?php echo $countNo; ?></span>
+                        <span class="count-name">No show</span>
                      </div>
                   </div>
                   <div class="col-md-3">
@@ -199,33 +226,6 @@
                            ?>
                         <span class="count-numbers"><?php echo $countUser; ?></span>
                         <span class="count-name">No. of Patient</span>
-                     </div>
-                  </div>
-               </div>
-               <br>
-               <div class="row">
-                  <div class="col-md-3">
-                     <div class="card-counter yellow">
-                        <i class="fa fa-check-square"></i>
-                        <?php
-                           $sql = "SELECT * FROM `appointments` INNER JOIN category on appointments.category=category.category_id INNER JOIN services ON appointments.service=services.service_id WHERE status='Done'";
-                           $query = $con->query($sql);
-                           $countDone = $query->num_rows;
-                           ?>
-                        <span class="count-numbers"><?php echo $countDone; ?></span>
-                        <span class="count-name">Done</span>
-                     </div>
-                  </div>
-                  <div class="col-md-3">
-                     <div class="card-counter red">
-                        <i class="fa fa-exclamation-circle"></i>
-                        <?php
-                           $sql = "SELECT * FROM `appointments` INNER JOIN category on appointments.category=category.category_id INNER JOIN services ON appointments.service=services.service_id WHERE status='No Show'";
-                           $query = $con->query($sql);
-                           $countNo = $query->num_rows;
-                           ?>
-                        <span class="count-numbers"><?php echo $countNo; ?></span>
-                        <span class="count-name">No show</span>
                      </div>
                   </div>
                   <div class="col-md-3">
@@ -260,38 +260,35 @@
                <h3 class="text-themecolor">Appointments for Today</h3>
             </div>
             <table class="table table-bordered table-striped table-hover" id="appointments">
-                  <thead>
-                     <tr>
-                        <th class="text-center" scope="col">Patient Name</th>
-                        <th class="text-center" scope="col">Appointment Time Start</th>
-                        <th class="text-center" scope="col">Estimated Time End</th>
-                        <th class="text-center" scope="col">Service</th>
-                     </tr>
-                  </thead>
-                  <?php
-                     $get_data = "SELECT * FROM `appointments` INNER JOIN services ON appointments.service=services.service_id WHERE appointment_date=CURRENT_DATE AND status='Approved'";
-                     $run_data = mysqli_query($con,$get_data);
-                     while($row = mysqli_fetch_array($run_data))
-                     {
-                        $id = $row['id'];
-                        $pname = $row['patient_name'];
-                        $atime = date('h:i A',(strtotime($row['appointment_time'])));
-                        $tfinish = date('h:i A',(strtotime($row['time_finish'])));
-                        $service = $row['service_name'];
+               <thead>
+                  <tr>
+                     <th class="text-center" scope="col">Patient Name</th>
+                     <th class="text-center" scope="col">Appointment Time Start</th>
+                     <th class="text-center" scope="col">Estimated Time End</th>
+                     <th class="text-center" scope="col">Service</th>
+                  </tr>
+               </thead>
+               <?php
+                  $get_data = "SELECT * FROM `appointments` INNER JOIN services ON appointments.service=services.service_id WHERE appointment_date=CURRENT_DATE AND status='Approved'";
+                  $run_data = mysqli_query($con,$get_data);
+                  while($row = mysqli_fetch_array($run_data))
+                  {
+                     $id = $row['id'];
+                     $pname = $row['patient_name'];
+                     $atime = date('h:i A',(strtotime($row['appointment_time'])));
+                     $tfinish = date('h:i A',(strtotime($row['time_finish'])));
+                     $service = $row['service_name'];
                   ?>
-
-                     
-                         <tr>
-                         <td class='text-left'><?php echo $pname?></td>
-                         <td class='text-left'><?php echo $atime?></td>
-                         <td class='text-left'><?php echo $tfinish?></td>
-                         <td class='text-left'><?php echo $service?></td>
-                     
-                     </tr>
-                     <?php
-                     }
-                     ?>
-               </table>
+               <tr>
+                  <td class='text-left'><?php echo $pname?></td>
+                  <td class='text-left'><?php echo $atime?></td>
+                  <td class='text-left'><?php echo $tfinish?></td>
+                  <td class='text-left'><?php echo $service?></td>
+               </tr>
+               <?php
+                  }
+                  ?>
+            </table>
          </div>
       </div>
       <script src="assets/plugins/jquery/jquery.min.js"></script>
@@ -320,15 +317,6 @@
            $(".nav-tabs a").click(function(){
              $(this).tab('show');
            });
-         });
-      </script>
-      <script>
-         $(document).ready(function () {
-         $('#appointments').DataTable({
-            columnDefs: [
-               { orderable: false, targets: [0, 1, 2, 3] } // Disable ordering for columns 1 to 4
-            ]
-         });
          });
       </script>
    </body>
