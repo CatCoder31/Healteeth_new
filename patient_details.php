@@ -266,6 +266,7 @@ FROM appointments
 INNER JOIN category ON appointments.category = category.category_id 
 INNER JOIN services ON appointments.service = services.service_id 
 INNER JOIN user ON appointments.doctor_Id = user.id 
+WHERE appointments.patient_id = $userId AND status='Done'";
                      $run_data = mysqli_query($con,$get_data);
                      $i = 0;
                      while($row = mysqli_fetch_array($run_data))
