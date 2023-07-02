@@ -76,7 +76,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                         </li>
                     </ul>
               </li>
-              <li>
+              <!-- <li>
                 <a
                   class="waves-effect waves-dark"
                   href="#homeSubmenu2"
@@ -89,6 +89,16 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                             <a href="manage_patient.php">Manage Patient</a>
                         </li>
                     </ul>
+              </li> -->
+
+              <li>
+                <a
+                  class="waves-effect waves-dark"
+                  href="patient_records.php"
+                  aria-expanded="false"
+                  ><i class="fa fa-folder"></i
+                  ><span class="hide-menu">Patient Records</span></a
+                >
               </li>
 
               <li>

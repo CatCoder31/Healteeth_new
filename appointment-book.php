@@ -6,12 +6,11 @@
        header("location: index.php");
        exit;
    }
-
+   
    date_default_timezone_set('Asia/Manila');
    $date_today = date('Y-m-d');
-
-
    $full_name = $_SESSION['full_name'];
+
    $id = $_SESSION['id'];
    
    if(isset($_POST['submit'])){
@@ -41,80 +40,9 @@
             WHERE service_id = '$servicepick'";
       $result = mysqli_query($con, $query);
       $row = mysqli_fetch_assoc($result);
-      $service_duration = $row['service_duration'];
-      
-      //Query the database to get the existing appointments for the selected schedule
-      $query = "SELECT *
-            FROM appointments 
-            WHERE appointment_date = '$date_sched'
-            AND schedule = '$schedule'
-            AND status = 'Approved' 
-            ORDER BY appointment_time DESC LIMIT 1";
-      $result = mysqli_query($con, $query);
-      if(mysqli_num_rows($result) > 0){
-         $row = mysqli_fetch_assoc($result);
-         $last_appointment_time = strtotime($row['time_finish']);
-      }
-      else{
-         //If there are no existing appointments, set the start time to the opening time
-         $last_appointment_time = $time_sched_start;
-      }
-      
-      //Calculate the start and end time of the new appointment
-      if($schedule == "Schedule 1"){
-         $start_time = max($last_appointment_time, $time_sched_start);
-         $end_time = $start_time + (strtotime($service_duration) - strtotime('00:00'));
-         if($end_time > $breaktime_start){
-           //If the appointment ends after the morning break, reject the appointment
-           echo "<script type='text/javascript'>";
-           echo "alert('Appointment rejected. Please select another schedule.');";
-           echo "window.location.href = 'appointment-book.php';";
-           echo "</script>";
-         }
-         else{
-           //Insert the new appointment into the database
-           $appointment_date = date('F j, Y', strtotime($date_sched));
-           $appointment_start_time = date('h:i A', $start_time);
-           $appointment_end_time = date('h:i A', $end_time);
-           $query = "INSERT INTO appointments (doctor_Id, patient_id, patient_name, email, phone, address, category, service, schedule, appointment_date, appointment_time, time_finish, status) 
-                    VALUES ('$doctor_id ', '$id', '$patient_name', '$email', '$phone', '$address', '$categorypick', '$servicepick', '$schedule' ,'$date_sched', '".date('H:i:s',$start_time)."', '".date('H:i:s',$end_time)."', 'Approved')";
-           //echo $query;
-           mysqli_query($con, $query);
-           echo "<script type='text/javascript'>";
-           echo "alert('Thank you for booking an appointment with Healteeth. Your appointment is scheduled on $appointment_date from $appointment_start_time to $appointment_end_time.');";
-           echo "window.location.href = 'appointment-book.php';";
-           echo "</script>";
-         }
-       }
-       
-      else if($schedule == "Schedule 2"){
-         $start_time = max($last_appointment_time, $breaktime_end);
-         $end_time = $start_time + (strtotime($service_duration) - strtotime('00:00'));
-         if($end_time > $time_sched_end){
-            //If the appointment ends after the closing time, reject the appointment
-            echo "<script type='text/javascript'>";
-            echo "alert('Appointment rejected. Please select another schedule.');";
-            echo "window.location.href = 'appointment-book.php';";
-            echo "</script>";
-         }
-         else{
-            //Insert the new appointment into the database
-            $appointment_date = date('F j, Y', strtotime($date_sched));
-            $appointment_start_time = date('h:i A', $start_time);
-            $appointment_end_time = date('h:i A', $end_time);
-            $query = "INSERT INTO appointments (doctor_Id, patient_id, patient_name, email, phone, address, category, service, schedule, appointment_date, appointment_time, time_finish, status) 
-                     VALUES ('$doctor_id ', '$id', '$patient_name', '$email', '$phone', '$address', '$categorypick', '$servicepick', '$schedule' ,'$date_sched', '".date('H:i:s',$start_time)."', '".date('H:i:s',$end_time)."', 'Approved')";
-            //echo $query;
-            mysqli_query($con, $query);
-            echo "<script type='text/javascript'>";
-            echo "alert('Thank you for booking an appointment with Healteeth. Your appointment is scheduled on $appointment_date from $appointment_start_time to $appointment_end_time.');";
-            echo "window.location.href = 'appointment-book.php';";
-            echo "</script>";
-          }
-      }
+      $service_duration = $row['service_duration']; 
    }
-   
-   ?>
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -132,6 +60,11 @@
   <script src="https://kit.fontawesome.com/b1be178591.js" crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,400;0,800;0,900;1,100;1,200;1,300;1,400;1,800;1,900&amp;display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
   <link rel="stylesheet" type="text/css" href="css/nav.css">
   <style>
       @media all and (max-width: 1320px) {
@@ -451,6 +384,48 @@
          margin-top: 3%;
          width: 30%;
       }
+
+      .text-center{
+             text-align: center;
+            font-family: 'Montserrat';
+            font-weight:700;
+            font-size: 1rem;
+            color: #4052a4;
+            position: relative;
+            padding-bottom: 10px;
+            padding-bottom: 20px;
+        }
+
+        .text-center2{
+             text-align: center;
+            font-family: 'Montserrat';
+            font-weight: bold;
+            font-size: 2rem;
+            color: #4052a4;
+            position: relative;
+            padding-bottom: 10px;
+            padding-bottom: 20px;
+        }
+
+        .modal-body {
+            padding: 10%;
+        }
+
+        .modal-content {
+            border-radius: 60px;
+        }
+
+         .resetButton {
+            width: 100%;
+            border-radius: 50px;
+        }
+
+         .logo_img_modal {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 35%;
+        }
   </style>
 </head>
 <body>
@@ -463,77 +438,117 @@
   <h3 class="why_us_h3">Book an <span style="color: #65cad7">Appointment</span></h3>
   <div class="row appointment_container">
     <div class="col-lg-10 mx-auto">
-      <form method="post" enctype="multipart/form-data">
-        <div class="controls">
-          <h2 class="why_us_h2">Enter your Personal Information</h2>
-          <div class="form-row">
-            <div class="form-group col-md-5">
-              <input id="form_name" type="text" name="patient_name" class="form-control" placeholder="Name" required="required" data-error="Full Name is required." value = "<?php echo $row['full_name'];?>">
+      <form method="post" enctype="multipart/form-data" action="appointment-book-process.php" id="appointment-form">
+  <div class="controls">
+    <h2 class="why_us_h2">Enter your Personal Information</h2>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <input id="form_name" type="text" name="patient_name" class="form-control" placeholder="Name" required="required" data-error="Full Name is required." value="<?php echo $row['full_name']; ?>" readonly>
+      </div>
+      <div class="form-group col-md-6">
+        <input id="form_email" type="email" name="email" class="form-control" placeholder="name@example.com" required="required" data-error="Valid Email is required." value="<?php echo $row['email_address']; ?>" readonly>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <input id="form_name" type="text" name="phone" class="form-control" placeholder="+63459440436" required="required" data-error="Contact Number is required." value="<?php echo $row['contact_number']; ?>">
+      </div>
+      <div class="form-group col-md-6">
+        <input id="form_name" type="text" name="address" class="form-control" placeholder="Makati" required="required" data-error="Address is required." value="<?php echo $row['full_address']; ?>">
+      </div>
+    </div>
+    <?php }?>
+    <h2 class="why_us_h2">Select the Service that you need</h2>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <select name="categorypick" class="form-control" required="">
+          <option value="">Select Category</option>
+          <?php
+            $sql = "SELECT * FROM category";
+            $result = $con->query($sql);
+            while($row = $result->fetch_assoc()) {
+              echo "<option value='".$row['category_id']."'>".$row['category_name']." (".$row['descr'].")"."</option>";
+            }
+          ?>
+        </select>
+      </div>
+      <div class="form-group col-md-6">
+        <select name="servicepick" placeholder="Select service" class="form-control" required="">
+          <option value="">Select Service</option>
+        </select>
+      </div>
+    </div>
+    <h2 class="why_us_h2">Choose your Doctor</h2>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <select name="doctorId" class="form-control" onchange="docName(this.value)" required="">
+          <option value="" selected disabled>Select doctor</option>
+          <?php
+            $sql = mysqli_query($con, "SELECT * FROM schedule JOIN user ON schedule.doctor_Id=user.id WHERE role='Doctor' GROUP BY schedule.doctor_Id");
+            while($row = $sql->fetch_assoc()) {
+              echo "<option value='".$row['id']."'>".$row['full_name']."</option>";
+            }
+          ?>
+        </select>
+      </div>
+      <div class="form-group col-md-6">
+        <select name="schedule" class="form-control" id="docSchedule" required="">
+          <option value="" selected disabled>Select Schedule</option>
+        </select>
+      </div>
+    </div>
+    <div class="d-grid gap-2 col-6 mx-auto appointment_button_container">
+      <input type="submit" class="btn tn-lg btn-outline-info appointment_button" value="Submit Appointment" name="submit">
+    </div>
+  </div>
+</form>
+
+<?php
+if (isset($_GET['response'])) {
+    $response = json_decode($_GET['response'], true);
+    if ($response['success']) {
+        echo '
+         <div class="modal fade" id="successModal" tabindex="-1"  role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                 
+
+
+
+
+            <div class="modal-body">
+                                    <img src="assets/image/Healteeth Logo.png" class="logo_img_modal" alt="">
+                                    <br><br>
+                                    <p class="text-center2">Appointment Booked <span style="color: #65cad7">Successfully!</span></p>
+                                        <p class="text-center">Appointment Date: ' . $response['appointment_date'] . '</p>
+                        <p class="text-center">Start Time: ' . $response['start_time'] . '</p>
+                        <p class="text-center">End Time: ' . $response['end_time'] . '</p>
+                                       <br>
+                                       
+                                       
+                        <a href="appointment-list.php"class="btn btn-outline-info btn-lg resetButton" id="redirectButton">Done</a>
+                                    </div>
+
+
+
+
+
+                </div>
             </div>
-            <div class="form-group col-md-4">
-              <input id="form_email" type="email" name="email" class="form-control" placeholder="name@example.com" required="required" data-error="Valid Email is required." value = "<?php echo $row['email_address'];?>">
-            </div>
-         </div>
-         <div class="form-row">
-            <div class="form-group col-md-3">
-              <input id="form_name" type="text" name="phone" class="form-control" placeholder="+63459440436" required="required" data-error="Contact Number is required." value = "<?php echo $row['contact_number'];?>">
-            </div>
-            <div class="form-group col-md-3">
-              <input id="form_name" type="text" name="address" class="form-control" placeholder="Makati" required="required" data-error="Address is required." value = "<?php echo $row['full_address'];?>">
-            </div>
-          </div>
-          <?php 
-         }?>
-          <h2 class="why_us_h2">Select the Service that you need</h2>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <select name="categorypick" class="form-control" required="">
-                <option value="">
-                  Select Category
-                </option><?php
-                  $sql = "SELECT * FROM category"; 
-                  $result = $con->query($sql);
-                  while($row = $result->fetch_assoc()){
-                     echo "<option value='".$row['category_id']."'>".$row['category_name']." (".$row['descr'].")"."</option>";
-                  }
-               ?>
-              </select>
-            </div>
-            <div class="form-group col-md-6">
-              <select name="servicepick" placeholder="Select service" class="form-control" required="">
-                <option value="">
-                  Select Service
-                </option>
-              </select>
-            </div>
-          </div>
-          <h2 class="why_us_h2">Choose your Doctor</h2>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <select name="doctorId" class="form-control" onchange="docName(this.value)" required="">
-                <option value="" selected disabled>
-                  Select doctor
-                </option><?php
-                  $sql = mysqli_query($con, "SELECT * FROM schedule JOIN user ON schedule.doctor_Id=user.id WHERE role='Doctor' GROUP BY schedule.doctor_Id"); 
-                  while($row = $sql->fetch_assoc()){
-                     echo "<option value='".$row['id']."'>".$row['full_name']."</option>";
-                     }
-                  ?>
-              </select>
-            </div>
-            <div class="form-group col-md-6">
-              <select name="schedule" class="form-control" id="docSchedule" required="">
-                <option value="" selected disabled>
-                  Select Schedule
-                </option>
-              </select>
-            </div>
-          </div>
-          <div class="d-grid gap-2 col-6 mx-auto appointment_button_container">
-            <input type="submit" class="btn tn-lg btn-outline-info appointment_button" value="Submit Appointment" name="submit">
-          </div>
         </div>
-      </form>
+        <script>
+            $(document).ready(function() {
+                $("#successModal").modal("show");
+            });
+        </script>
+        ';
+    } else {
+        echo '<div class="alert alert-danger">' . $response['message'] . '</div>';
+    }
+}
+?>
+
+
     </div>
   </div><!-- /.8 -->
   <!-- /.row-->
@@ -547,13 +562,46 @@
    
   <script type="text/javascript" src="js/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script> 
   <script type="text/javascript" src="js/plugins/jquery-validation/jquery.validate.min.js"></script> 
-  <script type="text/javascript" src="js/plugins/jquery-validation/additional-methods.min.js"></script> 
+  <script type="text/javascript" src="js/plugins/jquery-validation/additional-methods.min.js"></script> z
   <script type="text/javascript" src="js/plugins/formatter/jquery.formatter.min.js"></script> <!--plugins.js - Some Specific JS codes for Plugin Settings-->
    
   <script type="text/javascript" src="js/plugins.min.js"></script> <!--custom-script.js - Add your own theme custom JS-->
    
   <script type="text/javascript" src="js/custom-script.js"></script> 
   <script>
+ $(document).ready(function() {
+   $('#appointmentForm').submit(function(event) {
+      event.preventDefault(); // Prevent the form from submitting normally
+      var formData = $(this).serialize(); // Serialize the form data
+
+      $.ajax({
+         url: 'appointment-book-process.php', // Update with the correct URL for your PHP script
+         type: 'POST',
+         data: formData,
+         dataType: 'json',
+         success: function(response) {
+            // Handle the JSON response
+            if (response.success) {
+               // Display success message or perform other actions
+               $('#responseMessage').text('Appointment booked successfully!\nDate: ' + response.appointment_date + '\nStart Time: ' + response.start_time + '\nEnd Time: ' + response.end_time);
+               $('#responseMessage').addClass('success').removeClass('error');
+            } else {
+               // Display error message or perform other actions
+               $('#responseMessage').text('Error: ' + response.message);
+               $('#responseMessage').addClass('error').removeClass('success');
+            }
+         },
+         error: function(xhr, status, error) {
+            // Handle the AJAX request error
+            $('#responseMessage').text('An error occurred while processing the request.');
+            $('#responseMessage').addClass('error').removeClass('success');
+         }
+      });
+   });
+});
+  </script>
+  <script>
+   
    $("select[name='categorypick']" ).change(function () {
       var categoryID = $(this).val();
       if(categoryID) {
