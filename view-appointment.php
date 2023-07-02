@@ -35,296 +35,345 @@
       <link rel="stylesheet" type="text/css" href="css/nav.css">
    </head>
    <style>
+      
+
       @media all and (max-width: 1320px) {
-      .header_text{
-      font-family: 'Montserrat';
-      padding-left: 10%;
+         .header_text{
+         font-family: 'Montserrat';
+         padding-left: 10%;
       }
+
       .header_h1{
-      font-weight:bold;
-      font-size:1rem;
-      color: #4052a4;
+         font-weight:bold;
+         font-size:1rem;
+         color: #4052a4;
       }
       .header_p{
-      font-size:.5rem;
-      color: #4052a4;
+         font-size:.5rem;
+         color: #4052a4;
       }
-      .header_column_photo{
-      display: none;
+
+         .header_column_photo{
+            display: none;
+         }
+         .col-lg-6 {
+            flex: 0 0 auto;
+            width: 100%;
+         }
+
+         .offset-md-2 {
+            display: none;
+         }
       }
-      .col-lg-6 {
-      flex: 0 0 auto;
-      width: 100%;
-      }
-      .offset-md-2 {
-      display: none;
-      }
-      }
+
       html{
-      font-family: 'Montserrat', sans-serif;
-      overflow-x: hidden;
+         font-family: 'Montserrat', sans-serif;
+         overflow-x: hidden;
       }
       .header_photo{
-      width: 100%;
+         width: 100%;
       }
       .header_text{
-      padding-top: 20%;
-      padding-bottom: 20%;
-      padding-left: 13%;
-      font-family: 'Montserrat';
+         padding-top: 20%;
+         padding-bottom: 20%;
+         padding-left: 13%;
+         font-family: 'Montserrat';
       }
       .header_h1{
-      font-weight:bold;
-      font-size:4rem;
-      color: #4052a4;
+         font-weight:bold;
+         font-size:4rem;
+         color: #4052a4;
       }
       .header_p{
-      font-size:1.5rem;
-      color: #4052a4;
+         font-size:1.5rem;
+         color: #4052a4;
       }
+
       .btn-outline-primary,
       .btn-outline-info{
-      border-radius: 30px;
+         border-radius: 30px;
       }
       .appointment_btn,
       .about_btn{
-      margin-top: 2%;
+         margin-top: 2%;
       }
+
+
+
+
       .container_service{
-      padding-top:7%;
-      padding-bottom:4%;
+         padding-top:7%;
+         padding-bottom:4%;
       }
       .services_h2 {
-      text-align: center;
-      font-weight:bold;
-      font-size:2.5rem;
-      color: #4052a4;
-      font-family: 'Montserrat';
-      position: relative;
+  text-align: center;
+  font-weight:bold;
+         font-size:2.5rem;
+         color: #4052a4;
+         font-family: 'Montserrat';
+  position: relative;
+}
+
+.contact_h2 {
+  text-align: center;
+  padding-top: 6%;
+  font-weight:bold;
+         font-size:4rem;
+         color: #4052a4;
+         font-family: 'Montserrat';
+  position: relative;
+}
+
+.services_p {
+  text-align: center;
+  margin-bottom: 60px;
+  font-weight:light;
+         font-size:1.2rem;
+         color: #4052a4;
+         font-family: 'Montserrat';
+  position: relative;
+}
+
+
+
+.service_card_img{
+   width: 35%;
+   margin: auto;
+   border-radius: 50%;
+}
+
+.service_row{
+   margin: 0 auto; /* Added */
+        float: none; /* Added */
+        margin-bottom: 10px; /* Added */
+        display: flex;
+}
+.service_cards{
+   margin: auto;
+   transition: transform .2s;
+  top: 0;
+}
+.col-md-2 {
+    height: 15rem;
+}
+.card_service{
+   width: 120%;
+   height: 100%;
+}
+
+
+
+@media all and (max-width: 775px) {
+   .service_cards{
+   margin: auto;
+   
+  top: 0;
+}
+   .card_service{
+   width: 70%;
+   margin-bottom: 5%;
+}
+
+.services_h2 {
+  text-align: center;
+  font-weight:bold;
+         font-size:8vw;
+         color: #4052a4;
+         font-family: 'Montserrat';
+  position: relative;
+}
+
+.services_p {
+  text-align: center;
+  margin-bottom: 60px;
+  font-weight:light;
+         font-size:4vw;
+         color: #4052a4;
+         font-family: 'Montserrat';
+  position: relative;
+}
+
       }
-      .contact_h2 {
-      text-align: center;
-      padding-top: 6%;
-      font-weight:bold;
-      font-size:4rem;
-      color: #4052a4;
-      font-family: 'Montserrat';
-      position: relative;
-      }
-      .services_p {
-      text-align: center;
-      margin-bottom: 60px;
-      font-weight:light;
-      font-size:1.2rem;
-      color: #4052a4;
-      font-family: 'Montserrat';
-      position: relative;
-      }
-      .service_card_img{
-      width: 35%;
-      margin: auto;
-      border-radius: 50%;
-      }
-      .service_row{
-      margin: 0 auto; /* Added */
-      float: none; /* Added */
-      margin-bottom: 10px; /* Added */
-      display: flex;
-      }
-      .service_cards{
-      margin: auto;
-      transition: transform .2s;
-      top: 0;
-      }
-      .col-md-2 {
-      height: 15rem;
-      }
-      .card_service{
-      width: 120%;
-      height: 100%;
-      }
-      @media all and (max-width: 775px) {
-      .service_cards{
-      margin: auto;
-      top: 0;
-      }
-      .card_service{
-      width: 70%;
-      margin-bottom: 5%;
-      }
-      .services_h2 {
-      text-align: center;
-      font-weight:bold;
-      font-size:8vw;
-      color: #4052a4;
-      font-family: 'Montserrat';
-      position: relative;
-      }
-      .services_p {
-      text-align: center;
-      margin-bottom: 60px;
-      font-weight:light;
-      font-size:4vw;
-      color: #4052a4;
-      font-family: 'Montserrat';
-      position: relative;
-      }
-      }
-      .card-title,
-      .card-text{
-      text-align: center;
-      color: #4052a4;
-      }
-      .card-title{
-      font-weight:bold;
-      font-size:1.2rem;
-      color: #4052a4;
-      font-family: 'Montserrat';
-      }
-      .card-text{
-      font-weight:light;
-      font-size:1rem;
-      color: #4052a4;
-      font-family: 'Montserrat';
-      }
-      .why_us{
-      padding-top:5%;
-      color: #4052a4;
-      font-family: 'Montserrat';
-      }
-      .contact{
-      padding-bottom:4%;
-      color: #4052a4;
-      font-family: 'Montserrat';
-      }
-      .why_us_h3{
-      font-weight:900;
-      font-size:2.8rem;
-      color: #4052a4;
-      }
-      .contact_us_title{
-      font-weight:900;
-      font-size:2rem;
-      color: #4052a4;
-      }
-      .why_us_title{
-      font-weight:bold;
-      font-size:1.5rem;
-      color: #4052a4;
-      }
-      .contact_us_p{
-      font-weight:light;
-      font-size:1rem;   
-      color: #4052a4;
-      }
-      .why_us_p{
-      font-weight:light;
-      font-size:1rem;
-      color: #4052a4;
-      }
-      .contact_us_btn{
-      margin-top: 3%;
-      padding-right:3%;
-      padding-left:3%;
-      }
-      .logo_img{
-      width: 180px;
+
+
+.card-title,
+.card-text{
+   text-align: center;
+   color: #4052a4;
+}
+
+.card-title{
+   font-weight:bold;
+         font-size:1.2rem;
+         color: #4052a4;
+         font-family: 'Montserrat';
+}
+
+.card-text{
+   font-weight:light;
+         font-size:1rem;
+         color: #4052a4;
+         font-family: 'Montserrat';
+}
+
+.why_us{
+         padding-top:5%;
+         color: #4052a4;
+         font-family: 'Montserrat';
+}
+
+
+.contact{
+         padding-bottom:4%;
+         color: #4052a4;
+         font-family: 'Montserrat';
+}
+.why_us_h3{
+   font-weight:900;
+         font-size:2.8rem;
+         color: #4052a4;
+}
+
+.contact_us_title{
+   font-weight:900;
+         font-size:2rem;
+         color: #4052a4;
+}
+.why_us_title{
+   font-weight:bold;
+   font-size:1.5rem;
+         color: #4052a4;
+}
+.contact_us_p{
+   font-weight:light;
+   font-size:1rem;   
+         color: #4052a4;
+}
+.why_us_p{
+   font-weight:light;
+         font-size:1rem;
+         color: #4052a4;
+}
+
+.contact_us_btn{
+   margin-top: 3%;
+   padding-right:3%;
+   padding-left:3%;
+}
+
+.logo_img{
+   width: 180px;
       max-width: 100%;
-      }
-      . footer{
-      color:white;
-      font-family: 'Montserrat';
-      }
-      .icon{
-      transition: transform .1s;
-      color: white;
-      font-size: 1.5em;
-      }
-      .icon:hover{
-      transform: scale(1.5);
-      color: #4052a4;
-      }
-      .about_btn:hover{
-      color: white;
-      }
-      .card_container{
-      border-radius: 15px;
-      width:50%;
-      }
-      .card{
-      text-align: center;
-      padding:1%;
-      transition: 0.2s transform;
-      border:1px solid #fafafa;
-      }
-      .card:hover{
-      color: white;
-      background-color: #fafafa;
-      transform: scale(1.1);
-      border:none;
-      }
-      .view_appointment{
-      font-family: 'montserrat';
-      font-weight:light;
-      font-size:1rem;
-      color: #4052a4;
-      }
-      .view_btn:hover{
-      color:white;
-      }
-      .container-fluid{
-      margin-left:5%;
-      margin-right:5%;
-      }
-      .container-fluid-card{
-      padding:1%;
-      width: 15rem
-      }
-      .card{
-      padding-top:3%;
-      }
-      .form-group {
-      margin-bottom: 0.4rem; 
-      }
+}
+
+. footer{
+   color:white;
+         font-family: 'Montserrat';
+}
+
+.icon{
+   transition: transform .1s;
+   color: white;
+   font-size: 1.5em;
+}
+
+.icon:hover{
+   transform: scale(1.5);
+   color: #4052a4;
+}
+
+.about_btn:hover{
+   color: white;
+}
+
+.card_container{
+   border-radius: 15px;
+   width:50%;
+   
+}
+.card{
+   text-align: center;
+   padding:1%;
+   transition: 0.2s transform;
+   border:1px solid #fafafa;
+}
+
+.card:hover{
+   color: white;
+   background-color: #fafafa;
+   transform: scale(1.1);
+   border:none;
+}
+
+.view_appointment{
+   font-family: 'montserrat';
+   font-weight:light;
+   font-size:1rem;
+   color: #4052a4;
+}
+.view_btn:hover{
+   color:white;
+}
+.container-fluid{
+   margin-left:5%;
+   margin-right:5%;
+}
+.container-fluid-card{
+   padding:1%;
+   width: 15rem
+}
+
+.card{
+   
+   padding-top:3%;
+}
+
+.form-group {
+   margin-bottom: 0.4rem; 
+}
+
+
    </style>
    <body>
-      <?php include 'nav_patient.php'; ?>
+   <?php include'nav_patient.php'; ?>
       <div class="container">
          <br>
+         
          <div class="row">
             <div class="col-lg-7 mx-auto">
-               <?php
-                  if (isset($_GET['status'])) {
-                     $status = $_GET['status'];
-                  } else {
-                     $status = '%';
+            <?php
+                  if(isset($_GET['status'])){
+                      $status = $_GET['status'];
+                  }
+                  else{
+                      $status = '%';
                   }
                   
                   $get_data = "SELECT * FROM `appointments` INNER JOIN category on appointments.category=category.category_id INNER JOIN services ON appointments.service=services.service_id WHERE patient_id = $user_id AND id = $appoint_id;";
-                  $run_data = mysqli_query($con, $get_data);
-                  while ($row = mysqli_fetch_array($run_data)) {
-                     $id = $row['id'];
-                     $name = $row['patient_name'];
-                     $email = $row['email'];
-                     $contact = $row['phone'];
-                     $address = $row['address'];
-                     $adate = date('F j, Y', (strtotime($row['appointment_date'])));
-                     $atime = $row['appointment_time'];
-                     $service = $row['service_name'];
-                     $category = $row['category_name'];
-                     $price = $row['service_price'];
-                     $status = $row['status'];
-                  ?>
-               <h2 class="services_h2">Manage Your <span style="color: #65cad7"><?php echo $service; ?></span> Appointment</h2>
-               <br><br>
-               <div class="">
+                  $run_data = mysqli_query($con,$get_data);
+                  while($row = mysqli_fetch_array($run_data))
+                  {
+                  $id = $row['id'];
+                  $name = $row['patient_name'];
+                  $email = $row['email'];
+                  $contact = $row['phone'];
+                  $address = $row['address'];
+                  $adate = date('F j, Y', (strtotime($row['appointment_date'])));
+                  $atime = $row['appointment_time'];
+                  $service = $row['service_name'];
+                  $category = $row['category_name'];
+                  $price = $row['service_price'];
+                  $status=$row['status'];
+                  echo'<h2 class="services_h2">Manage Your <span style="color: #65cad7">'.$service.'</span> Appointment</h2><br><br>';
+                  echo  '<div class="">
                   <div class="">
                      <div class="container">
-                        <div class="controls">
-                           <div class="row">
-                              <div class="col-md-12">
-                                 <div class="form-group">
-                                    <label for="form_name" class="view_appointment"><b>Name:</b> <?php echo $name; ?></label>
+                           <div class="controls">
+                              <div class="row">
+                                 <div class="col-md-12">
+                                    <div class="form-group">
+                                       <label for="form_name" class="view_appointment"><b>Appointment Number:</b> '.$id.'</a>
+                                    </div>
                                  </div>
                               </div>';
                   echo                 '<div class="row">
@@ -376,6 +425,13 @@
                                     </div>
                                  </div>
                               </div>';
+                  echo                 '<div class="row">
+                                 <div class="col-md-12">
+                                    <div class="form-group">
+                                       <label for="form_name" class="view_appointment"><b>Price: ₱</b> '.$price.'</label>
+                                    </div>
+                                 </div>
+                              </div>';
 
                               if ($status == "Cancel") {
                
@@ -383,7 +439,7 @@
                                  <div class="col-md-12">
                                     <div class="form-group">
                                     
-                                       <label for="form_name" class="view_appointment"><b>Status:</b> <span style="color:red">'.$status.'led</span></label>
+                                       <label for="form_name" class="view_appointment"><b>Status:</b> <span style="color:red">'.$status.'</span></label>
                                     </div>
                                  </div>
                               </div>';
@@ -420,115 +476,24 @@
                              <button type="button" class="close" data-dismiss="modal">&times;</button>
                              <h4 class="modal-title">Do you want to cancel the appointment?</h4>
                            </div>
-                           <div class="row">
-                              <div class="col-md-12">
-                                 <div class="form-group">
-                                    <label for="form_name" class="view_appointment"><b>Email Address:</b> <?php echo $email; ?></label>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="row">
-                              <div class="col-md-12">
-                                 <div class="form-group">
-                                    <label for="form_name" class="view_appointment"><b>Contact Number:</b> <?php echo $contact; ?></label>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="row">
-                              <div class="col-md-12">
-                                 <div class="form-group">
-                                    <label for="form_name" class="view_appointment"><b>Address:</b> <?php echo $address; ?></label>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="row">
-                              <div class="col-md-12">
-                                 <div class="form-group">
-                                    <label for="form_name" class="view_appointment"><b>Appointment Date:</b> <?php echo $adate; ?></label>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="row">
-                              <div class="col-md-12">
-                                 <div class="form-group">
-                                    <label for="form_name" class="view_appointment"><b>Appointment Time:</b> <?php echo date("h:i A", strtotime($atime)); ?></label>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="row">
-                              <div class="col-md-12">
-                                 <div class="form-group">
-                                    <label for="form_name" class="view_appointment"><b>Service:</b> <?php echo $service; ?></label>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="row">
-                              <div class="col-md-12">
-                                 <div class="form-group">
-                                    <label for="form_name" class="view_appointment"><b>Price: ₱</b> <?php echo $price; ?></label>
-                                 </div>
-                              </div>
-                           </div>
-                           <?php
-                              if ($status == "Cancel") {
-                                  ?>
-                           <div class="row">
-                              <div class="col-md-12">
-                                 <div class="form-group">
-                                    <label for="form_name" class="view_appointment"><b>Status:</b> <span style="color:red"><?php echo $status; ?></span></label>
-                                 </div>
-                              </div>
-                           </div>
-                           <?php
-                              } else {
-                                  ?>
-                           <div class="row">
-                              <div class="col-md-12">
-                                 <div class="form-group">
-                                    <label for="form_name" class="view_appointment"><b>Status:</b> <?php echo $status; ?></label>
-                                 </div>
-                              </div>
-                           </div>
-                           <?php
-                              }
-                              ?>
-                           <?php
-                              if ($status == "Cancel") {
-                                  ?>
-                           <a href="appointment-list.php" class="btn btn-outline-info btn-send  pt-2 btn-block">Return to Appointment List</a>
-                           <?php
-                              } else {
-                                  ?>
-                           <a href="appointment-list.php" class="btn btn-outline-info btn-send  pt-2 btn-block">Return to Appointment List</a>
-                           <button id="cancelBtn" class="btn btn-danger pt-2 btn-block" data-toggle="modal" data-target="#sample1">Cancel Appointment</button>
-                           <div id="sample1" class="modal fde" role="dialog" tabindex="-1">
-                              <div class="modal-dialog">
-                                 <!-- Modal content-->
-                                 <div class="modal-content">
-                                    <div class="modal-header">
-                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                       <h4 class="modal-title">Do you want to cancel the appointment?</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                       <form action="cancel-appointment.php" method="post" enctype="multipart/form-data">
-                                          <input type="hidden" value="<?php echo $id; ?>" name="appointid">
-                                          <center>
-                                             <input type="submit" name="submit" class="btn btn-primary btn-large" value="Submit">
-                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                          </center>
-                                       </form>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <?php
-                              }
-                              ?>
-                        </div>
+                           <div class="modal-body">
+                           <form action="cancel-appointment.php" method="post" enctype="multipart/form-data">
+                           <input type = "hidden" value="'.$id.'" name = "appointid">
+                            <center> <input type="submit" name="submit" class="btn btn-primary btn-large" value="Submit">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></center>
+                           </form>
+                           </div>  
+                         </div>
+                       </div>
+                    </div>';
+                  }
+
+
+
+               echo'  </div>                              
                      </div>
                   </div>
-               </div>
-               <?php
+                  </div>';
                   }
                   ?>
             </div>
@@ -548,20 +513,3 @@
 <script type="text/javascript" src="js/plugins/formatter/jquery.formatter.min.js"></script> <!--plugins.js - Some Specific JS codes for Plugin Settings-->
 <script type="text/javascript" src="js/plugins.min.js"></script> <!--custom-script.js - Add your own theme custom JS-->
 <script type="text/javascript" src="js/custom-script.js"></script>
-
-<script>
-// Get the cancel appointment button element
-var cancelBtn = document.querySelector('button[data-target="#sample1"]');
-
-// Get the current time and appointment time in seconds
-var currentTime = Math.floor(Date.now() / 1000);
-var appointmentTime = Math.floor(new Date("<?php echo $adate . ' ' . $atime; ?>") / 1000);
-
-// Calculate the time difference in seconds
-var timeDifference = appointmentTime - currentTime;
-
-// Disable the button if the time difference is greater than or equal to -7200 seconds (2 hours)
-if (timeDifference >= -7200) {
-  cancelBtn.disabled = true;
-}
-</script>
