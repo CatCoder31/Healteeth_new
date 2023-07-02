@@ -6,12 +6,11 @@
        header("location: index.php");
        exit;
    }
-
+   
    date_default_timezone_set('Asia/Manila');
    $date_today = date('Y-m-d');
-
-
    $full_name = $_SESSION['full_name'];
+
    $id = $_SESSION['id'];
    
    if(isset($_POST['submit'])){
@@ -64,14 +63,14 @@
       if($schedule == "Schedule 1"){
          $start_time = max($last_appointment_time, $time_sched_start);
          $end_time = $start_time + (strtotime($service_duration) - strtotime('00:00'));
-         if($end_time > $breaktime_start){
-           //If the appointment ends after the morning break, reject the appointment
-           echo "<script type='text/javascript'>";
-           echo "alert('Appointment rejected. Please select another schedule.');";
-           echo "window.location.href = 'appointment-book.php';";
-           echo "</script>";
-         }
-         else{
+         // if($end_time > $breaktime_start){
+         //   //If the appointment ends after the morning break, reject the appointment
+         //   echo "<script type='text/javascript'>";
+         //   echo "alert('Appointment rejected. Please select another schedule.');";
+         //   echo "window.location.href = 'appointment-book.php';";
+         //   echo "</script>";
+         // }
+         // else{
            //Insert the new appointment into the database
            $appointment_date = date('F j, Y', strtotime($date_sched));
            $appointment_start_time = date('h:i A', $start_time);
@@ -82,22 +81,22 @@
            mysqli_query($con, $query);
            echo "<script type='text/javascript'>";
            echo "alert('Thank you for booking an appointment with Healteeth. Your appointment is scheduled on $appointment_date from $appointment_start_time to $appointment_end_time.');";
-           echo "window.location.href = 'appointment-book.php';";
+           echo "window.location.href = 'appointment-list.php';";
            echo "</script>";
-         }
+         // }
        }
        
       else if($schedule == "Schedule 2"){
          $start_time = max($last_appointment_time, $breaktime_end);
          $end_time = $start_time + (strtotime($service_duration) - strtotime('00:00'));
-         if($end_time > $time_sched_end){
-            //If the appointment ends after the closing time, reject the appointment
-            echo "<script type='text/javascript'>";
-            echo "alert('Appointment rejected. Please select another schedule.');";
-            echo "window.location.href = 'appointment-book.php';";
-            echo "</script>";
-         }
-         else{
+         // if($end_time > $time_sched_end){
+         //    //If the appointment ends after the closing time, reject the appointment
+         //    echo "<script type='text/javascript'>";
+         //    echo "alert('Appointment rejected. Please select another schedule.');";
+         //    echo "window.location.href = 'appointment-book.php';";
+         //    echo "</script>";
+         // }
+         // else{
             //Insert the new appointment into the database
             $appointment_date = date('F j, Y', strtotime($date_sched));
             $appointment_start_time = date('h:i A', $start_time);
@@ -109,12 +108,56 @@
             echo "<script type='text/javascript'>";
             echo "alert('Thank you for booking an appointment with Healteeth. Your appointment is scheduled on $appointment_date from $appointment_start_time to $appointment_end_time.');";
             echo "window.location.href = 'appointment-book.php';";
+            // Retrieve the details of the cancelled appointment
+            $query = "SELECT appointment_date, appointment_time, time_finish
+                      FROM appointments
+                      WHERE appointment_id = '$cancelled_appointment_id'";
+            $result = mysqli_query($con, $query);
+            $row = mysqli_fetch_assoc($result);
+
+            $cancelled_date = $row['appointment_date'];
+            $cancelled_start_time = strtotime($row['appointment_time']);
+            $cancelled_end_time = strtotime($row['time_finish']);
+
+            // Query the database to fetch the appointments scheduled after the cancelled appointment
+            $query = "SELECT appointment_id, appointment_time, time_finish
+                      FROM appointments
+                      WHERE appointment_date = '$cancelled_date'
+                      AND schedule = '$schedule'
+                      AND appointment_time > '$cancelled_end_time'
+                      ORDER BY appointment_time ASC";
+            $result = mysqli_query($con, $query);
+
+            // Iterate through the fetched appointments and update their start and end times
+            while ($row = mysqli_fetch_assoc($result)) {
+                $appointment_id = $row['appointment_id'];
+                $start_time = strtotime($row['appointment_time']);
+                $end_time = strtotime($row['time_finish']);
+
+                // Calculate the duration of the cancelled appointment
+                $cancelled_duration = $cancelled_end_time - $cancelled_start_time;
+
+                // Calculate the new start and end times for the current appointment
+                $new_start_time = $start_time - $cancelled_duration;
+                $new_end_time = $end_time - $cancelled_duration;
+
+                // Update the appointment with the new start and end times
+                $query = "UPDATE appointments
+                          SET appointment_time = '".date('H:i:s', $new_start_time)."',
+                              time_finish = '".date('H:i:s', $new_end_time)."'
+                          WHERE appointment_id = '$appointment_id'";
+                mysqli_query($con, $query);
+            }
+
+            // Redirect to the desired page after adjustments are made
+            echo "window.location.href = 'appointment-list.php';";
             echo "</script>";
-          }
+            
+          // }
       }
    }
    
-   ?>
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -467,18 +510,19 @@
         <div class="controls">
           <h2 class="why_us_h2">Enter your Personal Information</h2>
           <div class="form-row">
-            <div class="form-group col-md-5">
-              <input id="form_name" type="text" name="patient_name" class="form-control" placeholder="Name" required="required" data-error="Full Name is required." value = "<?php echo $row['full_name'];?>">
+            <div class="form-group col-md-6">
+              <input id="form_name" type="text" name="patient_name" class="form-control" placeholder="Name" required="required" data-error="Full Name is required." value = "<?php echo $row['full_name'];?>" disabled>
+              
             </div>
-            <div class="form-group col-md-4">
-              <input id="form_email" type="email" name="email" class="form-control" placeholder="name@example.com" required="required" data-error="Valid Email is required." value = "<?php echo $row['email_address'];?>">
+            <div class="form-group col-md-6">
+              <input id="form_email" type="email" name="email" class="form-control" placeholder="name@example.com" required="required" data-error="Valid Email is required." value = "<?php echo $row['email_address'];?>" disabled>
             </div>
          </div>
          <div class="form-row">
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-6">
               <input id="form_name" type="text" name="phone" class="form-control" placeholder="+63459440436" required="required" data-error="Contact Number is required." value = "<?php echo $row['contact_number'];?>">
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-6">
               <input id="form_name" type="text" name="address" class="form-control" placeholder="Makati" required="required" data-error="Address is required." value = "<?php echo $row['full_address'];?>">
             </div>
           </div>
@@ -547,13 +591,14 @@
    
   <script type="text/javascript" src="js/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script> 
   <script type="text/javascript" src="js/plugins/jquery-validation/jquery.validate.min.js"></script> 
-  <script type="text/javascript" src="js/plugins/jquery-validation/additional-methods.min.js"></script> 
+  <script type="text/javascript" src="js/plugins/jquery-validation/additional-methods.min.js"></script> z
   <script type="text/javascript" src="js/plugins/formatter/jquery.formatter.min.js"></script> <!--plugins.js - Some Specific JS codes for Plugin Settings-->
    
   <script type="text/javascript" src="js/plugins.min.js"></script> <!--custom-script.js - Add your own theme custom JS-->
    
   <script type="text/javascript" src="js/custom-script.js"></script> 
   <script>
+   
    $("select[name='categorypick']" ).change(function () {
       var categoryID = $(this).val();
       if(categoryID) {

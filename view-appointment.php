@@ -326,7 +326,99 @@
                                  <div class="form-group">
                                     <label for="form_name" class="view_appointment"><b>Name:</b> <?php echo $name; ?></label>
                                  </div>
-                              </div>
+                              </div>';
+                  echo                 '<div class="row">
+                                 <div class="col-md-12">
+                                    <div class="form-group">
+                                       <label for="form_name" class="view_appointment"><b>Name:</b> '.$name.'</label>
+                                    </div>
+                                 </div>
+                              </div>';
+                  echo                 '<div class="row">
+                                 <div class="col-md-12">
+                                    <div class="form-group">
+                                       <label for="form_name" class="view_appointment"><b>Email Address:</b> '.$email.'</label>
+                                    </div>
+                                 </div>
+                              </div>';
+                  echo                 '<div class="row">
+                                 <div class="col-md-12">
+                                    <div class="form-group">
+                                       <label for="form_name" class="view_appointment"><b>Contact Number:</b> '.$contact.'</label>
+                                    </div>
+                                 </div>
+                              </div>';
+                  echo                 '<div class="row">
+                                 <div class="col-md-12">
+                                    <div class="form-group">
+                                       <label for="form_name" class="view_appointment"><b>Address:</b> '.$address.'</label>
+                                    </div>
+                                 </div>
+                              </div>';
+                  echo                 '<div class="row">
+                                 <div class="col-md-12">
+                                    <div class="form-group">
+                                       <label for="form_name" class="view_appointment"><b>Appointment Date:</b> '.$adate.'</label>
+                                    </div>
+                                 </div>
+                              </div>';
+                  echo                 '<div class="row">
+                                 <div class="col-md-12">
+                                    <div class="form-group">
+                                       <label for="form_name" class="view_appointment"><b>Appointment Time:</b> '.date("h:i A", strtotime($atime)).'</label>
+                                    </div>
+                                 </div>
+                              </div>';
+                  echo                 '<div class="row">
+                                 <div class="col-md-12">
+                                    <div class="form-group">
+                                       <label for="form_name" class="view_appointment"><b>Service:</b> '.$service.'</label>
+                                    </div>
+                                 </div>
+                              </div>';
+
+                              if ($status == "Cancel") {
+               
+                                 echo                 '<div class="row">
+                                 <div class="col-md-12">
+                                    <div class="form-group">
+                                    
+                                       <label for="form_name" class="view_appointment"><b>Status:</b> <span style="color:red">'.$status.'led</span></label>
+                                    </div>
+                                 </div>
+                              </div>';
+                              }else{
+                                 echo                 '<div class="row">
+                                 <div class="col-md-12">
+                                    <div class="form-group">
+                                    
+                                       <label for="form_name" class="view_appointment"><b>Status:</b> '.$status.'</label>
+                                    </div>
+                                 </div>
+                              </div>';
+                              }
+               
+
+                            
+                  if ($status == "Cancel") {
+               
+                     echo        '
+                     <a href="appointment-list.php" class="btn btn-outline-info btn-send  pt-2 btn-block">Return to Appointment List</a>';
+
+                  }else{
+
+
+                           
+                  echo        '
+                  <a href="appointment-list.php" class="btn btn-outline-info btn-send  pt-2 btn-block">Return to Appointment List</a>';
+            echo'<button class = "btn btn-danger pt-2 btn-block" data-toggle="modal" data-target="#sample1">Cancel Appointment</button>
+                    <div id="sample1" class="modal fde" role="dialog" tabindex="-1">
+                       <div class="modal-dialog">
+                         <!-- Modal content-->
+                         <div class="modal-content">
+                           <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             <h4 class="modal-title">Do you want to cancel the appointment?</h4>
                            </div>
                            <div class="row">
                               <div class="col-md-12">
