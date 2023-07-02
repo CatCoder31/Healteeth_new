@@ -2,7 +2,6 @@
 session_start();
 include 'config.php';
 
-// Mailer Directory
 require("PHPMailer/src/PHPMailer.php");
 require("PHPMailer/src/Exception.php");
 require("PHPMailer/src/SMTP.php");
@@ -20,7 +19,6 @@ $full_name = $_SESSION['full_name'];
 $id = $_SESSION['id'];
 
 if (isset($_POST['submit'])) {
-    // Get form data
     $patient_name = $_POST['patient_name'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
@@ -30,7 +28,6 @@ if (isset($_POST['submit'])) {
     $doctor_id = $_POST['doctorId'];
     $schedule = $_POST['schedule'];
 
-    // Query to get the schedule details
     $query = "SELECT *
             FROM schedule 
             WHERE date_sched = CURRENT_DATE AND doctor_id = '$doctor_id'";
@@ -42,7 +39,6 @@ if (isset($_POST['submit'])) {
     $breaktime_start = strtotime($row['breaktime_start']);
     $breaktime_end = strtotime($row['breaktime_end']);
 
-    // Query to get the service duration
     $query = "SELECT *
             FROM services 
             WHERE service_id = '$servicepick'";
@@ -76,13 +72,11 @@ if (isset($_POST['submit'])) {
         $appointment_start_time = date('h:i A', $start_time);
         $appointment_end_time = date('h:i A', $end_time);
 
-        // Insert the new appointment into the database
         $query = "INSERT INTO appointments (doctor_Id, patient_id, patient_name, email, phone, address, category, service, schedule, appointment_date, appointment_time, time_finish, status) 
-                    VALUES ('$doctor_id', '$id', '$patient_name', '$email', '$phone', '$address', '$categorypick', '$servicepick', '$schedule' ,'$date_sched', '" . date('H:i:s', $start_time) . "', '" . date('H:i:s', $end_time) . "', 'Approved')";
+                    VALUES ('$doctor_id ', '$id', '$patient_name', '$email', '$phone', '$address', '$categorypick', '$servicepick', '$schedule' ,'$date_sched', '" . date('H:i:s', $start_time) . "', '" . date('H:i:s', $end_time) . "', 'Approved')";
 
         mysqli_query($con, $query);
 
-        // Prepare the response
         $response = [
             'success' => true,
             'message' => 'Appointment booked successfully!',
@@ -212,13 +206,11 @@ if (isset($_POST['submit'])) {
         $appointment_start_time = date('h:i A', $start_time);
         $appointment_end_time = date('h:i A', $end_time);
 
-        // Insert the new appointment into the database
         $query = "INSERT INTO appointments (doctor_Id, patient_id, patient_name, email, phone, address, category, service, schedule, appointment_date, appointment_time, time_finish, status) 
                      VALUES ('$doctor_id ', '$id', '$patient_name', '$email', '$phone', '$address', '$categorypick', '$servicepick', '$schedule' ,'$date_sched', '" . date('H:i:s', $start_time) . "', '" . date('H:i:s', $end_time) . "', 'Approved')";
 
         mysqli_query($con, $query);
 
-        // Prepare the response
         $response = [
             'success' => true,
             'message' => 'Appointment booked successfully!',
