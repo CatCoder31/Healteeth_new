@@ -195,7 +195,7 @@ if (isset($_POST['submit'])) {
             // Redirect to appointment-book.php with the response as a query parameter
             header("location: appointment-book.php?response=" . urlencode(json_encode($response)));
             exit();
-        } else {
+        } else { 
             echo 'Email could not be sent. Error: ' . $mail->ErrorInfo;
         }
     } else if ($schedule == "Schedule 2") {
