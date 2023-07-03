@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 29, 2023 at 12:53 PM
+-- Generation Time: Jul 03, 2023 at 11:41 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -37,7 +37,6 @@ CREATE TABLE `appointments` (
   `address` varchar(255) NOT NULL,
   `category` int(11) NOT NULL,
   `service` int(11) NOT NULL,
-  `schedule` varchar(255) NOT NULL,
   `appointment_date` date NOT NULL,
   `appointment_time` time NOT NULL,
   `time_finish` time NOT NULL,
@@ -83,6 +82,17 @@ CREATE TABLE `schedule` (
   `breaktime_start` time NOT NULL,
   `breaktime_end` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `schedule`
+--
+
+INSERT INTO `schedule` (`sched_Id`, `doctor_Id`, `date_sched`, `time_sched_start`, `time_sched_end`, `breaktime_start`, `breaktime_end`) VALUES
+(1, 1, '2023-06-29', '08:00:00', '19:00:00', '12:00:00', '13:00:00'),
+(2, 1, '2023-06-30', '08:00:00', '21:00:00', '12:00:00', '13:00:00'),
+(3, 1, '2023-07-02', '08:00:00', '19:00:00', '12:00:00', '13:00:00'),
+(4, 1, '2023-07-03', '08:00:00', '19:00:00', '12:00:00', '13:00:00'),
+(5, 1, '2023-07-04', '08:00:00', '19:00:00', '12:00:00', '13:00:00');
 
 -- --------------------------------------------------------
 
@@ -213,7 +223,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `schedule`
 --
 ALTER TABLE `schedule`
-  MODIFY `sched_Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `sched_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `services`
