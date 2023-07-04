@@ -1,33 +1,23 @@
- <!--<nav class="navbar navbar-white bg-white flex-nowrap">
-        
-         
-         <div class="w-100">
-         </div>
-      </nav>
-      <nav class="navbar navbar-expand-md sticky-top navbar-light bg-light">
-         <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-            <ul class="navbar-nav mr-auto">
-               <li class="nav-item active">
-                  <a class="navbar-brand" href="#"><img src="assets/image/LOGO.png" alt="LOGO" width="320" height="150"></a>
-               </li>
-            </ul>
-         </div>
-         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-         <div class="mx-auto order-0">
-            <ul class="navbar-nav ml-auto">
-               <li class="nav-item"><button class="custom" onclick="window.location='welcome.php';">Home</button></li>
-               <li class="nav-item"><button class="custom1">Services</button></li>
-               <li class="nav-item"><button class="custom2" onclick="window.location='index_contact.php';">Contact Us</button></li>
-               <li class="nav-item"><button class="custom3" onclick="window.location='index_about.php';">About</button></li>
-               <li class="nav-item"><button class="btn-outline-info dropdown_btn" onclick="window.location='login.php';">SIGNIN/REGISTER</button></li>
-              
-            </ul>
-         </div>
-         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2"></div>
-      </nav>
--->
+<!-- 
+<?php
+session_start();
 
-      <nav class="navbar navbar-expand-md bg-body-tertiary ">
+// Rest of your PHP code goes here
+// ...
+?> -->
+
+<style>
+  .navbar-nav{
+    align-items: center;
+  }
+
+  .profile_btn{
+    padding-top:2px !important;
+    padding-bottom:2px !important;
+    padding-left:4px !important;
+  }
+</style>
+<nav class="navbar navbar-expand-md bg-body-tertiary ">
   <div class="container-xl">
     <a class="navbar-brand" onclick="window.location='welcome.php';">
     <img src="assets/image/Healteeth Logo.png" class="logo_img" alt="">
@@ -41,7 +31,7 @@
           <a class="nav-link active" aria-current="page" onclick="window.location='welcome.php';">HOME</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" onclick="window.location='index.php#services';">SERVICES</a>
+          <a class="nav-link" onclick="window.location='appointment-book.php';">BOOK AN APPOINTMENT</a>
         </li>
         
        
@@ -49,13 +39,41 @@
           <a class="nav-link" onclick="window.location='welcome.php#contact';">CONTACT US</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" onclick="window.location='index_about.php';">ABOUT</a>
+          <a class="nav-link" onclick="window.location='about.php';">ABOUT</a>
         </li>
 
+<?php
 
-        <li class="nav-item">
-          <a class="nav-link btn btn-outline-info dropdown_btn" onclick="window.location='login.php';">SIGN IN/REGISTER</a>
+// Check if user is logged in
+if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+  
+  $username = isset($_SESSION['full_name']) ? $_SESSION['full_name'] : "Username not found in session";
+    echo '
+    <li class="nav-item dropdown">
+           <a class="nav-link btn btn-outline-info dropdown_btn profile_btn" href="#" data-bs-toggle="dropdown"> 
+           <img src="assets/image/profile_placeholder.png" width="40" height="40" class="rounded-circle">
+           '.$username.'</a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="appointment-list.php">APPOINTMENTS</a></li>
+                <li><a class="dropdown-item" href="user-profile.php">EDIT PROFILE</a></li>
+                <li><a class="dropdown-item" href="logout.php">SIGN OUT</a></li>
+            </ul>
         </li>
+    ';
+} else {
+  $link='login.php';
+    echo '
+    <li class="nav-item">
+          <a class="nav-link btn btn-outline-info dropdown_btn" onclick="location.href=\'' . $link . '\'">SIGN IN/REGISTER</a>
+        </li>
+    ';
+}
+?>
+
+
+
+
+       
       </ul>      
     </div>
   </div>

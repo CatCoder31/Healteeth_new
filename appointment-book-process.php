@@ -320,8 +320,9 @@ if (isset($_POST['submit'])) {
                <p>Thank you,</p>
                <p>'.$patient_name.'</p>
             </div>
-                <p style="text-align: center;">&copy; '.date("Y").' Healteeth PH. All rights reserved.</p>
+              
             </body>
+              <p style="text-align: center;">&copy; '.date("Y").' Healteeth PH. All rights reserved.</p>
             </html>';
 
         // Check if the email was sent successfully

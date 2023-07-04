@@ -1,3 +1,11 @@
+
+<?php
+session_start();
+
+// Rest of your PHP code goes here
+// ...
+?>
+
 <!DOCTYPE html>
  
 <html>
@@ -454,7 +462,36 @@ transform: scale(1.1);
       </h1>
       <p class="header_p">Transforming lives through stunning smiles. Exceptional dental care that empowers, boosts confidence, and elevates overall well-being.</p>
       <button type="button" class="btn btn-outline-info btn-lg about_btn" onclick="window.location='index_about.php';">GET TO KNOW US</button>
-      <button type="button" class="btn btn-outline-primary btn-lg appointment_btn" onclick="window.location='login.php';">BOOK AN APPOINTMENT</button>
+
+<?php
+$link = 'appointment-book.php';
+// Check if user is logged in
+if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+    // User is logged in
+    // Perform actions for logged-in users here
+    // $username = $_SESSION['full_name']; // Assuming 'username' is the key for the user's data
+    // echo "Welcome, $username!"; // Example: Display a welcome message with the logged-in user's username
+    // Other logged-in user actions...
+    
+    echo '<button type="button" class="btn btn-outline-primary btn-lg appointment_btn" onclick="location.href=\'' . $link . '\'">BOOK AN APPOINTMENT</button>';
+} else {
+  
+  $link = 'login.php';
+    // User is not logged in
+    // Perform actions for non-logged-in users here
+    echo "Please log in to access this page."; // Example: Display a login prompt or redirect to login page
+    // Other non-logged-in user actions...
+    echo '<button type="button" class="btn btn-outline-primary btn-lg appointment_btn" onclick="location.href=\'' . $link . '\'">BOOK AN APPOINTMENT</button>';
+}
+?>
+
+
+
+
+     
+
+
+      
       </div>
     </div>
     <div class="col-sm-6 col-md-5 offset-md-2 col-lg-6 offset-lg-0 header_column_photo">
