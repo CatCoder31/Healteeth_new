@@ -2,7 +2,7 @@
 session_start();
 include 'config.php';
 
-// Check if the user is logged in, if not then redirect him to the login page
+// Check if the user is logged in, if not then redirect them to the login page
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("location: index.php");
     exit;
@@ -23,7 +23,7 @@ if (isset($_POST['submit'])) {
     $doctor_id = $_POST['doctorId'];
     $schedule = $_POST['schedule'];
 
-    // Check for existing schedule
+    // Check for an existing schedule
     $query = "SELECT * FROM schedule WHERE date_sched = ? AND doctor_id = ?";
     $stmt = mysqli_prepare($con, $query);
     mysqli_stmt_bind_param($stmt, "ss", $schedule, $doctor_id);
@@ -50,9 +50,9 @@ if (isset($_POST['submit'])) {
             $service_duration = $row['service_duration'];
 
             // Get the last appointment time for the selected schedule
-            $query = "SELECT * FROM appointments WHERE appointment_date = ? AND status = 'Approved' ORDER BY appointment_time DESC LIMIT 1";
+            $query = "SELECT * FROM appointments WHERE appointment_date = ? AND doctor_id = ? AND status = 'Approved' ORDER BY time_finish DESC LIMIT 1";
             $stmt = mysqli_prepare($con, $query);
-            mysqli_stmt_bind_param($stmt, "s", $date_sched);
+            mysqli_stmt_bind_param($stmt, "ss", $date_sched, $doctor_id);
             mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);
 
@@ -62,7 +62,7 @@ if (isset($_POST['submit'])) {
             } else {
                 // If there are no existing appointments, set the start time to the opening time
                 $last_appointment_time = $time_sched_start;
-            }   
+            }
 
             // Calculate the start and end time of the new appointment
             $start_time = max($last_appointment_time, $time_sched_start);
@@ -71,8 +71,10 @@ if (isset($_POST['submit'])) {
 
             // Check if $end_time exceeds $breaktime_start
             if ($end_time > $breaktime_start) {
-                // Set $start_time to max($last_appointment_time, $breaktime_end)
+                // Calculate the start and end time of the new appointment
                 $start_time = max($last_appointment_time, $breaktime_end);
+                $service_duration_seconds = strtotime($service_duration) - strtotime('00:00:00');
+                $end_time = $start_time + $service_duration_seconds;
             }
 
             // Check if $end_time exceeds $time_sched_end
@@ -80,25 +82,25 @@ if (isset($_POST['submit'])) {
                 // Reject the appointment
                 $response = [
                     'success' => false,
-                    'message' => 'Appointment cannot be scheduled as it exceeds the schedule end time.'
+                    'message' => 'The appointment cannot be scheduled as it exceeds the closing time.'
                 ];
 
                 // Redirect to appointment-book.php with the response as a query parameter
-                header("location: appointment-book.php?response=" . urlencode(json_encode($response)));
+                header("Location: appointment-book.php?response=" . urlencode(json_encode($response)));
                 exit();
             }
 
-            $appointment_date = date('F j, Y', strtotime($date_sched));
-            $appointment_start_time = date('h:i A', $start_time);
-            $appointment_end_time = date('h:i A', $end_time);
-            
             // Insert the new appointment into the database
-            $query = "INSERT INTO appointments (doctor_Id, patient_id, patient_name, email, phone, address, category, service, appointment_date, appointment_time, time_finish, status) 
+            $query = "INSERT INTO appointments (doctor_id, patient_id, patient_name, email, phone, address, category, service, appointment_date, appointment_time, time_finish, status) 
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Approved')";
             
             $stmt = mysqli_prepare($con, $query);
             mysqli_stmt_bind_param($stmt, "sssssssssss", $doctor_id, $id, $patient_name, $email, $phone, $address, $categorypick, $servicepick, $date_sched, date('H:i:s', $start_time), date('H:i:s', $end_time));
             mysqli_stmt_execute($stmt);
+
+            $appointment_date = date('F j, Y', strtotime($date_sched));
+            $appointment_start_time = date('h:i A', $start_time);
+            $appointment_end_time = date('h:i A', $end_time);
 
             $response = [
                 'success' => true,
@@ -109,8 +111,9 @@ if (isset($_POST['submit'])) {
             ];
 
             // Redirect to appointment-book.php with the response as a query parameter
-            header("location: appointment-book.php?response=" . urlencode(json_encode($response)));
+            header("Location: appointment-book.php?response=" . urlencode(json_encode($response)));
             exit();
         }
     }
 }
+?>
