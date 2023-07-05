@@ -481,10 +481,29 @@
                         </script>
                        ';
                    } else {
-                       echo '<div class="alert alert-danger">' . $response['message'] . '</div>';
+                     echo '
+                     <div class="modal fade" id="errorModal" tabindex="-1"  role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+                         <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                               <div class="modal-body">
+                                  <img src="assets/image/Healteeth Logo.png" class="logo_img_modal" alt="">
+                                  <br><br>
+                                  <p class="text-center2">Error: ' . $response['message'] . '</p>
+                                  <br>
+                                  <a href="appointment-book.php" class="btn btn-outline-info btn-lg resetButton" id="dismissButton">Close</a>
+                               </div>
+                            </div>
+                         </div>
+                      </div>
+                      <script>
+                         $(document).ready(function() {
+                            $("#errorModal").modal("show");
+                         });
+                      </script>
+                     ';
                    }
                }
-               ?>
+            ?>
          </div>
       </div>
       <!-- /.8 -->
@@ -502,38 +521,41 @@
       <script type="text/javascript" src="js/plugins.min.js"></script> <!--custom-script.js - Add your own theme custom JS-->
       <script type="text/javascript" src="js/custom-script.js"></script> 
       <script>
-         $(document).ready(function() {
-           $('#appointmentForm').submit(function(event) {
-              event.preventDefault(); // Prevent the form from submitting normally
-              var formData = $(this).serialize(); // Serialize the form data
-         
-              $.ajax({
-                 url: 'appointment-book-process.php', // Update with the correct URL for your PHP script
-                 type: 'POST',
-                 data: formData,
-                 dataType: 'json',
-                 success: function(response) {
-                    // Handle the JSON response
-                    if (response.success) {
-                       // Display success message or perform other actions
-                       $('#responseMessage').text('Appointment booked successfully!\nDate: ' + response.appointment_date + '\nStart Time: ' + response.start_time + '\nEnd Time: ' + response.end_time);
-                       $('#responseMessage').addClass('success').removeClass('error');
-                    } else {
-                       // Display error message or perform other actions
-                       $('#responseMessage').text('Error: ' + response.message);
-                       $('#responseMessage').addClass('error').removeClass('success');
-                    }
-                 },
-                 error: function(xhr, status, error) {
-                    // Handle the AJAX request error
-                    $('#responseMessage').text('An error occurred while processing the request.');
-                    $('#responseMessage').addClass('error').removeClass('success');
-                 }
-              });
-           });
-         });
-          
-      </script>
+   $(document).ready(function() {
+     $('#appointmentForm').submit(function(event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+        var formData = $(this).serialize(); // Serialize the form data
+   
+        $.ajax({
+           url: 'appointment-book-process.php', // Update with the correct URL for your PHP script
+           type: 'POST',
+           data: formData,
+           dataType: 'json',
+           success: function(response) {
+              // Handle the JSON response
+              if (response.success) {
+                 // Display success message or perform other actions
+                 $('#responseMessage').text('Appointment booked successfully!\nDate: ' + response.appointment_date + '\nStart Time: ' + response.start_time + '\nEnd Time: ' + response.end_time);
+                 $('#responseMessage').addClass('success').removeClass('error');
+              } else {
+                 // Display error message or perform other actions
+                 $('#responseMessage').text('Error: ' + response.message);
+                 $('#responseMessage').addClass('error').removeClass('success');
+
+                 // Show the error modal
+                 $('#errorModal').modal('show');
+              }
+           },
+           error: function(xhr, status, error) {
+              // Handle the AJAX request error
+              $('#responseMessage').text('An error occurred while processing the request.');
+              $('#responseMessage').addClass('error').removeClass('success');
+           }
+        });
+     });
+   });
+</script>
+
       <script>
          $("select[name='categorypick']" ).change(function () {
             var categoryID = $(this).val();
