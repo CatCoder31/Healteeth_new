@@ -2,7 +2,7 @@
 session_start();
 include 'config.php';
 
-// Check if the user is logged in, if not then redirect him to the login page
+// Check if the user is logged in, if not then redirect them to the login page
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("location: index.php");
     exit;
@@ -23,7 +23,7 @@ if (isset($_POST['submit'])) {
     $doctor_id = $_POST['doctorId'];
     $schedule = $_POST['schedule'];
 
-    // Check for existing schedule
+    // Check for an existing schedule
     $query = "SELECT * FROM schedule WHERE date_sched = ? AND doctor_id = ?";
     $stmt = mysqli_prepare($con, $query);
     mysqli_stmt_bind_param($stmt, "ss", $schedule, $doctor_id);
@@ -82,11 +82,11 @@ if (isset($_POST['submit'])) {
                 // Reject the appointment
                 $response = [
                     'success' => false,
-                    'message' => 'Appointment cannot be scheduled as it exceeds the closing time.'
+                    'message' => 'The appointment cannot be scheduled as it exceeds the closing time.'
                 ];
 
                 // Redirect to appointment-book.php with the response as a query parameter
-                header("location: appointment-book.php?response=" . urlencode(json_encode($response)));
+                header("Location: appointment-book.php?response=" . urlencode(json_encode($response)));
                 exit();
             }
 
@@ -111,7 +111,7 @@ if (isset($_POST['submit'])) {
             ];
 
             // Redirect to appointment-book.php with the response as a query parameter
-            header("location: appointment-book.php?response=" . urlencode(json_encode($response)));
+            header("Location: appointment-book.php?response=" . urlencode(json_encode($response)));
             exit();
         }
     }
