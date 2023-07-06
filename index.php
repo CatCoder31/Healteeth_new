@@ -450,7 +450,7 @@ transform: scale(1.1);
   
    </style>
    <body>
-     <?php include 'nav_patient.php'; ?>
+     <?php include 'index_nav.php'; ?>
       
      <div class=" ">
   

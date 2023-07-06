@@ -9,9 +9,16 @@
    $result = mysqli_query($con, "SELECT * FROM user where id = $id");
    while($row = mysqli_fetch_array($result)){
    $full_name = $row['full_name'];
+   $user_name = $row['username'];
+   $role = $row['role'];
    $email_address = $row['email_address'];
    $contact_number = $row['contact_number'];
    $full_address = $row['full_address'];
+   $profile_photo = $row['profile_photo'];
+   $gender = $row['gender'];
+   $language = $row['language'];
+   $emergency_contact_name = $row['emergency_contact_name'];
+   $emergency_contact_number = $row['emergency_contact_number'];
    $password = $row['password'];
 }
    
@@ -41,7 +48,13 @@
       <script src="https://kit.fontawesome.com/b1be178591.js" crossorigin="anonymous"></script>
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,400;0,800;0,900;1,100;1,200;1,300;1,400;1,800;1,900&display=swap" rel="stylesheet">
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-      
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
       <link rel="stylesheet" type="text/css" href="css/nav.css">
    </head>
    <style>
@@ -242,10 +255,10 @@
                font-family: 'Montserrat';
       }
       .why_us_h3{
-         font-weight:900;
-         font-size:2.8rem;
+         font-weight:600;
+         font-size:2.5rem;
          color: #4052a4;
-         text-align: center;
+         text-align: left;
       }
 
       .contact_us_title{
@@ -375,75 +388,646 @@
       background-color: transparent;
          background-repeat: no-repeat;
       }
+
+
+      .box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f7f7f9;
+  margin: 20px 0;
+  padding: 5%;
+  width: 100%;
+  min-height: 200px;
+  border-radius: 50px;
+  color: #fff;
+}
+
+
+     .box2 {
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+  width: 100%;
+  color: #fff;
+}
+     .box3 {
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+  width: 100%;
+  background: #f7f7f9;
+  border-radius: 50px;
+  color: #fff;
+}
+
+    /* .box {
+  align-items: center;
+  justify-content: center;
+  background: #aaa;
+  margin: 20px 0;
+  width: 100%;
+  border: 2px #ccc solid;
+  color: #fff;
+} */
+
+   .button-container {
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+  padding: 5%;
+  color: #fff;
+}
+
+.btn{
+   margin-top:5%;
+}
+
+      .profile-image{
+         width: 90%; /* Make the image fill the container horizontally */
+        height: 150px; /* Maintain the image's aspect ratio */
+        object-fit: cover; /* Ensure the image covers the container without distortion */
+      }
+      
+ 
+      .medical-record-wrapper{
+         padding:5%;
+      }
+
+
+      
+
+      .profile-label{
+         font-weight: 600;
+         font-family: 'Montserrat';
+         font-size:1rem;
+         color: #4264ad;
+      }
+
+      .profile-info{
+         font-weight: 400;
+         font-family: 'Montserrat';
+         font-size:1rem;
+         color: #4264ad;
+      }
+
+      .name,
+      .role,
+      .address{
+         font-weight: 500;
+         font-family: 'Montserrat';
+         font-size:1rem;
+         color: #4264ad;
+      }
+
+      .name{
+         padding: 0;
+         margin-bottom: 5%;
+         font-weight: 800;
+         font-size: 1.5rem;
+         color:#65cad7;
+      }
+
+      .role{
+         font-size: 1.3rem;
+         color: #4052a4;
+      }
+
+      .address{
+         font-size: 1rem;
+         color: #aaaaaa;
+         font-weight: 500;
+      }
+
+      .info-wrapper{
+         margin-top: 10%;
+      }
+      
+      .role,
+      .address{
+         padding: 0;
+         margin: 0;
+      }
+
+      @media (max-width:590px) {
+         .profile-image-container{
+            display:flex;
+            justify-content: center;
+         }
+
+         .profile-image{
+         width:40%
+      }
+
+       .name{
+         padding: 0;
+         margin-bottom: 0;
+      }
+
+      .info-wrapper{
+         margin-top: 0;
+      }
+
+      .name,
+      .role,
+      .address{
+         margin-bottom: 5%;
+      }
+
+
+      }
+
+        .register_p {
+    font-family: 'Montserrat';
+    color: #4052a4;
+    font-weight: light;
+  }
+
+  .password-input{
+   margin-top:5%;
+  }
+
+  .modal-content{
+   padding: 5%;
+   border-radius: 50px;
+  }
+
+     
+
+  .btn-container{
+   justify-content:center;
+  }
+
+  .btn-update{
+   width:100%;
+   border-radius:50px;
+  }
+  .close-modal{
+   display:none;
+  }
+
+  .modal-img{
+   justify-content:center;
+   margin
+  }
    </style>
    <body>
       <?php include'nav_patient.php';?>
       <br>
-      <h3 class="why_us_h3">Edit<span style="color: #65cad7"> Your Profile</span></h3>
-      <div class="container">
-         <br>
-         <div class="row">
-            <div class="col-lg-7 mx-auto">
-                     <div class="container">
-                        <form method="post" action ="update-user.php" enctype="multipart/form-data">
-                           <div class="controls">
-                              <div class="row">
-                                 <div class="col-md-12">
-                                    <div class="form-group">
-                                       </label> <input id="form_name" type="text" name="patient_name" class="form-control" value="<?php echo $full_name;?>" disabled required="required" data-error="Firstname is required.">
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="row">
-                                 <div class="col-md-12">
-                                    <div class="form-group">
-                                       </label> <input id="form_email" type="text" name="email" class="form-control" value="<?php echo $email_address;?>" required="required" data-error="Valid email is required.">
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="row">
-                                 <div class="col-md-12">
-                                    <div class="form-group">
-                                       </label> <input id="form_name" type="text" name="phone" class="form-control" value="<?php echo $contact_number;?>" required="required" data-error="Firstname is required.">
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="row">
-                                 <div class="col-md-12">
-                                    <div class="form-group">
-                                       </label> <input id="form_name" type="text" name="address" class="form-control" value="<?php echo $full_address;?>" required="required" data-error="Firstname is required.">
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="row">
-                                 <div class="col-md-12">
-                                    <div class="form-group">
-                                       </label> <input id="password" type="password" name="password"  class="form-control" value="" data-error="password is required.">
-                                       <input id="password" type="hidden" name="idnum"  class="form-control" value="<?php echo $id;?>;" data-error="password is required.">
-                                                      <div class="btn_change field-icon">
-                              <button class="btn_change" onclick="change(); return false;">
-                                 <i class="fa-solid fa-eye" style="color: #65cad7;" aria-hidden="true"></i>
-                              </button>
-                           </div>   
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="d-grid gap-2 col-6 mx-auto appointment_button_container">
-                              <input type="submit" class="btn btn-outline-info btn-lg btn-send pt-2 btn-block " value="Submit" name="action">
+  
+         
 
-                              <input type="submit" class="btn btn-outline-info btn-lg btn-send pt-2 btn-block " value="Update Password" name="action">
-                              </div>
-                           </div>
-                        </form>
-                     </div>
-                  </div>
-               </div>
-               <!-- /.row-->
-            </div>
-         </div>
+<div class="container">
+    <h3 class="why_us_h3">Hi!<span style="color: #65cad7"> <b><?php echo $full_name; ?></b></span></h3>
+
+  <div class="row">
+    
+    <div class="col-xs-12 col-sm-6">
+      <div class="box">
+                  
+
+
+
+
+  <div class="row">
+    
+    <div class="col-sm-4">
+      <div class="box2 profile-image-container">
+       <img class="rounded-circle shadow-4-strong profile-image form-control-file" id="exampleFormControlFile1" alt="avatar2" src="<?php echo $profile_photo;?>" />
       </div>
+    </div>
+    
+    
+    <div class="col-sm-8">
+      <div class="box2">
+                                 <p class="name"><?php echo $full_name; ?></P>
+                                 <div class="info-wrapper">
+                                 <p class="role"><?php echo $role; ?></P>
+                                 <p class="address"><?php echo $full_address; ?></P>
+                              </div>
+      </div>
+    </div>
+
+    <div class="col-sm-12">
+      <div class="box2">
+                               <div class="row">
+    
+    <!---->
+    <div class="col-xs-12 col-sm-6">
+      <div class="">
+        <p class="profile-label">email</P>
+      </div>
+    </div>
+    
+
+
+
+    <div class="col-xs-12 col-sm-6">
+      <div class="">
+        <p class="profile-info"><?php echo $email_address; ?></P>
+      </div>
+    </div>
+    <!---->
+    <!---->
+    <div class="col-xs-12 col-sm-6">
+      <div class="">
+        <p class="profile-label">number</P>
+      </div>
+    </div>
+    
+    <div class="col-xs-12 col-sm-6">
+      <div class="">
+        <p class="profile-info"><?php echo $contact_number; ?></P>
+      </div>
+    </div>
+    <!---->
+    <!---->
+    <div class="col-xs-12 col-sm-6">
+      <div class="">
+        <p class="profile-label">gender</P>
+      </div>
+    </div>
+    
+    <div class="col-xs-12 col-sm-6">
+      <div class="">
+        <p class="profile-info"><?php echo $gender; ?></P>
+      </div>
+    </div>
+    <!---->
+    <!---->
+    <div class="col-xs-12 col-sm-6">
+      <div class="">
+        <p class="profile-label">Emergency Contact</P>
+      </div>
+    </div>
+    
+    <div class="col-xs-12 col-sm-6">
+      <div class="">
+        <p class="profile-info"><?php echo $emergency_contact_name; ?></P>
+      </div>
+    </div>
+    <!---->
+     <!---->
+    <div class="col-xs-12 col-sm-6">
+      <div class="">
+        <p class="profile-label">Emergency Contact Number</P>
+      </div>
+    </div>
+    
+    <div class="col-xs-12 col-sm-6">
+      <div class="">
+        <p class="profile-info"><?php echo $emergency_contact_number; ?></P>
+      </div>
+    </div>
+    <!---->
+    <!---->
+    <div class="col-xs-12 col-sm-6">
+      <div class="">
+        <p class="profile-label">Language</P>
+      </div>
+    </div>
+    
+    <div class="col-xs-12 col-sm-6">
+      <div class="">
+        <p class="profile-info"><?php echo $language; ?></P>
+      </div>
+    </div>
+    <!---->
+    
+  </div>
+      </div>
+    </div>
+    
+  </div>
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+    
+    <div class="col-xs-12 col-sm-6">
+      <div class="box3 medical-record-wrapper">
+          <h1>Update Medical Record</h1>
+         <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="textarea" rows="3"></textarea>
+         <button type="button" class="btn btn-outline-info btn-lg resetButton" onclick="window.location='">Okay</button>
+
+         
+      </div>
+      <div class="button-container row">
+         
+         <button type="button" class="btn btn-outline-info btn-lg resetButton"data-toggle="modal" data-target="#updateModal">Update Profile</button>
+         <button type="button" class="btn btn-outline-info btn-lg resetButton" data-toggle="modal" data-target="#passwordModal">Change Password</button>
+      </div>
+    </div>
+    
+
+    
+    
+  </div>
+  <!--container-->
+
+
+
+
+
+
+
+
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <img src="assets/image/Healteeth Logo.png" class="logo_img" alt="">
+        <form id="passwordForm" method="POST">
+          <h3 class="why_us_h3 text-center">Change<span style="color: #65cad7"> <b>Password</b></span></h3>
+          <p class="profile-info">Enter your current password to update your password. Changing you password will log you out.</p>
+          <input type="hidden" name="user_id" id="user_id" value="<?php echo $id = $_SESSION['id']; ?>">
+          <div>
+            <input type="password" class="form-control password-input" id="current_password" placeholder="Current Password" name="current_password" required>
+          </div>
+          <div>
+            <input type="password" class="form-control password-input" id="new_password" placeholder="New Password" name="new_password" required>
+          </div>
+          <div>
+            <input type="password" class="form-control password-input" id="confirm_password" placeholder="Confirm New Password" name="confirm_password" required>
+          </div>
+          <button type="submit" class="btn btn-outline-info btn-lg resetButton">Update Password</button><br><br>
+          <a href="forgot-password.php" class="register_p">Forgot Password?</a>
+        </form>
+        <div id="passwordMessage"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+<!-- Update Modal -->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+               
+                 <div class="d-flex justify-content-center">
+  <img src="assets/image/Healteeth Logo.png" class="img-fluid logo_img" alt="Centered Image">
+</div><br>
+                <h3 class="why_us_h3 text-center">Update Your<span style="color: #65cad7"> <b> Information</b></span></h3>
+                <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            <div class="modal-body">
+                <form action="" id="updateForm" method="POST" enctype="multipart/form-data">
+                  
+         <input type="hidden" name="user_id" id="user_id" value="<?php echo $id = $_SESSION['id']; ?>">
+
+
+                <!---->
+                
+                    <div class="form-group">
+<div class="row">
+    <div class="col">
+       <input type="text" class="form-control" placeholder="Update Name" name="full_name" value="<?php echo $full_name; ?>">
+    </div>
+    <div class="col">
+      <input type="email" class="form-control" name="email_address" placeholder="Update Email"  value="<?php echo $email_address; ?>">
+    </div>
+  </div>
+</div>
+                <!---->
+
+
+
+                <!---->
+                
+                    <div class="form-group">
+<div class="row">
+    <div class="col">
+        <input type="text" class="form-control" name="contact_number"  placeholder="Update Contact Number" value="<?php echo $contact_number; ?>">
+    </div>
+    <div class="col">
+      <select name="language" class="form-control" placeholder="Update Language" value="<?php echo $language; ?>" style="border-radius: 50px;">
+                        <?php
+                        // Array of languages
+                        $languages = array(
+                            "English",
+                            "Filipino",
+                            "Cebuano",
+                            "Ilocano",
+                            "Hiligaynon",
+                            "Waray-Waray",
+                            "Kapampangan",
+                            "Bicolano",
+                            "Pangasinense",
+                            "Maranao",
+                            "Tausug",
+                            "Maguindanaoan",
+                            "Ibanag",
+                            "Chavacano",
+                            "Surigaonon",
+                            "Ivatan",
+                            // Add more languages as needed
+                        );
+
+                        // Sort the languages alphabetically
+                        sort($languages);
+
+                        // Iterate over the languages and generate the options
+                        foreach ($languages as $language) {
+                            echo "<option value=\"$language\">$language</option>";
+                        }
+                        ?>
+                    </select>
+    </div>
+  </div>
+                     </div>
+                <!---->
+
+             <!---->
+             
+                    <div class="form-group">
+<div class="row">
+    <div class="col">
+      <input type="text" class="form-control" name="emergency_contact_name" placeholder="Update Emergency Contact Name" value="<?php echo $emergency_contact_name; ?>">
+    </div>
+    <div class="col">
+      <input type="text" class="form-control" name="emergency_contact_number" placeholder="Update Emergency Contact Number" value="<?php echo $emergency_contact_number; ?>">
+    </div>
+  </div>
+                     </div>
+                <!---->
+
+                                  <!---->
+                
+                    <div class="form-group">
+<div class="row">
+    <div class="col">
+     
+                        <input type="text" class="form-control" name="full_address" placeholder="Update Address" value="<?php echo $full_address; ?>">
+                    </div>
+                 
+                    <div class="form-group">
+                    <label for="gender">Gender:</label>
+                    <div>
+                        <input type="radio" name="gender" value="male" <?php if ($gender === 'Male') echo 'checked'; ?>> Male
+                        <input type="radio" name="gender" value="Female" <?php if ($gender === 'Female') echo 'checked'; ?>> Female
+                        <input type="radio" name="gender" value="Other" <?php if ($gender === 'Other') echo 'checked'; ?>> Other
+                    </div>
+    </div>
+    <div class="col">
+        <label for="profile_photo">Profile Photo:</label>
+                        <input type="file" class="form-control-file" name="profile_photo" value="<?php echo $profile_photo;?>">
+  </div>
+</div>
+                <!---->
+               
+                 
+
+                       <div class="row justify-content-center text-center">
+    <div class="col-md-6 btn-container text-center">
+        <button type="button" class="btn btn-outline-dark btn-lg btn-update" data-dismiss="modal">Cancel Update Information</button>
+    </div>
+    <div class="col-md-6 btn-container text-center">
+      <button type="submit" class="btn btn-outline-info btn-lg btn-update" id="updateButton">Update Information</button>
+    </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- JavaScript code to handle the modal and form submission -->
+<script>
+  // Get the modal element
+  var modal = document.getElementById("passwordModal");
+
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+
+  // When the user clicks the button, open the modal
+  function openModal() {
+    modal.style.display = "block";
+  }
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  };
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+
+  // Handle form submission
+  document.getElementById("passwordForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent form submission
+
+    // Retrieve form inputs
+    var currentPassword = document.getElementById("current_password").value;
+    var newPassword = document.getElementById("new_password").value;
+    var confirmPassword = document.getElementById("confirm_password").value;
+    var userId = document.getElementById("user_id").value;
+
+    // Make an AJAX request to validate the current password and update the password
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "update_password.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+        var response = JSON.parse(xhr.responseText);
+        document.getElementById("passwordMessage").innerHTML = response.message;
+        if (response.status === "success") {
+          // Password updated successfully
+          setTimeout(function() {
+            window.location.href = "index.php";
+             }, 200);
+          document.getElementById("#passwordForm").reset();
+
+          // Close the modal
+          modal.style.display = "none";
+        }
+      }
+    };
+    xhr.send("current_password=" + encodeURIComponent(currentPassword) + "&new_password=" + encodeURIComponent(newPassword) + "&confirm_password=" + encodeURIComponent(confirmPassword) + "&user_id=" + encodeURIComponent(userId));
+  });
+</script>
+
+
+
    </body>
-   
+   <script>
+      $(document).ready(function() {
+    // Listen for form submission
+      $("#updateForm").submit(function(event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+
+        // Get form data
+        var formData = new FormData(this);
+
+        // Send AJAX request
+        $.ajax({
+            url: 'update_profile.php',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                // Parse the JSON response
+                var result = JSON.parse(response);
+                if (result.status === 'success') {
+                    // Display success message
+                    //$("#successModal2").modal("show");
+                 setTimeout(function() {
+                  location.reload();
+                    //$("#successModal2").modal("show");
+                  }, 200);
+                    // Perform any additional actions on success
+                } else {
+                    // Display error message
+                    alert(result.message);
+                    // Perform any additional actions on error
+                }
+            },
+            error: function() {
+                // Display error message
+                alert('Oops! Something went wrong. Please try again later.');
+                // Perform any additional error handling
+            }
+        });
+    });
+});
+
+   </script>
    <script>
  function change() {
         var x = document.getElementById("password");
@@ -454,6 +1038,11 @@
         }
     }   
    </script>
+
+
+
+
+
 </html>
 <!-- ================================================
    Scripts
@@ -493,3 +1082,4 @@
    }
    });
 </script>
+

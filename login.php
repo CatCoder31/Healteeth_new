@@ -1,71 +1,81 @@
 <?php
-    // Initialize the session
+// Initialize the session
 
-    // Check if the user is already logged in, if yes then redirect him to the welcome page
-    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-        header("location: welcome.php");
-        exit;
+// Check if the user is already logged in, if yes then redirect him to the welcome page
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+    header("location: welcome.php");
+    exit;
+}
+
+// Include config file
+require_once "config.php";
+
+// Define variables and initialize with empty values
+$email_address = $password = "";
+$email_err = $password_err = "";
+
+// Processing form data when the form is submitted
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+    // Check if email is empty
+    if(empty(trim($_POST["email"]))){
+        $email_err = "Please enter an email.";
+    } else{
+        $email = trim($_POST["email"]);
     }
 
-    // Include config file
-    require_once "config2.php";
+    // Check if password is empty
+    if(empty(trim($_POST["password"]))){
+        $password_err = "Please enter your password.";
+    } else{
+        $password = trim($_POST["password"]);
+    }
 
-    // Define variables and initialize with empty values
-    $email_address = $password = "";
-    $email_err = $password_err = "";
+    // Validate credentials
+    if(empty($email_err) && empty($password_err)){
+        // Prepare a select statement
+        $sql = "SELECT id, email_address, password, email_verified, username, full_name, role FROM user WHERE email_address = ?";
 
-    // Processing form data when the form is submitted
-    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        if($stmt = mysqli_prepare($con, $sql)){
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_email);
 
-        // Check if email is empty
-        if(empty(trim($_POST["email"]))){
-            $email_err = "Please enter an email.";
-        } else{
-            $email = trim($_POST["email"]);
-        }
+            // Set parameters
+            $param_email = $email;
 
-        // Check if password is empty
-        if(empty(trim($_POST["password"]))){
-            $password_err = "Please enter your password.";
-        } else{
-            $password = trim($_POST["password"]);
-        }
+            // Attempt to execute the prepared statement
+            if(mysqli_stmt_execute($stmt)){
+                // Store result
+                mysqli_stmt_store_result($stmt);
 
-        // Validate credentials
-        if(empty($email_err) && empty($password_err)){
-            // Prepare a select statement
-            $sql = "SELECT id, email_address, password, full_name, role, contact_number, full_address FROM user WHERE email_address = ?";
+                // Check if email exists, if yes then verify password and email verification status
+                if(mysqli_stmt_num_rows($stmt) == 1){
+                    // Bind result variables
+                    mysqli_stmt_bind_result($stmt, $id, $email_address, $hashed_password, $is_email_verified, $username, $full_name, $role);
 
-            if($stmt = mysqli_prepare($con, $sql)){
-                // Bind variables to the prepared statement as parameters
-                mysqli_stmt_bind_param($stmt, "s", $param_email);
-
-                // Set parameters
-                $param_email = $email;
-
-                // Attempt to execute the prepared statement
-                if(mysqli_stmt_execute($stmt)){
-                    // Store result
-                    mysqli_stmt_store_result($stmt);
-
-                    // Check if email exists, if yes then verify password
-                    if(mysqli_stmt_num_rows($stmt) == 1){
-                        // Bind result variables
-                        mysqli_stmt_bind_result($stmt, $id, $email_address, $hashed_password, $full_name, $role, $contact_number, $full_address);
-
-                        if(mysqli_stmt_fetch($stmt)){
-                            if(password_verify($password, $hashed_password)){
-                                // Password is correct, so start a new session
+                    if(mysqli_stmt_fetch($stmt)){
+                        if(password_verify($password, $hashed_password)){
+                            if($is_email_verified == 1){
+                                // Password is correct and email is verified, so start a new session
                                 session_start();
+
+                                // Retrieve the profile photo from the database
+                                $sql_profile_photo = "SELECT profile_photo FROM user WHERE id = ?";
+                                $stmt_profile_photo = mysqli_prepare($con, $sql_profile_photo);
+                                mysqli_stmt_bind_param($stmt_profile_photo, "i", $id);
+                                mysqli_stmt_execute($stmt_profile_photo);
+                                mysqli_stmt_bind_result($stmt_profile_photo, $profile_photo);
+                                mysqli_stmt_fetch($stmt_profile_photo);
+                                mysqli_stmt_close($stmt_profile_photo);
 
                                 // Store data in session variables
                                 $_SESSION["loggedin"] = true;
                                 $_SESSION["id"] = $id;
+                                $_SESSION["username"] = $username;
                                 $_SESSION["email_address"] = $email_address;
-                                $_SESSION["contact_number"] = $contact_number;
-                                $_SESSION["full_address"] = $full_address;
                                 $_SESSION["full_name"] = $full_name;
                                 $_SESSION["role"] = $role;
+                                $_SESSION["profile_photo"] = $profile_photo;
 
                                 // Redirect user to the appropriate page based on role
                                 if($role == 'Patient') {
@@ -77,27 +87,35 @@
                                 }
                                 exit;
                             } else {
-                                // Password is not valid, display an error message
-                                $password_err = "Incorrect password.";
+                                // Email is not verified, display an error message
+                                $email_err = "Email is not verified yet. Please check your email for verification instructions.";
                             }
+                        } else{
+                            // Password is not valid, display an error message
+                            $password_err = "The password you entered is not valid.";
                         }
-                    } else {
-                        // Email doesn't exist, display an error message
-                        $email_err = "Email doesn't exist.";
                     }
-                } else {
-                    echo "Oops! Something went wrong. Please try again later.";
+                } else{
+                    // Email doesn't exist, display an error message
+                    $email_err = "No account found with that email.";
                 }
-
-                // Close statement
-                mysqli_stmt_close($stmt);
+            } else{
+                echo "Oops! Something went wrong. Please try again later.";
             }
-        }
 
-        // Close connection
-        mysqli_close($con);
+            // Close statement
+            mysqli_stmt_close($stmt);
+        }
     }
+
+    // Close connection
+    mysqli_close($con);
+}
 ?>
+
+
+
+
 
 <!DOCTYPE html>
 <html>
@@ -116,6 +134,10 @@
       
    </head>
       <style type="text/css">
+         html{
+            overflow-x:hidden;
+            overflow-y:hidden;
+         }
          @media (min-width: 768px) {
          .navbar-brand.abs
          {

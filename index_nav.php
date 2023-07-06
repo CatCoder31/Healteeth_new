@@ -30,8 +30,11 @@ session_start();
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" onclick="window.location='welcome.php';">HOME</a>
         </li>
+
+
+        
         <li class="nav-item">
-          <a class="nav-link" onclick="window.location='appointment-book.php';">BOOK AN APPOINTMENT</a>
+          <a class="nav-link" onclick="window.location='login.php';">BOOK AN APPOINTMENT</a>
         </li>
         
        

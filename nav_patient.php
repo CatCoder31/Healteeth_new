@@ -1,10 +1,9 @@
-<!-- 
+
 <?php
-session_start();
 
 // Rest of your PHP code goes here
-// ...
-?> -->
+?>
+
 
 <style>
   .navbar-nav{
@@ -30,6 +29,8 @@ session_start();
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" onclick="window.location='welcome.php';">HOME</a>
         </li>
+
+        
         <li class="nav-item">
           <a class="nav-link" onclick="window.location='appointment-book.php';">BOOK AN APPOINTMENT</a>
         </li>
@@ -42,20 +43,34 @@ session_start();
           <a class="nav-link" onclick="window.location='about.php';">ABOUT</a>
         </li>
 
+
+
+        
 <?php
+$profileimg = $_SESSION['profile_photo'];
+
+if ($profileimg == 'null') {
+    // Display a default photo when $profile_photo is null
+    $profileimg = 'assets/image/profile_placeholder.png';
+} else {
+    // Display the actual profile photo when $profile_photo is not null
+    $profileimg = $_SESSION['profile_photo'];
+}
 
 // Check if user is logged in
-if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+  $username = isset($_SESSION['username']) ? $_SESSION['username'] : "Username not found in session";
+
+
   
-  $username = isset($_SESSION['full_name']) ? $_SESSION['full_name'] : "Username not found in session";
     echo '
     <li class="nav-item dropdown">
            <a class="nav-link btn btn-outline-info dropdown_btn profile_btn" href="#" data-bs-toggle="dropdown"> 
-           <img src="assets/image/profile_placeholder.png" width="40" height="40" class="rounded-circle">
+           <img src="'.$profileimg.'" width="40" height="40" class="rounded-circle">
            '.$username.'</a>
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="appointment-list.php">APPOINTMENTS</a></li>
-                <li><a class="dropdown-item" href="user-profile.php">EDIT PROFILE</a></li>
+                <li><a class="dropdown-item" href="user-profile.php">PROFILE</a></li>
                 <li><a class="dropdown-item" href="logout.php">SIGN OUT</a></li>
             </ul>
         </li>

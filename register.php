@@ -307,6 +307,12 @@
                               
                                   
                               <form method="post" autocomplete="off"  id="register" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+
+                              <div class="form-outline mb-4">
+      <input type="text" name="username" placeholder="Username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" >
+      <span class="invalid-feedback"><?php echo $username_err; ?></span>
+   </div>
+
                                  <div class="form-outline mb-4">
                                     <input type="text" name="name" placeholder="Full Name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" >
                                     
@@ -333,16 +339,8 @@
                                  </div>
                                  
 
-                                 <div class="form-outline mb-4">
-                                    <input type="tel" name="phonenumber" placeholder="+63-933-555-3585"  required class="form-control <?php echo (!empty($phonenumber_err)) ? 'is-invalid' : ''; ?>" >
-                                    <span class="invalid-feedback"><?php echo $phonenumber_err; ?></span>
-                                 </div>
-
-
 
                                  <div class="form-outline mb-4">
-                                    <input type="text" name="address" placeholder="Address" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>" >
-                                    <span class="invalid-feedback"><?php echo $address_err; ?></span>
                                     <div class="col-md-12 signin_p">
                                        <br>
                                        <div class="d-flex align-items-center justify-content-center pb-4">
@@ -366,6 +364,8 @@
                               
                                  
                               </form>
+
+
                            </div>
                         </div>
                         <div class="col-lg-6 d-flex align-items-center gradient-custom-2" >
@@ -436,6 +436,8 @@
       </div>
     </div>
   </div>
+  <div id="errorAlert" class="alert alert-danger" style="display: none;"></div>
+
     
  <!-- Bootstrap modal for success message -->
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
@@ -444,8 +446,8 @@
         <div class="modal-body text-center">
            <img src="assets/image/Healteeth Logo.png" class="logo_img_Modal" alt="">
           <p class="text-center2">You just made an <span style="color: #65cad7">Account!</span></p>
-          <p class="text-centerModal">Your account has been created successfully.</p>
-          <button type="button" class="btn btn-outline-info btn-lg resetButton" onclick="window.location='login.php';">Go to Login</button>
+          <p class="text-centerModal">Thank you for registering with Healteeth. To complete your account registration, please follow the instructions sent to the email you've provided</p>
+          <button type="button" class="btn btn-outline-info btn-lg resetButton" onclick="window.location='login.php';">Okay</button>
         </div>
       </div>
     </div>
@@ -460,7 +462,7 @@
         }
     }   
 
- $(document).ready(function() {
+$(document).ready(function() {
   // Handle form submission
   $('#register').submit(function(e) {
     e.preventDefault(); // Prevent the form from submitting normally
@@ -472,30 +474,41 @@
       data: $(this).serialize(),
       dataType: 'json',
       success: function(response) {
+        console.log('AJAX request successful. Response:', response); // Debug statement
+
         // Check if the response indicates success
         if (response.success) {
+          console.log('Registration successful.'); // Debug statement
+
           // Show success message using Bootstrap modal
           $('#successModal').modal('show');
 
-          // Redirect to login.php after a delay of 3 seconds
+          // Delay the redirect after showing the modal
           setTimeout(function() {
+            console.log('Redirecting to login page.'); // Debug statement
             window.location.href = 'login.php';
           }, 9000);
         } else {
+          console.log('Registration failed. Error:', response.message); // Debug statement
+
           // Handle other scenarios, such as validation errors
-          $('#emailError').text(response.emailError);
-          $('#passwordError').text(response.passwordError);
-          $('#confpasswordError').text(response.confpasswordError);
-          // Add more lines like the one above for other error messages if needed
+          alert(response.message);
         }
       },
       error: function(xhr, status, error) {
+        console.error('AJAX request failed. Error:', error); // Debug statement
         console.error(xhr.responseText);
         // Handle any error that occurred during form submission
       }
     });
   });
 });
+
+
+
+
+
+
 
 </script>  
    </body>
