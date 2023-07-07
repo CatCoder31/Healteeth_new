@@ -114,7 +114,7 @@
                     Thank you once again for contacting Healteeth. We appreciate your support.</p>
                   <br>
                   <p>Thank you,</p>
-                  <p>'.$name.'</p>
+                  <p>Healteeth Philippines</p>
                </div>
                
             </div>

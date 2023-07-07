@@ -150,11 +150,12 @@ $mail = new PHPMailer\PHPMailer\PHPMailer();
 $mail->isSMTP();
 $mail->Host = 'smtp.gmail.com';
 $mail->SMTPDebug = 2;
-$mail->Port = 587;
-$mail->SMTPSecure = 'tls';
-$mail->SMTPAuth = true;
-$mail->Username = 'healteethph@gmail.com';
-$mail->Password = 'lektzbyfwtljbqpd';
+ $mail->Port = 587;
+                $mail->SMTPSecure = 'tls';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'healteethph@gmail.com';
+                $mail->Password = 'lektzbyfwtljbqpd';
+
 
 // Set the email sender and recipient
 $mail->setFrom('your_email@example.com', 'Official Healteeth'); // Replace with your actual name and email address

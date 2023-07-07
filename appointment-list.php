@@ -379,13 +379,6 @@
  
       <div class="container-fluid">
 
-
-
-
-
-
-
-     
 <?php
     if (isset($_GET['status'])) {
         $status = $_GET['status'];
@@ -475,21 +468,6 @@
                 <?php } ?>
             </ul>
         </nav>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       
    </body>
 </html>
