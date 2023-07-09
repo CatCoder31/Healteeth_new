@@ -71,31 +71,6 @@
             <!-- ============================================================== -->
             <!-- Start Page Content -->
             <!-- ============================================================== -->
-            <button class = "btn btn-info" data-toggle='modal' data-target='#sample1'>Add time delay</button>
-            <div id='sample1' class='modal fde' role='dialog' tabindex='-1'>
-               <div class='modal-dialog'>
-                  <div class='modal-content'>
-                     <div class='modal-header'>
-                        <button type='button' class='close' data-dismiss='modal'>&times;</button>
-                        <h4 class='modal-title text-center'>Add time delay in minutes</h4>
-                     </div>
-                     <div class='modal-body'>
-                        <form action='timedelay.php' method='post' enctype='multipart/form-data'>
-                           <div class='form-row'>
-                              <div class='form-group col-md-12'>
-                                 <label for='lang'>Time delay</label>
-                                 <input type="text" name='tdelay' id='lang' class='form-control'>
-                              </div>
-                           </div>
-                           <div class='modal-footer'>
-                              <input type='submit' name='submit' class='btn btn-info btn-large' value='Submit'>
-                              <button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>
-                           </div>
-                        </form>
-                     </div>
-                  </div>
-               </div>
-            </div>
             <div class="container">
                <table class="table table-bordered table-striped table-hover" id="myTable">
                   <thead>
@@ -115,33 +90,32 @@
                      while($row = mysqli_fetch_array($run_data))
                      {
                         $id = $row['id'];
-                         $pname = $row['patient_name'];
-                         $adate = date('F j, Y', (strtotime($row['appointment_date'])));
-                         $atime = date('h:i A',(strtotime($row['appointment_time'])));
-                         $tfinish = date('h:i A',(strtotime($row['time_finish'])));
-                         $service = $row['service_name'];
-                         $price = $row['service_price'];
-                     
-                         echo "
+                        $pname = $row['patient_name'];
+                        $adate = date('F j, Y', (strtotime($row['appointment_date'])));
+                        $atime = date('h:i A',(strtotime($row['appointment_time'])));
+                        $tfinish = date('h:i A',(strtotime($row['time_finish'])));
+                        $service = $row['service_name'];
+                        $price = $row['service_price'];
+                  ?>
+
                      
                          <tr>
-                         <td class='text-left'>$pname</td>
-                         <td class='text-left'>$adate</td>
-                         <td class='text-left'>$atime</td>
-                         <td class='text-left'>$tfinish</td>
-                         <td class='text-left'>$service</td>
-                         <td class='text-left'>₱$price</td>
+                         <td class='text-left'><?php echo $pname?></td>
+                         <td class='text-left'><?php echo $adate?></td>
+                         <td class='text-left'><?php echo $atime?></td>
+                         <td class='text-left'><?php echo $tfinish?></td>
+                         <td class='text-left'><?php echo $service?></td>
+                         <td class='text-left'><?php echo "₱".$price?></td>
                          </td>
                      
                      <td class='text-center'>
                        <span>
-                       <a href='#' class='btn btn-warning mr-3 editappointment' data-toggle='modal' data-target='#edit$id' title='Edit'><i class='fa fa-pencil-square-o fa-lg'></i></a>
+                       <a href='#' class='btn btn-warning mr-3 editappointment' data-toggle='modal' data-target='#edit<?php echo $id?>' title='Edit'><i class='fa fa-pencil-square-o fa-lg'></i></a>
                        </span>
                      </td>
                      
                      </tr>
-                     
-                         ";
+                     <?php
                      }
                      ?>
                   <?php
@@ -171,7 +145,7 @@
                               <div class='form-group col-md-12' id='status'>
                                      <label for='lang'>Status</label>
                               <select name='stats' id='stats' class='form-control stats'>
-                                <option value=''>$status</option>
+                                <option disabled value=''>$status</option>
                                 <option value='Done'>Done</option>
                                 <option value='No Show'>No Show</option>
                               </select>
@@ -216,21 +190,6 @@
    $(document).ready(function () {
      $('#myTable').DataTable();
    });
-</script>
-<script>
-$(document).ready(function(){
-$('.stats').on('change', function(){
-if (this.value == ''){
-$('.settimedelay').hide();
-}
-if (this.value == 'Done'){
-$('.settimedelay').show();
-}
-if (this.value == 'No Show'){
-$('.settimedelay').hide();
-}
-});
-});
 </script>
 <!-- Popper.JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>

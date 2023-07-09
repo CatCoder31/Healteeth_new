@@ -39,6 +39,29 @@
       <script src="https://cdn.datatables.net/select/1.3.4/js/dataTables.select.min.js"></script>
       <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.min.css">
       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      <style>
+        /* Custom styles for the pressable card */
+    .pressable-card {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100px;
+        background-color: #f8f8f8;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-top: 20px;
+    }
+
+    .pressable-card:hover {
+        background-color: #e0e0e0;
+    }
+
+    .pressable-card h2 {
+        margin: 60px;
+    }
+      </style>
    </head>
    <body class="fix-header card-no-border fix-sidebar">
       <!-- ============================================================== -->
@@ -71,6 +94,33 @@
       <!-- ============================================================== -->
       <!-- Start Page Content -->
       <!-- ============================================================== -->
+      <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-themecolor">PATIENT RECORDS / SEARCH RECORDS</h3>
+                </div>
+      <div class="container">
+    <div class="row">
+        <!-- Centered pressable card -->
+        <div class="col-lg-4 col-sm-4 d-flex justify-content-center">
+            <a href="add_patient.php" class="pressable-card">
+                <h2><i class="fa fa-plus-circle"></i> ADD PATIENT</h2>
+            </a>
+        </div>
+        <!-- Centered pressable card -->
+        <div class="col-lg-4 col-sm-4 d-flex justify-content-center">
+            <a href="manage_patient.php" class="pressable-card">
+                <h2><i class="fa fa-plus-circle"></i> PATIENT LIST</h2>
+            </a>
+        </div>
+        <!-- Centered pressable card -->
+        <div class="col-lg-4 col-sm-4 d-flex justify-content-center">
+            <a href="search_records.php" class="pressable-card">
+                <h2><i class="fa fa-plus-circle"></i> <span>SEARCH RECORDS</span></h2>
+            </a>
+        </div>
+    </div>
+</div>
+
       <div class="container">
          <table class="table table-bordered table-striped table-hover" id="myTable">
             <thead>
