@@ -1,3 +1,21 @@
+
+<?php
+
+// Rest of your PHP code goes here
+?>
+
+
+<style>
+  .navbar-nav{
+    align-items: center;
+  }
+
+  .profile_btn{
+    padding-top:2px !important;
+    padding-bottom:2px !important;
+    padding-left:4px !important;
+  }
+</style>
 <nav class="navbar navbar-expand-md bg-body-tertiary ">
   <div class="container-xl">
     <a class="navbar-brand" onclick="window.location='welcome.php';">
@@ -11,6 +29,8 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" onclick="window.location='welcome.php';">HOME</a>
         </li>
+
+        
         <li class="nav-item">
           <a class="nav-link" onclick="window.location='appointment-book.php';">BOOK AN APPOINTMENT</a>
         </li>
@@ -23,15 +43,52 @@
           <a class="nav-link" onclick="window.location='about.php';">ABOUT</a>
         </li>
 
+
+
         
-        <li class="nav-item dropdown">
-		   <a class="nav-link btn btn-outline-info dropdown_btn" href="#" data-bs-toggle="dropdown">PROFILE</a>
-		    <ul class="dropdown-menu">
-			  <li><a class="dropdown-item" href="appointment-list.php">APPOINTMENTS</a></li>
-			  <li><a class="dropdown-item" href="user-profile.php">EDIT PROFILE</a></li>
-			  <li><a class="dropdown-item" href="logout.php">SIGN OUT</a></li>
-		    </ul>
-		   </li>
+<?php
+$profileimg = $_SESSION['profile_photo'];
+
+if ($profileimg == 'null') {
+    // Display a default photo when $profile_photo is null
+    $profileimg = 'assets/image/profile_placeholder.png';
+} else {
+    // Display the actual profile photo when $profile_photo is not null
+    $profileimg = $_SESSION['profile_photo'];
+}
+
+// Check if user is logged in
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+  $username = isset($_SESSION['username']) ? $_SESSION['username'] : "Username not found in session";
+
+
+  
+    echo '
+    <li class="nav-item dropdown">
+           <a class="nav-link btn btn-outline-info dropdown_btn profile_btn" href="#" data-bs-toggle="dropdown"> 
+           <img src="'.$profileimg.'" width="40" height="40" class="rounded-circle">
+           '.$username.'</a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="appointment-list.php">APPOINTMENTS</a></li>
+                <li><a class="dropdown-item" href="user-profile.php">PROFILE</a></li>
+                <li><a class="dropdown-item" href="logout.php">SIGN OUT</a></li>
+            </ul>
+        </li>
+    ';
+} else {
+  $link='login.php';
+    echo '
+    <li class="nav-item">
+          <a class="nav-link btn btn-outline-info dropdown_btn" onclick="location.href=\'' . $link . '\'">SIGN IN/REGISTER</a>
+        </li>
+    ';
+}
+?>
+
+
+
+
+       
       </ul>      
     </div>
   </div>
