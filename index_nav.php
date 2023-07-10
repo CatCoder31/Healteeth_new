@@ -19,7 +19,7 @@ session_start();
 </style>
 <nav class="navbar navbar-expand-md bg-body-tertiary ">
   <div class="container-xl">
-    <a class="navbar-brand" onclick="window.location='welcome.php';">
+    <a class="navbar-brand" onclick="window.location='index.php';">
     <img src="assets/image/Healteeth Logo.png" class="logo_img" alt="">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
