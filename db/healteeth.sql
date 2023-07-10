@@ -37,7 +37,6 @@ CREATE TABLE `appointments` (
   `address` varchar(255) NOT NULL,
   `category` int(11) NOT NULL,
   `service` int(11) NOT NULL,
-  `schedule` varchar(255) NOT NULL,
   `appointment_date` date NOT NULL,
   `appointment_time` time NOT NULL,
   `time_finish` time NOT NULL,

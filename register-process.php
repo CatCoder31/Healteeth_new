@@ -70,6 +70,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $name = trim($_POST["name"]);
     }
 
+    // Validate phone number
+    if (empty(trim($_POST["phonenumber"]))) {
+        $phonenumber_err = "Please enter your Contact Number.";
+    } else {
+        $phonenumber = trim($_POST["phonenumber"]);
+    }
+
+    // Validate address
+    if (empty(trim($_POST["address"]))) {
+        $address_err = "Please enter your address.";
+    } else {
+        $address = trim($_POST["address"]);
+    }
+
     // Validate password
     if (empty(trim($_POST["password"]))) {
         $password_err = "Please enter a password.";

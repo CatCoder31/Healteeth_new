@@ -380,13 +380,6 @@
  
       <div class="container-fluid">
 
-
-
-
-
-
-
-     
 <?php
     if (isset($_GET['status'])) {
         $status = $_GET['status'];
@@ -430,6 +423,7 @@
                     <th class="table-header">#</th>
                     <th class="table-header">Name</th>
                     <th class="table-header">Appointment Date</th>
+                    <th class="table-header">Appointment Time</th>
                     <th class="table-header">Status</th>
                     <th class="table-header">Action</th>
                 </tr>
@@ -440,12 +434,14 @@
                 while ($row = mysqli_fetch_array($run_data)) {
                     $name = $row['patient_name'];
                     $adate = date('F j, Y', strtotime($row['appointment_date']));
+                    $atime = date('h:i A', strtotime($row['appointment_time']));
                     $status = $row['status'];
                 ?>
                     <tr class="hover-row">
                         <td class="table-content"><?php echo $i; ?></td>
                         <td class="table-content"><?php echo $name; ?></td>
                         <td class="table-content"><?php echo $adate; ?></td>
+                        <td class="table-content"><?php echo $atime; ?></td>
                         <td class="table-content"><?php echo $status; ?></td>
                         <td class="text-center"><a href="view-appointment.php?appointment-id=<?php echo $row['id']; ?>" class="btn btn-outline-info view_btn">View Appointment</a></td>
                     </tr>
@@ -473,21 +469,6 @@
                 <?php } ?>
             </ul>
         </nav>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       
    </body>
 </html>
