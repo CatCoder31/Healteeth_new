@@ -294,6 +294,6 @@ if (isset($_POST['submit'])) {
             header("Location: appointment-book.php?response=" . urlencode(json_encode($response)));
             exit();
         }
-    }
-}
+    
+
 ?>
