@@ -487,7 +487,7 @@
                                <div class="modal-body">
                                   <img src="assets/image/Healteeth Logo.png" class="logo_img_modal" alt="">
                                   <br><br>
-                                  <p class="text-center2">Error: ' . $response['message'] . '</p>
+                                  <p class="text-center2">' . $response['message'] . '</p>
                                   <br>
                                   <a href="appointment-book.php" class="btn btn-outline-info btn-lg resetButton" id="dismissButton">Close</a>
                                </div>
