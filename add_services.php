@@ -12,20 +12,20 @@
    
    $added = false;
    
-   
-   //Add  new student code 
-   
+   // Add new student code 
    if(isset($_POST['submit'])){
-     $category_name = $_POST['category_name'];
-     $descr = $_POST['descr'];
+     $category_id = $_POST['category_id'];
+     $service_name = $_POST['service_name'];
+     $service_price = $_POST['service_price'];
+     $service_duration = $_POST['service_duration'];
    
-       $insert_data = "INSERT INTO category(category_name, descr) VALUES ('$category_name','$descr')";
-       $run_data = mysqli_query($con,$insert_data);
+     $insert_data = "INSERT INTO services(category_id, service_name, service_price, service_duration) VALUES ('$category_id','$service_name','$service_price','$service_duration')";
+     $run_data = mysqli_query($con,$insert_data);
    
        if($run_data){
          $added = true;
        }else{
-         echo "Data not insert";
+         echo "Data is not inserted";
        }
    
    }
@@ -90,7 +90,7 @@
             <!-- ============================================================== -->
             <div class="card">
                <div class="card-body">
-                  <form method="post" enctype="multipart/form-data">
+                  <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
                      <div>
                         <!-- adding alert notification  -->
                         <?php
@@ -104,24 +104,43 @@
                            
                            ?>
                      </div>
+                     <div class="form-row">
+                        <div class="form-group col-md-6">
+                           <label for="category_name">Category</label>
+                           <select name="category_id" class="form-control" required="">
+                              <option value="" disabled selected>Select Category</option>
+                              <?php
+                                 $sql = "SELECT * FROM category";
+                                 $result = $con->query($sql);
+                                 while($row = $result->fetch_assoc()) {
+                                   echo "<option value='".$row['category_id']."'>".$row['category_name']." (".$row['descr'].")"."</option>";
+                                 }
+                                 ?>
+                           </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                           <label for="descr">Service</label> <input type="text" class="form-control" name="service_name" placeholder="Enter Service Name">
+                        </div>
+                        <div class="form-group col-md-6">
+                           <label for="descr">Price</label> <input type="text" class="form-control" name="service_price" placeholder="Enter Service Price">
+                        </div>
+                        <div class="form-group col-md-6">
+                           <label for="service_duration">Service Duration</label>
+                           <input id="timepicker" type="text" class="form-control" name="service_duration" placeholder="Enter Service Duration">
+                        </div>
+                        <div class="form-group col-md-12" align="center">
+                           <input type="submit" name="submit" class="btn btn-info" value="Submit">
+                        </div>
+                     </div>
                   </form>
-               </div>
-            </div>
-            <div class="form-row">
-               <div class="form-group col-md-6">
-                  <label for="category_name">Category Name</label> <input type="text" class="form-control" name="category_name" placeholder="Enter Category Name" required="">
-               </div>
-               <div class="form-group col-md-6">
-                  <label for="descr">Description</label> <input type="text" class="form-control" name="descr" placeholder="Enter Last Name">
-               </div>
-               <div class="form-group col-md-12" align="center">
-                  <input type="submit" name="submit" class="btn btn-info" value="Submit">
                </div>
             </div>
          </div>
       </div>
    </body>
 </html>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"></script>
 <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script> <!-- slimscrollbar scrollbar JavaScript -->
 <script src="js/perfect-scrollbar.jquery.min.js"></script> <!--Wave Effects -->
 <script src="js/waves.js"></script> <!--Menu sidebar -->
@@ -133,5 +152,14 @@
    
    });
 </script> <!-- Popper.JS -->
+<script type="text/javascript">
+    $(function () {
+        $('#timepicker').timepicker({
+            showMeridian: false,
+            showInputs: true,
+            defaultTime: false
+        });
+    });
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script> <!-- Bootstrap JS -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
