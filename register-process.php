@@ -21,8 +21,33 @@ $username_err = $name_err = $password_err = $confirm_password_err = $email_err =
 
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validate username
-    if (empty(trim($_POST["username"]))) {
+
+     // Perform CAPTCHA verification
+    $recaptchaResponse = $_POST['g-recaptcha-response'];
+    $secretKey = '6LeMGTwnAAAAALyY3HKoF8pGlhCH4uY2kCiZo16U'; // Replace with your reCAPTCHA secret key
+
+    $url = 'https://www.google.com/recaptcha/api/siteverify';
+    $data = array(
+        'secret' => $secretKey,
+        'response' => $recaptchaResponse
+    );
+
+    $options = array(
+        'http' => array(
+            'header' => "Content-type: application/x-www-form-urlencoded\r\n",
+            'method' => 'POST',
+            'content' => http_build_query($data)
+        )
+    );
+
+    $context = stream_context_create($options);
+    $result = file_get_contents($url, false, $context);
+    $response = json_decode($result, true);
+
+    if ($response['success'] === false) {
+         //
+    } else {
+        if (empty(trim($_POST["username"]))) {
         $username_err = "Please enter a username.";
     } else {
         $username = trim($_POST["username"]);
@@ -360,6 +385,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["token"])) {
         mysqli_stmt_close($stmt);
     } else {
         echo "Oops! Something went wrong. Please try again later.";
+    }
     }
 }
 ?>
