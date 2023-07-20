@@ -18,6 +18,7 @@
       <!-- Tell the browser to be responsive to screen width -->
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="robots" content="noindex,nofollow" />
+      <meta http-equiv="refresh" content="60">
       <title>Doctor</title>
       <link
          href="assets/plugins/bootstrap/css/bootstrap.min.css"
@@ -54,23 +55,8 @@
          include 'includes/topheader.php';
          include 'includes/sidebar_doctor.php';
          ?>
-      <!-- ============================================================== -->
-      <!-- Page wrapper  -->
-      <!-- ============================================================== -->
       <div class="page-wrapper">
-         <!-- ============================================================== -->
-         <!-- Container fluid  -->
-         <!-- ============================================================== -->
          <div class="container-fluid">
-            <!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Start Page Content -->
-            <!-- ============================================================== -->
             <div class="container">
                <table class="table table-bordered table-striped table-hover" id="myTable">
                   <thead>
@@ -96,9 +82,21 @@
                         $tfinish = date('h:i A',(strtotime($row['time_finish'])));
                         $service = $row['service_name'];
                         $price = $row['service_price'];
-                  ?>
 
-                     
+                        // Calculate the appointment start time plus 15 minutes
+                        $appointmentStartTime = DateTime::createFromFormat('h:i A', $atime);
+                        $appointmentStartTime->modify('+15 minutes');
+
+                        // Get the current datetime
+                        $currentDateTime = new DateTime();
+
+                        // Compare the current datetime with the appointment start time plus 15 minutes
+                        if ($currentDateTime > $appointmentStartTime) {
+                        // Update the status to 'No Show'
+                        $update_query = "UPDATE appointments SET status = 'No Show' WHERE id = $id";
+                        mysqli_query($con, $update_query);
+                    }
+                  ?> 
                          <tr>
                          <td class='text-left'><?php echo $pname?></td>
                          <td class='text-left'><?php echo $adate?></td>
@@ -175,6 +173,29 @@
          </div>
       </div>
       </div>
+
+      <script>
+      // Function to refresh the page
+      function refreshPage() {
+         // Get the current time
+         var currentTime = new Date();
+
+         // Calculate the remaining seconds until the next refresh
+         var remainingSeconds = 60 - currentTime.getSeconds();
+
+         // Display the remaining seconds
+         document.getElementById('refresh-seconds').textContent = remainingSeconds;
+
+         // Refresh the page after 60 seconds (1 minute)
+         setTimeout(function() {
+            location.reload();
+         }, 60000);
+      }
+
+      // Call the refreshPage function on page load
+      refreshPage();
+   </script>
+   
    </body>
 </html>
 <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
