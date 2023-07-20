@@ -435,7 +435,7 @@
                         <select name="doctorId" class="form-control" onchange="docName(this.value)" required="">
                            <option value="" selected disabled>Select doctor</option>
                            <?php
-                              $sql = mysqli_query($con, "SELECT * FROM schedule JOIN user ON schedule.doctor_Id=user.id WHERE role='Doctor' GROUP BY schedule.doctor_Id");
+                              $sql = mysqli_query($con, "SELECT * FROM schedule JOIN user ON schedule.doctor_Id=user.id WHERE role='Doctor' AND date_sched >= CURRENT_DATE() GROUP BY schedule.doctor_Id");
                               while($row = $sql->fetch_assoc()) {
                                 echo "<option value='".$row['id']."'>".$row['full_name']."</option>";
                               }

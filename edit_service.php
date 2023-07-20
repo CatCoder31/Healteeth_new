@@ -6,10 +6,9 @@ $id = $_GET['service_id'];
 if(isset($_POST['submit']))
 {
 	$service_name = $_POST['se_name'];
-	$service_price = $_POST['se_price'];
 	$service_duration = $_POST['se_duration'];
 
-	$update = "UPDATE services SET service_name = '$service_name', service_price = '$service_price', service_duration = '$service_duration' WHERE service_id=$id ";
+	$update = "UPDATE services SET service_name = '$service_name', service_duration = '$service_duration' WHERE service_id=$id ";
 	$run_update = mysqli_query($con,$update);
 
 	if($run_update){

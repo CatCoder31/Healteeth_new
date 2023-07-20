@@ -140,10 +140,10 @@
                   <div class="col-md-6">
                      <label for="role">Role</label>
                      <select id="role" name="role" class="form-control">
-                        <option selected>N/A</option>
+                        <option selected disabled>Select Role</option>
                         <option value="Doctor">Doctor</option>
-                        <option value="Staff">Staff</option>
                      </select>
+                     </div>
                   </div>
                </div>
                <div class="form-group col-md-12" align="center">

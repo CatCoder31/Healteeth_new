@@ -358,6 +358,7 @@
                       </div>
                       <div class="form-group col-md-6">
                          <label for="password">Date Settings</label>
+                         <br>
                          <input type="date" class="form-control" name="date_sched" required id="date">
                       </div>
                       <div class="form-group col-md-6"></div>
@@ -389,14 +390,17 @@
                       </div>
                       <div class="form-group col-md-6">
                          <label for="email_address">Breaktime Start</label>
+                         <div>
                          <input type="time" class="form-control" name="breaktime_start" required>
                       </div>
+                    </div>
                       <div class="form-group col-md-6">
                          <label for="email_address">Breaktime End</label>
+                        <div>
                          <input type="time" class="form-control" name="breaktime_end" required>
                       </div>
                    </div>
-                   
+                </div>   
                    <div class="form-group col-md-12 d-flex justify-content-end">
                       <input type="submit" name="add_sched" class="btn btn-info float-right" value="Submit">         
                    </div>

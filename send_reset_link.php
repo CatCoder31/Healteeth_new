@@ -34,7 +34,7 @@ $email = $_POST['email'];
     $stmt->execute();
 
 // Create the reset link with the token=email because no token field in user update the $resetlink url when deployed will only work right now in local server
-$resetLink = "http://localhost/Healteeth/reset_password.php?token=$token";
+$resetLink = "https://healteeth.online/reset_password.php?token=$token";
 
 // Compose the email
 $subject = 'Password Reset';

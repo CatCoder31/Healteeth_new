@@ -16,10 +16,9 @@
    if(isset($_POST['submit'])){
      $category_id = $_POST['category_id'];
      $service_name = $_POST['service_name'];
-     $service_price = $_POST['service_price'];
      $service_duration = $_POST['service_duration'];
    
-     $insert_data = "INSERT INTO services(category_id, service_name, service_price, service_duration) VALUES ('$category_id','$service_name','$service_price','$service_duration')";
+     $insert_data = "INSERT INTO services(category_id, service_name, service_duration) VALUES ('$category_id','$service_name','$service_price','$service_duration')";
      $run_data = mysqli_query($con,$insert_data);
    
        if($run_data){
@@ -120,9 +119,6 @@
                         </div>
                         <div class="form-group col-md-6">
                            <label for="descr">Service</label> <input type="text" class="form-control" name="service_name" placeholder="Enter Service Name">
-                        </div>
-                        <div class="form-group col-md-6">
-                           <label for="descr">Price</label> <input type="text" class="form-control" name="service_price" placeholder="Enter Service Price">
                         </div>
                         <div class="form-group col-md-6">
                            <label for="service_duration">Service Duration</label>

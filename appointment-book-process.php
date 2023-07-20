@@ -226,7 +226,7 @@ if (isset($_POST['submit'])) {
                <div class="header">
                   <img src="cid:logo" alt="Healteeth PH Logo">
                   <br>
-                  <h3>We have received your feedback!</h3>
+                  <h3>Thank You for Booking an Appointment with Us!</h3>
                </div>
                <div class="content">
                   <p>Appointment Reminder for <b>'.$patient_name.'</b>

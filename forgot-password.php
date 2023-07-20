@@ -27,7 +27,7 @@
         }
 
         .container {
-            max-width: 30%;
+            max-width: 80%;
             margin: 0 auto;
             padding: 20px;
             border-radius: 5px;
@@ -157,9 +157,9 @@
 
         // Database connection parameters
         $servername = 'localhost';
-        $username = 'root';
-        $password = ''; // Replace with your database password
-        $dbname = 'healteeth';
+        $username = 'u483280624_healteeth';
+        $password = 'Healteeth2023'; // Replace with your database password
+        $dbname = 'u483280624_healteeth';
 
         // Create a new mysqli instance
         $conn = new mysqli($servername, $username, $password, $dbname);
