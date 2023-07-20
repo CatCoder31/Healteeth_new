@@ -366,13 +366,43 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 }
 
-.register_p{
-         font-family: 'Montserrat';
-         color: #4052a4;
-         font-weight: light;
-         text-decoration:none;
-}
 
+
+        .center-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .register_link_btn {
+            font-family: 'Montserrat';
+            color: #65cad7;
+            transition: 0.2s;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+       
+
+        .back-2signin {
+            padding-top: 10px;
+        }
+
+     
+
+        .modal-body {
+            padding: 10%;
+        }
+
+        .modal-content {
+            border-radius: 60px;
+        }
+
+         .resetButton {
+            width: 100%;
+            border-radius: 50px;
+        }
       </style>
    <body>
      <!-- <nav class="navbar navbar-white bg-white flex-nowrap">
@@ -435,7 +465,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                               <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" class="form-row">
                                  <div class="form-outline mb-4">
                                     <input type="email"  name="email" placeholder="Email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email_address; ?>">
-                                    <span class="help-block"><?php echo $email_err; ?></span>
+                                    <div class="modal fade" id="verificationModal" tabindex="-1" role="dialog" aria-labelledby="verificationModalLabel">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                       <div class="modal-content">
+                                              <div class="modal-body">
+                                                <img src="assets/image/Healteeth Logo.png" class="logo_img" alt="">
+                                                <br><br>
+                                                <p class="signin_p text-center"><?php echo $email_err; ?></p>
+                                                  <button type="button" class="btn btn-outline-info btn-lg resetButton" id="closeModalBtn">Done</button>
+                                             </div>
+                                            
+                                       </div>
+                                    </div>
+                                 </div>
                                  </div>
                                  <div class="form-outline mb-4" >
                                     <input type="password" name="password" id="password" placeholder="Password" class="form-control" <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
@@ -489,4 +531,23 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     }   
    </script>
+
+
+<script>
+    // JavaScript to show the modal when the page loads
+    document.addEventListener('DOMContentLoaded', function () {
+        <?php if (!empty($email_err)): ?>
+            // Check if the email error is not empty
+            $('#verificationModal').modal('show');
+        <?php endif; ?>
+    });
+
+    // JavaScript to dismiss the modal when the close button is clicked
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('closeModalBtn').addEventListener('click', function () {
+            $('#verificationModal').modal('hide');
+        });
+    });
+</script>
+
 </html>

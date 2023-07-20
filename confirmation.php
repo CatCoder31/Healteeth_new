@@ -158,74 +158,44 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["token"])) {
     <h1 class="text-center2">Complete Your Profile</h1>
     <div class="row justify-content-center">
       <div class="col-md-6">
-        <form action="process_update_info.php" method="POST">
-          <input type="hidden" name="token" value="<?php echo $verification_token; ?>">
-          <div class="form-group">
-            <input type="text" name="contact_number" placeholder="Contact Number" class="form-control" required>
-          </div>
+      <form action="process_update_info.php" method="POST">
+    <input type="hidden" name="token" value="<?php echo $verification_token; ?>">
 
-          <div class="form-group">
-            <input type="text" name="full_address" placeholder="Enter Address" class="form-control" required>
-          </div>
+    <div class="form-group">
+        <input type="text" name="contact_number" placeholder="Contact Number" class="form-control" required>
+    </div>
 
-          <div class="form-group">
-            <input type="text" name="emergency_contact_name" class="form-control" placeholder="Emergency Contact Name"
-              required>
-          </div>
+    <div class="form-group">
+        <input type="text" name="full_address" placeholder="Enter Address" class="form-control" required>
+    </div>
 
-          <div class="form-group">
-            <input type="text" name="emergency_contact_number" class="form-control" placeholder="Emergency Contact Number"
-              required>
-          </div>
+    <div class="form-group">
+        <input type="text" name="emergency_contact_name" class="form-control" placeholder="Emergency Contact Name" required>
+    </div>
 
-          <div class="form-group">
-            <select name="language" class="form-control" placeholder="Select Language" required>
-              <?php
-              // Array of languages
-              $languages = array(
-                "English",
-                "Filipino",
-                "Cebuano",
-                "Ilocano",
-                "Hiligaynon",
-                "Waray-Waray",
-                "Kapampangan",
-                "Bicolano",
-                "Pangasinense",
-                "Maranao",
-                "Tausug",
-                "Maguindanaoan",
-                "Ibanag",
-                "Chavacano",
-                "Surigaonon",
-                "Ivatan",
-                // Add more languages as needed
-              );
+    <div class="form-group">
+        <input type="text" name="emergency_contact_number" class="form-control" placeholder="Emergency Contact Number" required>
+    </div>
 
-              // Sort the languages alphabetically
-              sort($languages);
+    <div class="form-group">
+        <label for="birthday">Birthday:</label>
+        <input type="date" name="language" class="form-control" required>
+    </div>
 
-              // Iterate over the languages and generate the options
-              foreach ($languages as $language) {
-                echo "<option value=\"$language\">$language</option>";
-              }
-              ?>
-            </select>
-          </div>
+    <div class="form-group">
+        <label for="gender">Gender:</label>
+        <div>
+            <input type="radio" name="gender" value="Male" required> Male
+            <input type="radio" name="gender" value="Female" required> Female
+            <input type="radio" name="gender" value="Other" required> Other
+        </div>
+    </div>
 
-          <div class="form-group">
-            <label for="gender">Gender:</label>
-            <div>
-              <input type="radio" name="gender" value="Male" required> Male
-              <input type="radio" name="gender" value="Female" required> Female
-              <input type="radio" name="gender" value="Other" required> Other
-            </div>
-          </div>
+    <div class="form-group">
+        <input type="submit" value="Submit Profile" class="btn btn-outline-info btn-lg resetButton">
+    </div>
+</form>
 
-          <div class="form-group">
-            <input type="submit" value="Submit Profile" class="btn btn-outline-info btn-lg resetButton">
-          </div>
-        </form>
       </div>
     </div>
   </div>

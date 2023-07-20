@@ -775,7 +775,7 @@
                               <!---->
                               <div class="col-xs-12 col-sm-6">
                                  <div class="">
-                                    <p class="profile-label">Language</P>
+                                    <p class="profile-label">Birthday</P>
                                  </div>
                               </div>
                               <div class="col-xs-12 col-sm-6">
@@ -921,38 +921,7 @@
                               </div>
                            </div>
                            <div class="col">
-                              <select name="language" class="form-control" placeholder="Update Language" value="<?php echo $language; ?>" style="border-radius: 50px;">
-                              <?php
-                                 // Array of languages
-                                 $languages = array(
-                                     "English",
-                                     "Filipino",
-                                     "Cebuano",
-                                     "Ilocano",
-                                     "Hiligaynon",
-                                     "Waray-Waray",
-                                     "Kapampangan",
-                                     "Bicolano",
-                                     "Pangasinense",
-                                     "Maranao",
-                                     "Tausug",
-                                     "Maguindanaoan",
-                                     "Ibanag",
-                                     "Chavacano",
-                                     "Surigaonon",
-                                     "Ivatan",
-                                     // Add more languages as needed
-                                 );
-                                 
-                                 // Sort the languages alphabetically
-                                 sort($languages);
-                                 
-                                 // Iterate over the languages and generate the options
-                                 foreach ($languages as $language) {
-                                     echo "<option value=\"$language\">$language</option>";
-                                 }
-                                 ?>
-                              </select>
+                                <input type="date" name="language" class="form-control" required>
                            </div>
                         </div>
                      </div>
