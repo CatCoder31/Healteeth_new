@@ -413,7 +413,7 @@
                   <div class="form-row">
                      <div class="form-group col-md-6">
                         <select name="categorypick" class="form-control" required="">
-                           <option value="">Select Category</option>
+                           <option value="" selected disabled>Select Category</option>
                            <?php
                               $sql = "SELECT * FROM category";
                               $result = $con->query($sql);
@@ -468,6 +468,7 @@
                                     <p class="text-center">Appointment Date: ' . $response['appointment_date'] . '</p>
                                     <p class="text-center">Start Time: ' . $response['start_time'] . '</p>
                                     <p class="text-center">End Time: ' . $response['end_time'] . '</p>
+                                    <p class="text-center">Please check your email for your appointment reminder</p>
                                     <br>
                                     <a href="appointment-list.php"class="btn btn-outline-info btn-lg resetButton" id="redirectButton">Done</a>
                                  </div>
@@ -577,7 +578,7 @@
                            if (minutes > 0) {
                               durationText += minutes + ' minute' + (minutes > 1 ? 's' : '');
                            }
-                           $('select[name="servicepick"]').append('<option value="'+ key +'" data-price="'+ value.price +'" data-duration="'+ value.duration +'">'+ value.name +' Duration: '+ durationText +'</option>');
+                           $('select[name="servicepick"]').append('<option value="'+ key +'" data-duration="'+ value.duration +'">'+ value.name +' Duration: '+ durationText +'</option>');
                         });
                   }
                });

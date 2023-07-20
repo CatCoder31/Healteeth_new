@@ -9,6 +9,7 @@
    }
    // database connection
    include('config.php');
+   $doc_id = $_SESSION['id'];
    ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -83,7 +84,7 @@
                      </tr>
                   </thead>
                   <?php
-                     $get_data = "SELECT * FROM `appointments` INNER JOIN services ON appointments.service=services.service_id WHERE appointment_date=CURRENT_DATE AND status='No Show'";
+                     $get_data = "SELECT * FROM `appointments` INNER JOIN services ON appointments.service=services.service_id WHERE appointment_date=CURRENT_DATE AND status='No Show' AND doctor_id = '$doc_id'";
                      $run_data = mysqli_query($con,$get_data);
                      while($row = mysqli_fetch_array($run_data))
                      {

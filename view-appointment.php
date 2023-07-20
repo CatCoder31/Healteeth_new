@@ -286,6 +286,13 @@
       .form-group {
       margin-bottom: 0.4rem; 
       }
+      .form-control{
+      border-radius: 30px;
+      background-color: white !important;
+      font-family: 'Montserrat';
+      color: #4052a4;
+      height: 50px !important;
+      }
    </style>
    <?php
       if(isset($_GET['status'])){
@@ -314,9 +321,14 @@
                   $adate = date('F j, Y', (strtotime($row['appointment_date'])));
                   $atime = $row['appointment_time'];
                   $service = $row['service_name'];
+                  $doc_id = $row['doctor_Id'];
                   $category = $row['category_name'];
-                  $price = $row['service_price'];
                   $status = $row['status'];
+                  
+                  $get_data1 = "SELECT * FROM `user` WHERE id = $doc_id;";
+                  $run_data1 = mysqli_query($con, $get_data1);
+                  while ($row1 = mysqli_fetch_array($run_data1)) {
+                      $doc_name = $row1['full_name'];
                   ?>
                <h2 class="services_h2">Manage Your <span style="color: #65cad7"><?php echo $service; ?></span> Appointment</h2>
                <br><br>
@@ -373,6 +385,13 @@
                                  </div>
                               </div>
                            </div>
+                           <div class="row">
+                              <div class="col-md-12">
+                                 <div class="form-group">
+                                    <label for="form_name" class="view_appointment"><b>Doctor's Name:</b> <?php echo $doc_name; ?></label>
+                                 </div>
+                              </div>
+                           </div>
                            <?php if ($status == "Cancel") { ?>
                            <div class="row">
                               <div class="col-md-12">
@@ -400,15 +419,18 @@
                                  <!-- Modal content-->
                                  <div class="modal-content">
                                     <div class="modal-header">
-                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                       <h4 class="modal-title">Do you want to cancel the appointment?</h4>
+                                       <center>
+                                          <h4 class="modal-title">Do you want to cancel the appointment?</h4>
+                                       </center>
                                     </div>
                                     <div class="modal-body">
                                        <form action="cancel-appointment.php" method="post" enctype="multipart/form-data">
+                                          <input type="text" class = "form-control" name="reason_cancel" placeholder="Reason for Cancelation">
+                                          <br>
                                           <input type="hidden" value="<?php echo $id; ?>" name="appointid">
                                           <center>
-                                             <input type="submit" name="submit" class="btn btn-primary btn-large" value="Submit">
-                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                             <input type="submit" name="submit" class="btn btn-primary btn-large" value="Yes">
+                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                                           </center>
                                        </form>
                                     </div>
@@ -420,6 +442,7 @@
                      </div>
                   </div>
                </div>
+               <?php } ?>
                <?php } ?>
             </div>
          </div>
@@ -443,25 +466,25 @@
    function updateButtonStatus() {
       // Get the current time
       var currentTime = new Date();
-
+   
       // Get the appointment time from the server-side PHP code
       var appointmentTime = new Date("<?php echo $adate . ' ' . $atime; ?>");
-
+   
       // Calculate the time difference in milliseconds
       var timeDiff = appointmentTime - currentTime;
-
+   
       // Convert the time difference to hours
       var hoursDiff = timeDiff / (1000 * 60 * 60);
-
+   
       // Disable the button if the time difference is less than or equal to 2 hours
       if (hoursDiff <= 2) {
          document.getElementById("cancelButton").disabled = true;
       }
    }
-
+   
    // Run the function immediately
    updateButtonStatus();
-
+   
    // Run the function every second
    setInterval(updateButtonStatus, 1000);
 </script>

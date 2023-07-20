@@ -234,6 +234,9 @@ if (isset($_POST['submit'])) {
                    This is a reminder your appointment for Dental Consultation<br>
                     is on <b>'.$appointment_date.'</b> at <b>'.$appointment_start_time.'</b></p>
                   <br>
+                  <p>Appointments cannot be canceled less than 2 hours before the scheduled time.</p>
+                  <br>
+                  <p>If you do not attend your appointment without giving prior notice, the doctor reserves the right to label it as a "No Show," requiring you to book a new appointment.</p>
                   <p>Thank you,</p>
                   <p>Healteeth Philippines</p>
                </div>

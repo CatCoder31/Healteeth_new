@@ -2,8 +2,6 @@
 include 'config2.php';
 $user_id=$_SESSION['id'];
 $appoint_id = $_POST['appointid'];
-//echo $user_id.'<br>';
-//echo $appoint_id;
 $insert_data = "UPDATE appointments SET status = 'Cancel' WHERE patient_id = '$user_id' AND id = '$appoint_id';";
 $run_data = mysqli_query($con,$insert_data);
 

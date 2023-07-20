@@ -23,9 +23,9 @@
      $full_address = $_POST['full_address'];
      $role = $_POST['role'];
    
-     $hash= md5($password);
+     $hash= password_hash($password, PASSWORD_DEFAULT);
    
-       $insert_data = "INSERT INTO user(full_name, email_address, password, contact_number, full_address, role) VALUES ('$full_name','$email_address','$hash','$contact_number','$full_address','$role')";
+       $insert_data = "INSERT INTO user(full_name, email_address, password, contact_number, full_address, role, email_verified) VALUES ('$full_name','$email_address','$hash','$contact_number','$full_address','$role', '1')";
        $run_data = mysqli_query($con,$insert_data);
    
        if($run_data){

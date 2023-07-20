@@ -9,6 +9,7 @@
    }
    // database connection
    include('config.php');
+   $doc_id = $_SESSION['id'];
    ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,12 +67,11 @@
                         <th class="text-center" scope="col">Appointment Time Start</th>
                         <th class="text-center" scope="col">Estimated Time End</th>
                         <th class="text-center" scope="col">Service</th>
-                        <th class="text-center" scope="col">Price</th>
                         <th class="text-center" scope="col">Status</th>
                      </tr>
                   </thead>
                   <?php
-                     $get_data = "SELECT * FROM `appointments` INNER JOIN services ON appointments.service=services.service_id WHERE appointment_date=CURRENT_DATE AND status='Approved'";
+                     $get_data = "SELECT * FROM `appointments` INNER JOIN services ON appointments.service=services.service_id WHERE appointment_date=CURRENT_DATE AND status='Approved' AND doctor_Id = '$doc_id'";
                      $run_data = mysqli_query($con,$get_data);
                      while($row = mysqli_fetch_array($run_data))
                      {
@@ -81,7 +81,6 @@
                         $atime = date('h:i A',(strtotime($row['appointment_time'])));
                         $tfinish = date('h:i A',(strtotime($row['time_finish'])));
                         $service = $row['service_name'];
-                        $price = $row['service_price'];
 
                         // Calculate the appointment start time plus 15 minutes
                         $appointmentStartTime = DateTime::createFromFormat('h:i A', $atime);
@@ -91,11 +90,12 @@
                         $currentDateTime = new DateTime();
 
                         // Compare the current datetime with the appointment start time plus 15 minutes
+                        /*
                         if ($currentDateTime > $appointmentStartTime) {
                         // Update the status to 'No Show'
                         $update_query = "UPDATE appointments SET status = 'No Show' WHERE id = $id";
                         mysqli_query($con, $update_query);
-                    }
+                    }*/
                   ?> 
                          <tr>
                          <td class='text-left'><?php echo $pname?></td>
@@ -103,7 +103,6 @@
                          <td class='text-left'><?php echo $atime?></td>
                          <td class='text-left'><?php echo $tfinish?></td>
                          <td class='text-left'><?php echo $service?></td>
-                         <td class='text-left'><?php echo "₱".$price?></td>
                          </td>
                      
                      <td class='text-center'>

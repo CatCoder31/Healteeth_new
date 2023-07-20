@@ -1,10 +1,9 @@
 <?php
    // Initialize the session
    session_start();
-   
-   
    // database connection
    include('config.php');
+   $doc_id = $_SESSION['id'];
    ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -157,7 +156,7 @@
                      <div class="card-counter primary">
                         <i class="fa fa-calendar-check-o"></i>
                         <?php
-                           $sql = "SELECT * FROM `appointments` a INNER JOIN user u ON a.doctor_id=u.id WHERE a.appointment_date = CURRENT_DATE AND role = 'Doctor' AND status = 'Approved'";
+                           $sql = "SELECT * FROM `appointments` a INNER JOIN user u ON a.doctor_id=u.id WHERE a.appointment_date = CURRENT_DATE AND role = 'Doctor' AND status = 'Approved' AND u.id = '$doc_id'";
                            $query = $con->query($sql);
                            $countAppointment = $query->num_rows;
                            ?>
@@ -169,7 +168,7 @@
                      <div class="card-counter danger">
                         <i class="fa fa-calendar-times-o"></i>
                         <?php
-                           $sql = "SELECT * FROM `appointments` a INNER JOIN user u ON a.doctor_id=u.id WHERE a.appointment_date = CURRENT_DATE AND role = 'Doctor' AND status = 'Cancel'";
+                           $sql = "SELECT * FROM `appointments` a INNER JOIN user u ON a.doctor_id=u.id WHERE a.appointment_date = CURRENT_DATE AND role = 'Doctor' AND status = 'Cancel' AND u.id = '$doc_id'";
                            $query = $con->query($sql);
                            $countVoters = $query->num_rows;
                            ?>
@@ -181,7 +180,7 @@
                      <div class="card-counter yellow">
                         <i class="fa fa-check-square"></i>
                         <?php
-                           $sql = "SELECT * FROM `appointments` a INNER JOIN user u ON a.doctor_id=u.id WHERE a.appointment_date = CURRENT_DATE AND role = 'Doctor' AND status='Done'";
+                           $sql = "SELECT * FROM `appointments` a INNER JOIN user u ON a.doctor_id=u.id WHERE a.appointment_date = CURRENT_DATE AND role = 'Doctor' AND status='Done' AND u.id = '$doc_id'";
                            $query = $con->query($sql);
                            $countDone = $query->num_rows;
                            ?>
@@ -196,7 +195,7 @@
                      <div class="card-counter red">
                         <i class="fa fa-exclamation-circle"></i>
                         <?php
-                           $sql = "SELECT * FROM `appointments` a INNER JOIN user u ON a.doctor_id=u.id WHERE a.appointment_date = CURRENT_DATE AND role = 'Doctor'  AND status='No Show'";
+                           $sql = "SELECT * FROM `appointments` a INNER JOIN user u ON a.doctor_id=u.id WHERE a.appointment_date = CURRENT_DATE AND role = 'Doctor' AND status='No Show' AND u.id = '$doc_id'";
                            $query = $con->query($sql);
                            $countNo = $query->num_rows;
                            ?>
@@ -245,7 +244,7 @@
                   </tr>
                </thead>
                <?php
-                  $get_data = "SELECT * FROM `appointments` INNER JOIN services ON appointments.service=services.service_id WHERE appointment_date=CURRENT_DATE AND status='Approved'";
+                  $get_data = "SELECT * FROM `appointments` INNER JOIN services ON appointments.service=services.service_id WHERE appointment_date=CURRENT_DATE AND status='Approved' AND doctor_id = '$doc_id'";
                   $run_data = mysqli_query($con,$get_data);
                   while($row = mysqli_fetch_array($run_data))
                   {
