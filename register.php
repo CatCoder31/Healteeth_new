@@ -16,6 +16,8 @@
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,400;0,800;0,900;1,100;1,200;1,300;1,400;1,800;1,900&display=swap" rel="stylesheet">
        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
       <style type="text/css">
          @media (min-width: 768px) {
          .navbar-brand.abs
@@ -348,6 +350,11 @@
                                     <p class="mb-0 me-2 register_p">Already have an account?</p>
                                     <a href="login.php" class="register_link_btn">Sign In</a>
                                  </div>
+
+                                 <div align="center">
+                              <div class="g-recaptcha mb-2" data-sitekey="6LeMGTwnAAAAAJf1tHPbJNAu6GC7qPpS4EBug-pQ"></div>
+                              </div>
+
                                     <input type="checkbox" required> Accept <a type="button" href="" data-bs-toggle="modal" data-bs-target="#exampleModal" style="text-decoration: none;">Terms and Conditions</a>
                                  </div>  
                                  
