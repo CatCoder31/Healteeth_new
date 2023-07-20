@@ -100,15 +100,17 @@ session_start();
       .header_photo{
          width: 100%;
       }
-      .header_text{
-         padding-top: 20%;
-         padding-bottom: 20%;
-         padding-left: 13%;
-         font-family: 'Montserrat';
-      }
+      .header_text {
+  padding-top: 20%;
+  padding-bottom: 20%;
+  padding-left: 5%;
+  font-family: 'Montserrat';
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
       .header_h1{
          font-weight:bold;
-         font-size:4rem;
+         font-size:3rem;
          color: #4052a4;
       }
       .header_p{
@@ -611,9 +613,9 @@ if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     <?php $fileName = basename($_SERVER['PHP_SELF']); ?>
     <input type="hidden" name="current_page" value="<?php echo $fileName; ?>">
 
-    <div class="text-left">
-        <input type="submit" class="btn btn-lg btn-outline-info contact_us_btn" value="Send Message">
-    </div>
+    <div class="text-center mb-2"> <!-- Updated class to center the button -->
+    <input type="submit" class="btn btn-lg btn-outline-info contact_us_btn" value="Send Message">
+  </div>
 </form>
       </div>
     </div>

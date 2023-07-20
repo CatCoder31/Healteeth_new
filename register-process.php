@@ -22,12 +22,6 @@ $username_err = $name_err = $password_err = $confirm_password_err = $email_err =
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate username
-    if (empty(trim($_POST["username"]))) {
-        $username_err = "Please enter a username.";
-    } else {
-        $username = trim($_POST["username"]);
-    }
-
     // Validate email
     if (empty(trim($_POST["email"]))) {
         $email_err = "Please enter an email.";
@@ -127,7 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Send verification email
 
 
-                $confirmationLink = "http://localhost/Healteeth/verify.php?token=$verification_token";
+                $confirmationLink = "https://healteeth.online/verify.php?token=$verification_token";
 
 
 
@@ -245,7 +239,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             <p><a href="$confirmationLink" class="button">Confirm Your Email</a></p>
                                             <br>
                                             <p>Or copy and paste the link on yout browser</p>
-                                            <a href="">http://localhost/Healteeth/verify.php?token=$verification_token</a>
+                                            <a href="">https://healteeth.online/verify.php?token=$verification_token</a>
                                         </div>
                                         
                                         </div>

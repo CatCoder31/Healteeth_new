@@ -86,7 +86,6 @@ include('config.php');
                     <th class="text-center" scope="col">No.</th>
                     <th class="text-center" scope="col">Category</th>
                     <th class="text-center" scope="col">Service</th>
-                    <th class="text-center" scope="col">Price</th>
                     <th class="text-center" scope="col">Duration</th>
                     <th class="text-center" scope="col">View</th>
                     <th class="text-center" scope="col">Edit</th>
@@ -102,14 +101,12 @@ include('config.php');
                     $id = $row['service_id'];
                     $category_name = $row['category_name'];
                     $service_name = $row['service_name'];
-                    $service_price = $row['service_price'];
                     $service_duration = $row['service_duration'];
                     ?>
                     <tr>
                         <td class='text-center'><?php echo $sl; ?></td>
                         <td class='text-left'><?php echo $category_name; ?></td>
                         <td class='text-left'><?php echo $service_name; ?></td>
-                        <td class='text-left'><?php echo $service_price; ?></td>
                         <td class='text-left'><?php echo getServiceDuration($service_duration); ?></td>
                         <td class='text-center'>
                             <span>
@@ -168,7 +165,6 @@ while ($row = mysqli_fetch_array($run_data)) {
     $id = $row['service_id'];
     $c_name = $row['category_name'];
     $s_name = $row['service_name'];
-    $s_price = $row['service_price'];
     $s_duration = $row['service_duration'];
     ?>
     <div class='modal fade' id='view<?php echo $id; ?>' tabindex='-1' role='dialog' aria-labelledby='userViewModalLabel' aria-hidden='true'>
@@ -187,7 +183,6 @@ while ($row = mysqli_fetch_array($run_data)) {
                                 <p class='text-secondary'>
                                     <strong>Category:</strong> <?php echo $c_name; ?><br>
                                     <strong>Service:</strong> <?php echo $s_name; ?><br>
-                                    <strong>Price:</strong> <?php echo $s_price; ?><br>
                                     <strong>Price:</strong> <?php echo getServiceDuration($s_duration); ?><br>
                                 </p>
                                 <!-- Split button -->
@@ -211,7 +206,6 @@ while ($row = mysqli_fetch_array($run_data)) {
     $id = $row['service_id'];
     $cc_name = $row['category_name'];
     $ss_name = $row['service_name'];
-    $ss_price = $row['service_price'];
     $ss_duration = $row['service_duration'];
     ?>
     <div id='edit<?php echo $id; ?>' class='modal fade' role='dialog'>
@@ -231,10 +225,6 @@ while ($row = mysqli_fetch_array($run_data)) {
                             <div class='form-group col-md-12'>
                                 <label for='s_name'>Service Name</label>
                                 <input type='text' class='form-control' name='se_name' placeholder='Enter Service' value='<?php echo $ss_name; ?>'>
-                            </div>
-                            <div class='form-group col-md-12'>
-                                <label for='s_price'>Price</label>
-                                <input type='text' class='form-control' name='se_price' placeholder='Enter Price' value='<?php echo $ss_price; ?>'>
                             </div>
                             <div class='form-group col-md-12'>
                                 <label for='s_price'>Duration</label>

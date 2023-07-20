@@ -26,7 +26,7 @@
   }
 
   .container {
-    max-width: 30%;
+    max-width: 80%;
     margin: 0 auto;
     padding: 20px;
     border-radius: 5px;

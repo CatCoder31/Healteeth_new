@@ -342,7 +342,7 @@ Healthteeth dentists offer specialized care for all dental needs at our full-ser
 OUR <span style="color: #fff">STORY</span>
 </h1>
 <p class="header_p">
-our story is one of passion and dedication to revolutionizing dental care. With specialized dentists, state-of-the-art technology, and a welcoming environment, we provide comprehensive services tailored to your needs. Our mission is to ensure your dental health, comfort, and confidence, so you can enjoy a beautiful smile that brings joy to your life.
+Our story is one of passion and dedication to revolutionizing dental care. With specialized dentists, state-of-the-art technology, and a welcoming environment, we provide comprehensive services tailored to your needs. Our mission is to ensure your dental health, comfort, and confidence, so you can enjoy a beautiful smile that brings joy to your life.
 </p>
 </div>
 </div>

@@ -1,7 +1,6 @@
 
 <?php
 
-// Rest of your PHP code goes here
 ?>
 
 
@@ -47,43 +46,37 @@
 
         
 <?php
-$profileimg = $_SESSION['profile_photo'];
-
-if ($profileimg == 'null') {
-    // Display a default photo when $profile_photo is null
-    $profileimg = 'assets/image/profile_placeholder.png';
-} else {
-    // Display the actual profile photo when $profile_photo is not null
-    $profileimg = $_SESSION['profile_photo'];
-}
-
 // Check if user is logged in
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
-  $username = isset($_SESSION['username']) ? $_SESSION['username'] : "Username not found in session";
-
-
-  
+    $username = $_SESSION['username'];
+    $profile_photo = $_SESSION['profile_photo'];
+    
     echo '
     <li class="nav-item dropdown">
-           <a class="nav-link btn btn-outline-info dropdown_btn profile_btn" href="#" data-bs-toggle="dropdown"> 
-           <img src="'.$profileimg.'" width="40" height="40" class="rounded-circle">
-           '.$username.'</a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="appointment-list.php">APPOINTMENTS</a></li>
-                <li><a class="dropdown-item" href="user-profile.php">PROFILE</a></li>
-                <li><a class="dropdown-item" href="logout.php">SIGN OUT</a></li>
-            </ul>
-        </li>
+        <a class="nav-link btn btn-outline-info dropdown_btn profile_btn" href="#" data-bs-toggle="dropdown"> 
+            <img src="'.$_SESSION['profile_photo'].'" width="40" height="40" class="rounded-circle">
+            '.$username.'
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="appointment-list.php">APPOINTMENTS</a></li>
+            <li><a class="dropdown-item" href="user-profile.php">PROFILE</a></li>
+            <li><a class="dropdown-item" href="logout.php">SIGN OUT</a></li>
+        </ul>
+    </li>
     ';
 } else {
-  $link='login.php';
+    $link = 'login.php';
+    
     echo '
     <li class="nav-item">
-          <a class="nav-link btn btn-outline-info dropdown_btn" onclick="location.href=\'' . $link . '\'">SIGN IN/REGISTER</a>
-        </li>
+        <a class="nav-link btn btn-outline-info dropdown_btn" onclick="location.href=\'' . $link . '\'">SIGN IN/REGISTER</a>
+    </li>
     ';
 }
 ?>
+
+
+
 
 
 

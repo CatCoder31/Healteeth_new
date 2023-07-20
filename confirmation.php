@@ -37,261 +37,202 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["token"])) {
                     ?>
 
                     <!DOCTYPE html>
-                    <html>
-                    <head>
-                        <title>Complete your Profile | HealTeeth</title>
-<link rel="icon" type="image/x-icon" href="assets/healteeth.ico">
-                        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-                        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-                        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-                        <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+<html>
 
+<head>
+  <title>Complete your Profile | HealTeeth</title>
+  <link rel="icon" type="image/x-icon" href="assets/healteeth.ico">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Add viewport meta tag -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
-                    </head>
-                    <style>
-                         body {
-                        font-family: 'montserrat';
-                    }
+  <style>
+    body {
+      font-family: 'Montserrat';
+    }
 
-  html,
-  body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
 
-  .container {
-    max-width: 80%;
-    margin: 0 auto;
-    margin-top:5%;
-    padding: 20px;
-    border-radius: 5px;
-  }
+    .container {
+      max-width: 80%;
+      margin: 0 auto;
+      margin-top: 5%;
+      padding: 20px;
+      border-radius: 5px;
+    }
 
-  label {
-    display: block;
-    margin-bottom: 10px;
-  }
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
 
-  input[type="email"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    border-radius: 50px;
-  }
+    input[type="email"],
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      border-radius: 50px;
+    }
 
-  button {
-    background-color: #4CAF50;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+    button {
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
 
-  p {
-    margin-bottom: 10px;
-  }
+    p {
+      margin-bottom: 10px;
+    }
 
-  .success {
-    color: green;
-  }
+    .success {
+      color: green;
+    }
 
-  .error {
-    color: red;
-  }
+    .error {
+      color: red;
+    }
 
-  .logo_img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 35%;
-  }
+    .logo_img {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 35%;
+    }
 
-  .resetButton {
-    width: 100%;
-    border-radius: 50px;
-  }
+    .resetButton {
+      width: 100%;
+      border-radius: 50px;
+    }
 
-  .signin_h2 {
-    text-align: center;
-    font-family: 'Montserrat';
-    font-weight: bold;
-    font-size: 1rem;
-    color: #4052a4;
-    position: relative;
-    padding-bottom: 10px;
-    padding-bottom: 20px;
-  }
+    .text-center2 {
+      text-align: center;
+      font-family: 'Montserrat';
+      font-weight: bold;
+      font-size: 3rem;
+      color: #4052a4;
+      position: relative;
+      padding-bottom: 10px;
+      padding-bottom: 20px;
+    }
 
-  .center-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-  }
+    .center-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
 
-  .register_link_btn {
-    font-family: 'Montserrat';
-    color: #65cad7;
-    transition: 0.2s;
-    font-weight: bold;
-    text-decoration: none;
-  }
+    .form-group {
+      margin-bottom: 25px;
+    }
 
-  .register_p {
-    font-family: 'Montserrat';
-    color: #4052a4;
-    font-weight: light;
-  }
+    @media (max-width: 768px) {
+      .container {
+        max-width: 90%;
+      }
 
-  .back-2signin {
-    padding-top: 10px;
-  }
+      .text-center2 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
 
-  .text-center {
-    text-align: center;
-    font-family: 'Montserrat';
-    font-weight: light;
-    font-size: 1rem;
-    color: #4052a4;
-    position: relative;
-    padding-bottom: 10px;
-    padding-bottom: 20px;
-  }
-
-  .text-center2 {
-    text-align: center;
-    font-family: 'Montserrat';
-    font-weight: bold;
-    font-size: 3rem;
-    color: #4052a4;
-    position: relative;
-    padding-bottom: 10px;
-    padding-bottom: 20px;
-  }
-
-  .modal-body {
-    padding: 7%;
-  }
-
-  .modal-content {
-    border-radius: 60px;
-  }
-
-  .form-control {
-    width: 100%;
-    border-radius: 50px;
-    height: 50px;
-    margin-bottom: 15px;
-  }
-  .field-icon {
-  float: right;
-  margin-right: 10px;
-  margin-top: -60px;
-  position: relative;
-  z-index: 2;
-   font-size: 1em;
-}
-
-.btn_change{
-  border:none;
-  background-color: transparent;
-    background-repeat: no-repeat;
-}
-
-.logo_img{
-    width: 20%;
-}
-
-   @media (max-width:590px) {
-
-    .logo_img{
-    width: 70%;
-}
-   }
-                    </style>
-                    <body>
-                       <div class="container">
-                         <img src="assets/image/Healteeth Logo.png" class="logo_img" alt="">
-        <br>
-                         <h1 class="text-center2">Complete Your Profile</h1>
+<body>
+  <div class="container">
+    <img src="assets/image/Healteeth Logo.png" class="logo_img" alt="">
+    <br>
+    <h1 class="text-center2">Complete Your Profile</h1>
     <div class="row justify-content-center">
-        <div class="col-md-6">
-            <form action="process_update_info.php" method="POST">
-                <input type="hidden" name="token" value="<?php echo $verification_token; ?>">
-                <div class="form-group">
-                    <input type="text" name="contact_number" placeholder="Contact Number" class="form-control" required style="border-radius: 50px;">
-                </div>
+      <div class="col-md-6">
+        <form action="process_update_info.php" method="POST">
+          <input type="hidden" name="token" value="<?php echo $verification_token; ?>">
+          <div class="form-group">
+            <input type="text" name="contact_number" placeholder="Contact Number" class="form-control" required>
+          </div>
 
-                <div class="form-group">
-                    <input type="text" name="full_address" placeholder="Enter Address" class="form-control" required style="border-radius: 50px;">
-                </div>
+          <div class="form-group">
+            <input type="text" name="full_address" placeholder="Enter Address" class="form-control" required>
+          </div>
 
-                <div class="form-group">
-                    <input type="text" name="emergency_contact_name" class="form-control"  placeholder="Emergency Contact Name" required style="border-radius: 50px;">
-                </div>
+          <div class="form-group">
+            <input type="text" name="emergency_contact_name" class="form-control" placeholder="Emergency Contact Name"
+              required>
+          </div>
 
-                <div class="form-group">
-                    <input type="text" name="emergency_contact_number" class="form-control"  placeholder="Emergency Contact Number" required style="border-radius: 50px;">
-                </div>
+          <div class="form-group">
+            <input type="text" name="emergency_contact_number" class="form-control" placeholder="Emergency Contact Number"
+              required>
+          </div>
 
-                <div class="form-group">
-                    <select name="language" class="form-control" placeholder="Select Language" required style="border-radius: 50px;">
-                        <?php
-                        // Array of languages
-                        $languages = array(
-                            "English",
-                            "Filipino",
-                            "Cebuano",
-                            "Ilocano",
-                            "Hiligaynon",
-                            "Waray-Waray",
-                            "Kapampangan",
-                            "Bicolano",
-                            "Pangasinense",
-                            "Maranao",
-                            "Tausug",
-                            "Maguindanaoan",
-                            "Ibanag",
-                            "Chavacano",
-                            "Surigaonon",
-                            "Ivatan",
-                            // Add more languages as needed
-                        );
+          <div class="form-group">
+            <select name="language" class="form-control" placeholder="Select Language" required>
+              <?php
+              // Array of languages
+              $languages = array(
+                "English",
+                "Filipino",
+                "Cebuano",
+                "Ilocano",
+                "Hiligaynon",
+                "Waray-Waray",
+                "Kapampangan",
+                "Bicolano",
+                "Pangasinense",
+                "Maranao",
+                "Tausug",
+                "Maguindanaoan",
+                "Ibanag",
+                "Chavacano",
+                "Surigaonon",
+                "Ivatan",
+                // Add more languages as needed
+              );
 
-                        // Sort the languages alphabetically
-                        sort($languages);
+              // Sort the languages alphabetically
+              sort($languages);
 
-                        // Iterate over the languages and generate the options
-                        foreach ($languages as $language) {
-                            echo "<option value=\"$language\">$language</option>";
-                        }
-                        ?>
-                    </select>
-                </div>
+              // Iterate over the languages and generate the options
+              foreach ($languages as $language) {
+                echo "<option value=\"$language\">$language</option>";
+              }
+              ?>
+            </select>
+          </div>
 
-                 <div class="form-group">
-                    <label for="gender">Gender:</label>
-                    <div>
-                        <input type="radio" name="gender" value="Male" required> Male
-                        <input type="radio" name="gender" value="Female" required> Female
-                        <input type="radio" name="gender" value="Other" required> Other
-                    </div>
-                </div>
+          <div class="form-group">
+            <label for="gender">Gender:</label>
+            <div>
+              <input type="radio" name="gender" value="Male" required> Male
+              <input type="radio" name="gender" value="Female" required> Female
+              <input type="radio" name="gender" value="Other" required> Other
+            </div>
+          </div>
 
-                <div class="form-group">
-                    <input type="submit" value="Submit Profile" class="btn btn-outline-info btn-lg resetButton">
-                </div>
-            </form>
-        </div>
+          <div class="form-group">
+            <input type="submit" value="Submit Profile" class="btn btn-outline-info btn-lg resetButton">
+          </div>
+        </form>
+      </div>
     </div>
-</div>
+  </div>
+</body>
 
-                    </body>
-                    </html>
+</html>
+
 
                     <?php
                 } else {
