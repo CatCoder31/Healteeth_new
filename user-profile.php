@@ -16,7 +16,7 @@
    $full_address = $row['full_address'];
    $profile_photo = $row['profile_photo'];
    $gender = $row['gender'];
-   $language = $row['language'];
+   $birthdate = $row['birthdate'];
    $emergency_contact_name = $row['emergency_contact_name'];
    $emergency_contact_number = $row['emergency_contact_number'];
    $password = $row['password'];
@@ -610,7 +610,7 @@
                               </div>
                               <div class="col-xs-12 col-sm-6">
                                  <div class="">
-                                    <p class="profile-info"><?php echo $language; ?></P>
+                                    <p class="profile-info"><?php echo date("F j, Y",strtotime($birthdate)); ?></P>
                                  </div>
                               </div>
                               <!---->
@@ -752,7 +752,7 @@
                               </div>
                            </div>
                            <div class="col">
-                              <input type="date" class="form-control" name="language" value="<?php echo $language; ?>">
+                              <input type="date" class="form-control" name="birthdate" value="<?php echo $birthdate; ?>">
                            </div>
                         </div>
                      </div>

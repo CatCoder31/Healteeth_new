@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contact_number = $_POST['contact_number'];
     $full_address = $_POST['full_address'];
     $gender = $_POST['gender'];
-    $language = $_POST['language'];
+    $birthdate = $_POST['birthdate'];
     $emergency_contact_name = $_POST['emergency_contact_name'];
     $emergency_contact_number = $_POST['emergency_contact_number'];
 
@@ -29,8 +29,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_id = $_POST['user_id']; // Replace with your actual user ID
 
     // Update the user's information in the database
-    $sql = "UPDATE user SET full_name = ?, username = ?, email_address = ?, contact_number = ?, full_address = ?, gender = ?, language = ?, emergency_contact_name = ?, emergency_contact_number = ?";
-    $params = array($full_name,  $username, $email_address, $contact_number, $full_address, $gender, $language, $emergency_contact_name, $emergency_contact_number);
+    $sql = "UPDATE user SET full_name = ?, username = ?, email_address = ?, contact_number = ?, full_address = ?, gender = ?, birthdate = ?, emergency_contact_name = ?, emergency_contact_number = ?";
+    $params = array($full_name,  $username, $email_address, $contact_number, $full_address, $gender, $birthdate, $emergency_contact_name, $emergency_contact_number);
 
     // Add profile photo update to the SQL query and parameters if a profile photo is uploaded
     if (!empty($profile_photo)) {

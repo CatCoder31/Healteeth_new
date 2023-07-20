@@ -132,7 +132,7 @@ CREATE TABLE `user` (
   `contact_number` varchar(100) NOT NULL,
   `full_address` varchar(100) NOT NULL,
   `gender` varchar(10) NOT NULL,
-  `language` varchar(70) NOT NULL,
+  `birthdate` date NOT NULL,
   `emergency_contact_name` varchar(100) NOT NULL,
   `emergency_contact_number` varchar(100) NOT NULL,
   `profile_photo` varchar(555) DEFAULT NULL,
@@ -149,22 +149,12 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `full_name`, `email_address`, `password`, `contact_number`, `full_address`, `gender`, `language`, `emergency_contact_name`, `emergency_contact_number`, `profile_photo`, `medical_record`, `role`, `email_verified`, `verification_token`, `username`, `token_created_at`, `token`) VALUES
-(1, 'Valentine Pace', 'jaroqu@mailinator.com', '$2y$10$nEUZ83gMKs1upui0eS4EWOH0I43gu8iA/fuVvOQqF/uBkK77NoHSy', '', 'Culpa officiis veni', '', '', '', '', NULL, NULL, 'Patient', 0, '4bbd0840548f7c28826868b17f3346d7353386016748872dea0f173f793c154e', 'gisavi', '2023-07-06 18:36:18', NULL),
-(2, 'Naomi Guerra', 'ruqaxycupe@mailinator.com', '$2y$10$Hl3eucBCSMKKJcIiZr2nS.9aOX92HJQ1z5epu01iVCANJWipy67jC', '', 'Culpa officiis veni', '', '', '', '', NULL, NULL, 'Patient', 0, 'bdf49d0cfa6f3403b9a2bcd5388d815cbad0aa5c9fcb2c81b8139494dac1093b', 'bipuzo', '2023-07-06 18:37:43', NULL),
-(3, 'Xantha Lott', 'laikamaea@gmail.com', '$2y$10$Z.4lusSgvN5JKf7xrUztLeSqbzzj9MF4rJLGqmDuUCdZibtNQr5Cu', '+1 (619) 162-9842', 'Culpa officiis veni', '', '', '', '', NULL, NULL, 'Patient', 0, 'aae1340fe852b0e92cf4edec054e0f3e8005776c7b5a493d818505a7585f9cb1', 'hojekori', '2023-07-06 19:13:43', NULL),
-(4, 'Joelle Lawrence', 'ligac@mailinator.com', '$2y$10$Eh2AqlP9HLk.Z7WzYd4O0eGEmCTZrgGAlWjNyjcH5dToWjYW/MWbe', '+1 (619) 162-9842', 'Culpa officiis veni', '', '', '', '', NULL, NULL, 'Patient', 0, '6f36671f55c35760f8a5f29cb074db5db19c4663f5f9763352eb64c3f2e956a0', 'gisavi', '2023-07-06 19:29:41', NULL),
-(5, 'Patrick Edwards', 'lyjybobob@mailinator.com', '$2y$10$7vdzFxndw6eqR/VALb5sAez/4UVFPWcPQB/E8xtaRyV1BGUsF3dTa', '+1 (619) 162-9842', 'Culpa officiis veni', '', '', '', '', NULL, NULL, 'Patient', 0, NULL, '', '0000-00-00 00:00:00', NULL),
-(6, 'John Benedict Areta', 'Jbareta2@gmail.com', '$2y$10$vwpNpfPCeF3QiHVVVBJDouzSrkNzFpR97aSFopZKlqcTwYpm52Wu.', '09760590742', 'Unit 431 bldg 4 guadalupe bliss', 'Male', 'English', 'Laika Mae Amano', '09760590742', 'assets/upload_images/64a74e1e662ed.jpg', NULL, 'Patient', 1, '1c895bc5cc5da38c2bacc5706eefb2f0088d6df1cba260b435de44dfef85844b', 'Benedict', '2023-07-06 21:04:12', 'c772eb427d44dc040b9b468fa3f9e154afc5050f65fcde0a9f75d704ce3c5bfb'),
-(7, 'John Benedict Gabriel Areta', 'aretabenedict01@gmail.com', '$2y$10$77XUW52SRDqagKI95nBQDewHpPUhhG.Op5ryoHRZOe5Zp8.SAi66m', '09760590742', 'Unit 431 bldg 4 guadalupe bliss', 'Male', 'Filipino', 'Eaton Dennis', 'username', 'assets/upload_images/64a7922f4f50a.png', NULL, 'Patient', 1, '8d20a6729d6000fc355b1abd4133239e24df8a4a262eb9c2ca0aa0c4090c0186', 'benedict', '2023-07-06 23:57:59', '867412d481c94a18b2addcc648f244a172ea09eb5cf61102e0d823a44d86aa50'),
-(8, 'Josephine Garcia', 'keravyfub@mailinator.com', '$2y$10$MP1LZ/P.Xq7u8u6MmYQAleqe.TY8sHvUaI.0o2VpvfsIV.iptEdi.', '', '', '', '', '', '', NULL, NULL, 'Patient', 0, 'bef54e40d83a36954d5ecce1811a42ebe50af20b4aded77673558f84f51eceeb', 'zukajypeha', '2023-07-07 09:47:06', NULL),
-(9, 'Lloyd Tabunggao', 'lloydtab@gmail.com', '$2y$10$zbdQg/SbRSndf/WIwyNxmOpY837dcJIzZcpZqUdLA.xRt3qbf97TO', '0917284011', 'Cembo Makati', 'Male', '1999-11-01', 'Francis Tadena', '09182038501', 'assets/upload_images/64a7ef9b6cd32.png', NULL, 'Patient', 1, 'a911f119bb7d39e69e621ada06f17da11f97d12c01758e0bafb38728af7e0dd0', 'lloydzkie', '2023-07-07 09:55:39', NULL),
-(10, 'Gene Lloyd Tabunggao', 'genelloyd@gmail.com', '$2y$10$7vdzFxndw6eqR/VALb5sAez/4UVFPWcPQB/E8xtaRyV1BGUsF3dTa', '09164810193', 'Repellendus Corpori', 'Male', 'Bicolano', 'Bernard Tadena', '864', 'assets/upload_images/64a7af70c9e7e.jpg', NULL, 'Doctor', 1, '4ed9d6561cb2f6f67ce4b3d4ae940060c1c71126cabedaa6730b099da892ebfd', 'nopyv', '2023-07-07 14:17:47', NULL),
-(11, 'GL Tabunggao', 'gtabunggao@gmail.com', '$2y$10$r1G0yPkaFvxrsFasURyiFet.yXsn3t7ABUaBmvsHtvNdJGj3gcdia', '09189768084', 'Cembo Makati', 'Male', 'Bicolano', 'Lloyd', '091284912041', NULL, NULL, 'Patient', 1, 'faabaeaa4ff3f6d03a0c0957eff56268ea7ece6b8916e0cd6dfd104d3161e03d', 'genezkie', '2023-07-07 21:26:30', NULL),
-(12, 'GL Tabunggao', 'tgenelloyd0190@gmail.com', '$2y$10$gBONXdIjp1mwm5hsjNibdOY9ET4Zl.c25B7Fu8DzAie5a6V09lOd2', '', '', '', '', '', '', NULL, NULL, 'Patient', 0, 'd74fb321c38aa8606c60709fb3053a781f84e2947180c90e46540dca7ea75202', 'lloydie', '2023-07-20 14:35:32', NULL),
-(13, 'GeneLloyd Tab', 'gtabunggao.a61816078@umak.edu.ph', '$2y$10$IUBJYzVx6xV1wAzX.y8RZ.Ef0KPkBMMVWubu.CJvcMxxWPxeKH/dK', '09123715810', 'Cembo Makati', 'Male', '1999-11-01', 'BTade', '09179501847', NULL, NULL, 'Patient', 1, '35e07f3b5f22f47c973a85dcaf464a53771f151e4974bdc4fc44d2acc9fb464e', 'gltab', '2023-07-20 15:08:19', NULL),
-(14, 'Lucinda Jones', 'ljones@gmail.com', '$2y$10$7vdzFxndw6eqR/VALb5sAez/4UVFPWcPQB/E8xtaRyV1BGUsF3dTa', '09173910481', 'Makati', '', '', '', '', NULL, NULL, 'Doctor', 1, NULL, '', '0000-00-00 00:00:00', NULL),
-(15, 'Maggie Davies', 'mdavis@gmail.com', '$2y$10$fH8tjqeLXCyAgSj2XjxbPOimSFtriE8zjwaz95TaQakWU2XUCx6xe', '09182840104', 'Isle City', '', '', '', '', NULL, NULL, 'Doctor', 1, NULL, '', '0000-00-00 00:00:00', NULL);
+INSERT INTO `user` (`id`, `full_name`, `email_address`, `password`, `contact_number`, `full_address`, `gender`, `birthdate`, `emergency_contact_name`, `emergency_contact_number`, `profile_photo`, `medical_record`, `role`, `email_verified`, `verification_token`, `username`, `token_created_at`, `token`) VALUES
+(1, 'Syfer Smith', 'ssmith@gmail.com', '$2y$10$7vdzFxndw6eqR/VALb5sAez/4UVFPWcPQB/E8xtaRyV1BGUsF3dTa', '09173910481', 'Isle City', '', '', '', '', NULL, NULL, 'Doctor', 1, NULL, '', '0000-00-00 00:00:00', NULL),
+(2, 'Lucinda Jones', 'ljones@gmail.com', '$2y$10$7vdzFxndw6eqR/VALb5sAez/4UVFPWcPQB/E8xtaRyV1BGUsF3dTa', '09173841058', 'Isle City', '', '', '', '', NULL, NULL, 'Doctor', 1, NULL, '', '0000-00-00 00:00:00', NULL),
+(3, 'Maggie Davis', 'mdavis@gmail.com', '$2y$10$7vdzFxndw6eqR/VALb5sAez/4UVFPWcPQB/E8xtaRyV1BGUsF3dTa', '09182840104', 'Isle City', '', '', '', '', NULL, NULL, 'Doctor', 1, NULL, '', '0000-00-00 00:00:00', NULL),
+(4, 'Dominic Miller', 'dmiller@gmail.com', '$2y$10$7vdzFxndw6eqR/VALb5sAez/4UVFPWcPQB/E8xtaRyV1BGUsF3dTa', '09174810492', 'Isle City', '', '', '', '', NULL, NULL, 'Doctor', 1, NULL, '', '0000-00-00 00:00:00', NULL),
+(5, 'Lloyd Tabunggao', 'lloydtab@gmail.com', '$2y$10$7vdzFxndw6eqR/VALb5sAez/4UVFPWcPQB/E8xtaRyV1BGUsF3dTa', '0917284011', 'Cembo Makati', 'Male', '1999-11-01', 'Francis Tadena', '09182038501', 'assets/upload_images/64a7ef9b6cd32.png', NULL, 'Patient', 1, 'a911f119bb7d39e69e621ada06f17da11f97d12c01758e0bafb38728af7e0dd0', 'lloydzkie', '2023-07-07 09:55:39', NULL);
 
 --
 -- Indexes for dumped tables
@@ -233,7 +223,7 @@ ALTER TABLE `services`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

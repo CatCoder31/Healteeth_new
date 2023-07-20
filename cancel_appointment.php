@@ -83,7 +83,7 @@
                      </tr>
                   </thead>
                   <?php
-                     $get_data = "SELECT * FROM `appointments` INNER JOIN category on appointments.category=category.category_id INNER JOIN services ON appointments.service=services.service_id WHERE status='Cancel' AND doctor_id = '$doc_id'";
+                     $get_data = "SELECT * FROM `appointments` INNER JOIN category on appointments.category=category.category_id INNER JOIN services ON appointments.service=services.service_id WHERE status='Cancelled' AND doctor_id = '$doc_id'";
                      $run_data = mysqli_query($con,$get_data);
                      $i = 0;
                      while($row = mysqli_fetch_array($run_data))
@@ -133,7 +133,7 @@
             <!--====DELETE modal==-->
             <!-- Modal -->
             <?php
-               $get_data = "SELECT * FROM `appointments` WHERE status='Cancel' ";
+               $get_data = "SELECT * FROM `appointments` WHERE status='Cancelled' ";
                $run_data = mysqli_query($con,$get_data);
                
                while($row = mysqli_fetch_array($run_data))
@@ -168,7 +168,7 @@
                ?><!-- View modal  -->
             <?php 
                // <!-- profile modal start -->
-               $get_data = "SELECT * FROM `appointments` INNER JOIN category on appointments.category=category.category_id INNER JOIN services ON appointments.service=services.service_id WHERE status='Cancel' ";
+               $get_data = "SELECT * FROM `appointments` INNER JOIN category on appointments.category=category.category_id INNER JOIN services ON appointments.service=services.service_id WHERE status='Cancelled' ";
                $run_data = mysqli_query($con,$get_data);
                
                while($row = mysqli_fetch_array($run_data))
@@ -260,8 +260,7 @@
                                <label for='lang'>Status</label>
                      <select name='stats' id='lang' class='form-control'>
                        <option value=''>$status</option>
-                       <option value='Cancel'>Cancel</option>
-                       <option value='Cancel'>Cancel</option>
+                       <option value='Cancelled'>Cancelled</option>
                      </select>
                            </div>
                          

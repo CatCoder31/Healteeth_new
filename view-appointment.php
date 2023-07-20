@@ -324,6 +324,7 @@
                   $doc_id = $row['doctor_Id'];
                   $category = $row['category_name'];
                   $status = $row['status'];
+                  $reason_cancel = $row['cancel_reason'];
                   
                   $get_data1 = "SELECT * FROM `user` WHERE id = $doc_id;";
                   $run_data1 = mysqli_query($con, $get_data1);
@@ -392,7 +393,7 @@
                                  </div>
                               </div>
                            </div>
-                           <?php if ($status == "Cancel") { ?>
+                           <?php if ($status == "Cancelled") { ?>
                            <div class="row">
                               <div class="col-md-12">
                                  <div class="form-group">
@@ -409,7 +410,16 @@
                               </div>
                            </div>
                            <?php } ?>
-                           <?php if ($status == "Cancel") { ?>
+                           <?php if ($status == "Cancelled") { ?>
+                           <div class="row">
+                              <div class="col-md-12">
+                                 <div class="form-group">
+                                    <label for="form_name" class="view_appointment"><b>Cancelation Reason:</b> <?php echo $reason_cancel; ?></label>
+                                 </div>
+                              </div>
+                           </div>
+                           <?php } ?>
+                           <?php if ($status == "Cancelled") { ?>
                            <a href="appointment-list.php" class="btn btn-outline-info btn-send  pt-2 btn-block">Return to Appointment List</a>
                            <?php } else { ?>
                            <a href="appointment-list.php" class="btn btn-outline-info btn-send  pt-2 btn-block">Return to Appointment List</a>
