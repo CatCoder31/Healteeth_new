@@ -3,8 +3,7 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>Register | HealTeeth</title>
-<link rel="icon" type="image/x-icon" href="assets/healteeth.ico">
+      <title>HealTeeth</title>
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
@@ -291,7 +290,7 @@
    </head>
    <body>
       
-   <a href="index.php" class="">
+   <a href="welcome.php" class="">
       <img src="assets/image/Healteeth Logo.png" class="logo_img" alt="" >
                                 </a>
          <div class="container vertical-center">
@@ -315,7 +314,17 @@
    </div>
 
                                  <div class="form-outline mb-4">
-                                    <input type="text" name="name" placeholder="Full Name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" >
+                                    <input type="text" name="first_name" placeholder="First Name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" >
+                                    
+                                 </div>
+
+                                   <div class="form-outline mb-4">
+                                    <input type="text" name="middle_name" placeholder="Middle Name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" >
+                                    
+                                 </div>
+
+                                   <div class="form-outline mb-4">
+                                    <input type="text" name="last_name" placeholder="Last Name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" >
                                     
                                  </div>
 

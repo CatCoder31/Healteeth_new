@@ -7,11 +7,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve the verification token and other form inputs
     $verification_token = $_POST['token'];
     $number = $_POST['contact_number'];
-    $full_address = $_POST['full_address'];
+    $street_address = $_POST['street_address'];
+    $barangay_address = $_POST['barangay_address'];
+    $city_address = $_POST['city_address'];
+    $postal_address = $_POST['postal_address'];
     $gender = $_POST['gender'];
     $emergencyContact = $_POST['emergency_contact_name'];
     $emergencyContactNumber = $_POST['emergency_contact_number'];
     $language = $_POST['language'];
+
+
+    $full_address = $street_address . " " . $barangay_address . " " . $city_address. " " . $postal_address;
+    
+    //$full_address = $_POST['full_address'];
 
     // Update the user's profile information in the database
     $sql = "UPDATE user SET contact_number = ?, full_address = ?, gender = ?, emergency_contact_name = ?, emergency_contact_number = ?, language = ? WHERE verification_token = ?";

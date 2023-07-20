@@ -63,12 +63,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // Validate full name
-    if (empty(trim($_POST["name"]))) {
-        $name_err = "Please enter your full name.";
+    // Validate first name, middle name, and last name
+    if (empty(trim($_POST["first_name"]))) {
+        $first_name_err = "Please enter your first name.";
     } else {
-        $name = trim($_POST["name"]);
+        $first_name = trim($_POST["first_name"]);
     }
+
+    if (empty(trim($_POST["middle_name"]))) {
+        $middle_name_err = "Please enter your middle name.";
+    } else {
+        $middle_name = trim($_POST["middle_name"]);
+    }
+
+    if (empty(trim($_POST["last_name"]))) {
+        $last_name_err = "Please enter your last name.";
+    } else {
+        $last_name = trim($_POST["last_name"]);
+    }
+
+    // Concatenate first, middle, and last names
+    $name = $first_name . " " . $middle_name . " " . $last_name;
+
 
     // Validate password
     if (empty(trim($_POST["password"]))) {
@@ -270,7 +286,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'success' => false,
             'usernameError' => $username_err,
             'emailError' => $email_err,
-            'nameError' => $name_err,
+            'firstNameError' => $first_name_err,
+            'middleNameError' => $middle_name_err,
+            'lastNameError' => $last_name_err,
             'passwordError' => $password_err,
             'confirmPasswordError' => $confirm_password_err,
         ];

@@ -166,7 +166,19 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["token"])) {
     </div>
 
     <div class="form-group">
-        <input type="text" name="full_address" placeholder="Enter Address" class="form-control" required>
+        <input type="text" name="street_address" placeholder="Enter Street Address" class="form-control" required>
+    </div>
+
+      <div class="form-group">
+        <input type="text" name="barangay_address" placeholder="Enter Barangay" class="form-control" required>
+    </div>
+
+      <div class="form-group">
+        <input type="text" name="city_address" placeholder="Enter City" class="form-control" required>
+    </div>
+
+      <div class="form-group">
+        <input type="text" name="postal_address" placeholder="Enter Postal Code" class="form-control" required>
     </div>
 
     <div class="form-group">
