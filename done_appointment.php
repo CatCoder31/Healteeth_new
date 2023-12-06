@@ -9,6 +9,7 @@
    }
    // database connection
    include('config.php');
+   $doc_id = $_SESSION['id'];
    ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -79,11 +80,10 @@
                         <th class="text-center" scope="col">Appointment Date</th>
                         <th class="text-center" scope="col">Appointment Time</th>
                         <th class="text-center" scope="col">Service</th>
-                        <th class="text-center" scope="col">Price</th>
                      </tr>
                   </thead>
                   <?php
-                     $get_data = "SELECT * FROM `appointments` INNER JOIN services ON appointments.service=services.service_id WHERE appointment_date=CURRENT_DATE AND status='Done'";
+                     $get_data = "SELECT * FROM `appointments` INNER JOIN services ON appointments.service=services.service_id WHERE appointment_date=CURRENT_DATE AND status='Done' AND doctor_id = '$doc_id'";
                      $run_data = mysqli_query($con,$get_data);
                      while($row = mysqli_fetch_array($run_data))
                      {
@@ -92,7 +92,6 @@
                          $adate = date('F j, Y', (strtotime($row['appointment_date'])));
                          $atime = date('h:i A',(strtotime($row['appointment_time'])));
                          $service = $row['service_name'];
-                         $price = $row['service_price'];
                      
                          echo "
                      
@@ -101,7 +100,6 @@
                          <td class='text-left'>$adate</td>
                          <td class='text-left'>$atime</td>
                          <td class='text-left'>$service</td>
-                         <td class='text-left'>$price</td>
                      </tr>
                      
                          ";

@@ -23,9 +23,9 @@
      $full_address = $_POST['full_address'];
      $role = $_POST['role'];
    
-     $hash= md5($password);
+     $hash= password_hash($password, PASSWORD_DEFAULT);
    
-       $insert_data = "INSERT INTO user(full_name, email_address, password, contact_number, full_address, role) VALUES ('$full_name','$email_address','$hash','$contact_number','$full_address','$role')";
+       $insert_data = "INSERT INTO user(full_name, email_address, password, contact_number, full_address, role, email_verified) VALUES ('$full_name','$email_address','$hash','$contact_number','$full_address','$role', '1')";
        $run_data = mysqli_query($con,$insert_data);
    
        if($run_data){
@@ -140,10 +140,10 @@
                   <div class="col-md-6">
                      <label for="role">Role</label>
                      <select id="role" name="role" class="form-control">
-                        <option selected>N/A</option>
+                        <option selected disabled>Select Role</option>
                         <option value="Doctor">Doctor</option>
-                        <option value="Staff">Staff</option>
                      </select>
+                     </div>
                   </div>
                </div>
                <div class="form-group col-md-12" align="center">

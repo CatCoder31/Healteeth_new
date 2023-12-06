@@ -157,7 +157,7 @@ function compressImage($source, $destination, $quality) {
                   <label for="category_name">Category Name</label> <input type="text" class="form-control" name="category_name" placeholder="Enter Category Name" required="">
                </div>
                <div class="form-group col-md-6">
-                  <label for="descr">Description</label> <input type="text" class="form-control" name="descr" placeholder="Enter Last Name">
+                  <label for="descr">Description</label> <input type="text" class="form-control" name="descr" placeholder="Enter Descripton">
                </div>
                <div class="form-group col-md-12" align="center">
                   <input type="submit" name="submit" class="btn btn-info" value="Submit">

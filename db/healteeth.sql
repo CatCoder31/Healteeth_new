@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 22, 2023 at 02:36 PM
+-- Generation Time: Jul 20, 2023 at 04:14 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -41,7 +41,8 @@ CREATE TABLE `appointments` (
   `appointment_date` date NOT NULL,
   `appointment_time` time NOT NULL,
   `time_finish` time NOT NULL,
-  `status` varchar(100) NOT NULL DEFAULT 'Pending'
+  `cancel_reason` varchar(100) NOT NULL,
+  `status` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -62,11 +63,11 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`category_id`, `category_name`, `descr`, `image`) VALUES
-(1, 'Oral Prophylaxis', 'Cleaning', '17511687190774cleaning.png'),
-(2, 'Tooth Filling', 'Pasta', '150211687190781filling.png'),
-(3, 'Tooth Extraction', 'Bunot', '147071687190788extraction.png'),
-(4, 'Root Canal', 'Root Canal Treatment', '216731687190793rootcanal.png'),
-(5, 'Periapical Xray', 'Xray for the Root Canal', '21611687190320xray.png');
+(1, 'Oral Prophylaxis', 'Professional dental cleaning to maintain oral health ', '1549066042168812406217511687190774cleaning.png'),
+(2, 'Tooth Filling', 'Repairing tooth decay or damage with material.', '16938797091688124124150211687190781filling.png'),
+(3, 'Tooth Extraction', 'Removing a tooth for dental treatment purposes.', '8237505131688124150147071687190788extraction.png'),
+(4, 'Root Canal', 'Dental procedure to save an infected tooth.', '6764905541688124186216731687190793rootcanal.png'),
+(5, 'Periapical Xray', 'Tooth root and surrounding structure X-ray.', '2120664087168812421921611687190320xray.png');
 
 -- --------------------------------------------------------
 
@@ -94,7 +95,6 @@ CREATE TABLE `services` (
   `service_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
   `service_name` varchar(100) NOT NULL,
-  `service_price` varchar(100) NOT NULL,
   `service_duration` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -102,21 +102,21 @@ CREATE TABLE `services` (
 -- Dumping data for table `services`
 --
 
-INSERT INTO `services` (`service_id`, `category_id`, `service_name`, `service_price`, `service_duration`) VALUES
-(1, 1, 'Ordinary Cleaning', '800', '00:20:00'),
-(2, 1, 'Stain Removal with Cleaning', '2000', '00:30:00'),
-(3, 1, 'Deep Scaling with Gum Treatment', '2000', '02:00:00'),
-(4, 1, 'Topical Fluoride', '400', '00:10:00'),
-(5, 1, 'Fluoride Varnish', '1200', '00:20:00'),
-(6, 2, 'Tooth Filling Per Surface', '600', '01:00:00'),
-(7, 2, 'Class III or IV of Anterior Teeth', '1800', '02:00:00'),
-(8, 3, 'Simple Tooth Extraction', '800', '00:40:00'),
-(9, 3, 'Complicated Extraction', '1500', '01:00:00'),
-(10, 3, 'Wisdom or Impacted Tooth Removal', '9000', '01:00:00'),
-(11, 4, 'RCT Including 4 XRays', '7000', '00:30:00'),
-(12, 4, 'Composite Build-up', '2500', '01:30:00'),
-(13, 4, 'Fiber Post', '2500', '01:00:00'),
-(14, 5, 'Periapical Xray', '400', '00:30:00');
+INSERT INTO `services` (`service_id`, `category_id`, `service_name`, `service_duration`) VALUES
+(1, 1, 'Ordinary Cleaning', '00:20:00'),
+(2, 1, 'Stain Removal with Cleaning', '00:30:00'),
+(3, 1, 'Deep Scaling with Gum Treatment', '02:00:00'),
+(4, 1, 'Topical Fluoride', '00:10:00'),
+(5, 1, 'Fluoride Varnish', '00:20:00'),
+(6, 2, 'Tooth Filling Per Surface', '01:00:00'),
+(7, 2, 'Class III or IV of Anterior Teeth', '02:00:00'),
+(8, 3, 'Simple Tooth Extraction', '00:40:00'),
+(9, 3, 'Complicated Extraction', '01:00:00'),
+(10, 3, 'Wisdom or Impacted Tooth Removal', '01:00:00'),
+(11, 4, 'RCT Including 4 XRays', '00:30:00'),
+(12, 4, 'Composite Build-up', '01:30:00'),
+(13, 4, 'Fiber Post', '01:00:00'),
+(14, 5, 'Periapical Xray', '00:30:00');
 
 -- --------------------------------------------------------
 
@@ -131,26 +131,30 @@ CREATE TABLE `user` (
   `password` varchar(100) NOT NULL,
   `contact_number` varchar(100) NOT NULL,
   `full_address` varchar(100) NOT NULL,
-  `role` varchar(11) NOT NULL DEFAULT 'Patient'
+  `gender` varchar(10) NOT NULL,
+  `birthdate` date NOT NULL,
+  `emergency_contact_name` varchar(100) NOT NULL,
+  `emergency_contact_number` varchar(100) NOT NULL,
+  `profile_photo` varchar(555) DEFAULT NULL,
+  `medical_record` text DEFAULT NULL,
+  `role` varchar(11) NOT NULL DEFAULT 'Patient',
+  `email_verified` tinyint(1) NOT NULL DEFAULT 0,
+  `verification_token` varchar(100) DEFAULT NULL,
+  `username` varchar(50) NOT NULL,
+  `token_created_at` datetime NOT NULL,
+  `token` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `full_name`, `email_address`, `password`, `contact_number`, `full_address`, `role`) VALUES
-(1, 'Lloyd Tabunggao', 'genelloyd@gmail.com', '0192023a7bbd73250516f069df18b500', '123123', 'Cembo Makati', 'Doctor'),
-(2, 'Gene Tabunggao', 'gene13@gmail.com', '0192023a7bbd73250516f069df18b500', '124', 'Cembo Makati', 'Patient'),
-(3, 'Gene Lloyd', 'gene137@gmail.com', '0192023a7bbd73250516f069df18b500', '312123', 'Makati', 'Staff'),
-(4, 'Gene Lloyd Tabunggao', 'doctor@healteeth.com', '0192023a7bbd73250516f069df18b500', '925119375', 'Cembo Makati City', 'Doctor'),
-(5, 'Staff', 'staff@healteeth.com', '4297f44b13955235245b2497399d7a93', '2147483647', 'taguig', 'Staff'),
-(6, 'user', 'user@healteeth.com', '0192023a7bbd73250516f069df18b500', '2147483647', 'makati', 'Patient'),
-(7, 'Lloyd Tabunggao', 'lloydtab@gmail.com', '0192023a7bbd73250516f069df18b500', '09212575670', 'Cembo Makati', 'Patient'),
-(8, 'Joshua Lumelay', 'joshualumelay@gmail.com', 'fcea920f7412b5da7be0cf42b8c93759', '2147483647', 'emq ep apartment south side makati city', 'Patient'),
-(9, 'Laika Mae Amano', 'lamano@gmail.com', '0192023a7bbd73250516f069df18b500', '09182409635', 'Pembo Makati', 'Doctor'),
-(10, 'erwin ons', 'erwinson@gmail.com', '0192023a7bbd73250516f069df18b500', '09509972084', 'Sitio Upper Landing, Daanlungsod, Medellin, Cebu', 'Patient'),
-(11, 'Labio Tabunggao', 'ltabunggao@gmail.com', '7c5ebba9c7ab1ed409995d91e843f508', '09289768084', 'University of Makati', 'Patient'),
-(12, 'Gene Lloyd Tabunggao', 'gltab@gmail.com', 'b40776c28fa06e8983d17061e34e50cf', '09819284123', 'Cembo Makati', 'Patient');
+INSERT INTO `user` (`id`, `full_name`, `email_address`, `password`, `contact_number`, `full_address`, `gender`, `birthdate`, `emergency_contact_name`, `emergency_contact_number`, `profile_photo`, `medical_record`, `role`, `email_verified`, `verification_token`, `username`, `token_created_at`, `token`) VALUES
+(1, 'Syfer Smith', 'ssmith@gmail.com', '$2y$10$7vdzFxndw6eqR/VALb5sAez/4UVFPWcPQB/E8xtaRyV1BGUsF3dTa', '09173910481', 'Isle City', '', '', '', '', NULL, NULL, 'Doctor', 1, NULL, '', '0000-00-00 00:00:00', NULL),
+(2, 'Lucinda Jones', 'ljones@gmail.com', '$2y$10$7vdzFxndw6eqR/VALb5sAez/4UVFPWcPQB/E8xtaRyV1BGUsF3dTa', '09173841058', 'Isle City', '', '', '', '', NULL, NULL, 'Doctor', 1, NULL, '', '0000-00-00 00:00:00', NULL),
+(3, 'Maggie Davis', 'mdavis@gmail.com', '$2y$10$7vdzFxndw6eqR/VALb5sAez/4UVFPWcPQB/E8xtaRyV1BGUsF3dTa', '09182840104', 'Isle City', '', '', '', '', NULL, NULL, 'Doctor', 1, NULL, '', '0000-00-00 00:00:00', NULL),
+(4, 'Dominic Miller', 'dmiller@gmail.com', '$2y$10$7vdzFxndw6eqR/VALb5sAez/4UVFPWcPQB/E8xtaRyV1BGUsF3dTa', '09174810492', 'Isle City', '', '', '', '', NULL, NULL, 'Doctor', 1, NULL, '', '0000-00-00 00:00:00', NULL),
+(5, 'Lloyd Tabunggao', 'lloydtab@gmail.com', '$2y$10$7vdzFxndw6eqR/VALb5sAez/4UVFPWcPQB/E8xtaRyV1BGUsF3dTa', '0917284011', 'Cembo Makati', 'Male', '1999-11-01', 'Francis Tadena', '09182038501', 'assets/upload_images/64a7ef9b6cd32.png', NULL, 'Patient', 1, 'a911f119bb7d39e69e621ada06f17da11f97d12c01758e0bafb38728af7e0dd0', 'lloydzkie', '2023-07-07 09:55:39', NULL);
 
 --
 -- Indexes for dumped tables
@@ -219,7 +223,7 @@ ALTER TABLE `services`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

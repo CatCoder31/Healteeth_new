@@ -9,6 +9,7 @@
    }
    // database connection
    include('config.php');
+   $doc_id = $_SESSION['id'];
    ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -87,7 +88,7 @@
                </tr>
             </thead>
             <?php
-               $get_data = "SELECT * FROM user WHERE role in ('Doctor','Staff') order by 1 desc";
+               $get_data = "SELECT * FROM user WHERE role in ('Doctor') order by 1 desc";
                $run_data = mysqli_query($con,$get_data);
                $i = 0;
                while($row = mysqli_fetch_array($run_data))
@@ -112,12 +113,24 @@
                        <span>
                        <a href='#' class='btn btn-success mr-3 profile' data-toggle='modal' data-target='#view$id' title='Prfile'><i class='fa fa-eye' aria-hidden='true'></i></a>
                        </span>
-                   </td>
+                   </td>";
+                   if($id == $doc_id){
+                   echo"
                    <td class='text-center'>
                        <span>
                        <a href='#' class='btn btn-warning mr-3 edituser' data-toggle='modal' data-target='#edit$id' title='Edit'><i class='fa fa-pencil-square-o fa-lg'></i></a>
                        </span>
-                   </td>
+                   </td>";}
+                   else{
+                    echo"
+                    <td class='text-center'>
+                    <span>
+                    
+                    </span>
+                    </td>
+                    ";
+                   }
+                   echo"
                    <td class='text-center'>
                        <span>
                            <a href='#' class='btn btn-danger deleteuser' title='Delete'>
@@ -135,7 +148,7 @@
       <!------DELETE modal---->
       <!-- Modal -->
       <?php
-         $get_data = "SELECT * FROM user WHERE role in ('Doctor','Staff') ";
+         $get_data = "SELECT * FROM user WHERE role in ('Doctor') ";
          $run_data = mysqli_query($con,$get_data);
          
          while($row = mysqli_fetch_array($run_data))
@@ -163,7 +176,7 @@
       <!-- View modal  -->
       <?php 
          // <!-- profile modal start -->
-         $get_data = "SELECT * FROM user WHERE role in ('Doctor','Staff') ";
+         $get_data = "SELECT * FROM user WHERE role in ('Doctor') ";
          $run_data = mysqli_query($con,$get_data);
          
          while($row = mysqli_fetch_array($run_data))
@@ -215,7 +228,7 @@
          ?>
       <!----edit Data--->
       <?php
-         $get_data = "SELECT * FROM user WHERE role in ('Doctor','Staff') ";
+         $get_data = "SELECT * FROM user WHERE role in ('Doctor') ";
          $run_data = mysqli_query($con,$get_data);
          
          while($row = mysqli_fetch_array($run_data))

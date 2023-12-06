@@ -9,6 +9,7 @@
    }
    // database connection
    include('config.php');
+   $doc_id = $_SESSION['id'];
    ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,6 +19,7 @@
       <!-- Tell the browser to be responsive to screen width -->
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="robots" content="noindex,nofollow" />
+      <meta http-equiv="refresh" content="60">
       <title>Doctor</title>
       <link
          href="assets/plugins/bootstrap/css/bootstrap.min.css"
@@ -54,48 +56,8 @@
          include 'includes/topheader.php';
          include 'includes/sidebar_doctor.php';
          ?>
-      <!-- ============================================================== -->
-      <!-- Page wrapper  -->
-      <!-- ============================================================== -->
       <div class="page-wrapper">
-         <!-- ============================================================== -->
-         <!-- Container fluid  -->
-         <!-- ============================================================== -->
          <div class="container-fluid">
-            <!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Start Page Content -->
-            <!-- ============================================================== -->
-            <button class = "btn btn-info" data-toggle='modal' data-target='#sample1'>Add time delay</button>
-            <div id='sample1' class='modal fde' role='dialog' tabindex='-1'>
-               <div class='modal-dialog'>
-                  <div class='modal-content'>
-                     <div class='modal-header'>
-                        <button type='button' class='close' data-dismiss='modal'>&times;</button>
-                        <h4 class='modal-title text-center'>Add time delay in minutes</h4>
-                     </div>
-                     <div class='modal-body'>
-                        <form action='timedelay.php' method='post' enctype='multipart/form-data'>
-                           <div class='form-row'>
-                              <div class='form-group col-md-12'>
-                                 <label for='lang'>Time delay</label>
-                                 <input type="text" name='tdelay' id='lang' class='form-control'>
-                              </div>
-                           </div>
-                           <div class='modal-footer'>
-                              <input type='submit' name='submit' class='btn btn-info btn-large' value='Submit'>
-                              <button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>
-                           </div>
-                        </form>
-                     </div>
-                  </div>
-               </div>
-            </div>
             <div class="container">
                <table class="table table-bordered table-striped table-hover" id="myTable">
                   <thead>
@@ -105,43 +67,52 @@
                         <th class="text-center" scope="col">Appointment Time Start</th>
                         <th class="text-center" scope="col">Estimated Time End</th>
                         <th class="text-center" scope="col">Service</th>
-                        <th class="text-center" scope="col">Price</th>
                         <th class="text-center" scope="col">Status</th>
                      </tr>
                   </thead>
                   <?php
-                     $get_data = "SELECT * FROM `appointments` INNER JOIN services ON appointments.service=services.service_id WHERE appointment_date=CURRENT_DATE AND status='Approved'";
+                     $get_data = "SELECT * FROM `appointments` INNER JOIN services ON appointments.service=services.service_id WHERE appointment_date=CURRENT_DATE AND status='Approved' AND doctor_Id = '$doc_id'";
                      $run_data = mysqli_query($con,$get_data);
                      while($row = mysqli_fetch_array($run_data))
                      {
                         $id = $row['id'];
-                         $pname = $row['patient_name'];
-                         $adate = date('F j, Y', (strtotime($row['appointment_date'])));
-                         $atime = date('h:i A',(strtotime($row['appointment_time'])));
-                         $tfinish = date('h:i A',(strtotime($row['time_finish'])));
-                         $service = $row['service_name'];
-                         $price = $row['service_price'];
-                     
-                         echo "
-                     
+                        $pname = $row['patient_name'];
+                        $adate = date('F j, Y', (strtotime($row['appointment_date'])));
+                        $atime = date('h:i A',(strtotime($row['appointment_time'])));
+                        $tfinish = date('h:i A',(strtotime($row['time_finish'])));
+                        $service = $row['service_name'];
+
+                        // Calculate the appointment start time plus 15 minutes
+                        $appointmentStartTime = DateTime::createFromFormat('h:i A', $atime);
+                        $appointmentStartTime->modify('+15 minutes');
+
+                        // Get the current datetime
+                        $currentDateTime = new DateTime();
+
+                        // Compare the current datetime with the appointment start time plus 15 minutes
+                        /*
+                        if ($currentDateTime > $appointmentStartTime) {
+                        // Update the status to 'No Show'
+                        $update_query = "UPDATE appointments SET status = 'No Show' WHERE id = $id";
+                        mysqli_query($con, $update_query);
+                    }*/
+                  ?> 
                          <tr>
-                         <td class='text-left'>$pname</td>
-                         <td class='text-left'>$adate</td>
-                         <td class='text-left'>$atime</td>
-                         <td class='text-left'>$tfinish</td>
-                         <td class='text-left'>$service</td>
-                         <td class='text-left'>₱$price</td>
+                         <td class='text-left'><?php echo $pname?></td>
+                         <td class='text-left'><?php echo $adate?></td>
+                         <td class='text-left'><?php echo $atime?></td>
+                         <td class='text-left'><?php echo $tfinish?></td>
+                         <td class='text-left'><?php echo $service?></td>
                          </td>
                      
                      <td class='text-center'>
                        <span>
-                       <a href='#' class='btn btn-warning mr-3 editappointment' data-toggle='modal' data-target='#edit$id' title='Edit'><i class='fa fa-pencil-square-o fa-lg'></i></a>
+                       <a href='#' class='btn btn-warning mr-3 editappointment' data-toggle='modal' data-target='#edit<?php echo $id?>' title='Edit'><i class='fa fa-pencil-square-o fa-lg'></i></a>
                        </span>
                      </td>
                      
                      </tr>
-                     
-                         ";
+                     <?php
                      }
                      ?>
                   <?php
@@ -171,7 +142,7 @@
                               <div class='form-group col-md-12' id='status'>
                                      <label for='lang'>Status</label>
                               <select name='stats' id='stats' class='form-control stats'>
-                                <option value=''>$status</option>
+                                <option disabled value=''>$status</option>
                                 <option value='Done'>Done</option>
                                 <option value='No Show'>No Show</option>
                               </select>
@@ -201,6 +172,29 @@
          </div>
       </div>
       </div>
+
+      <script>
+      // Function to refresh the page
+      function refreshPage() {
+         // Get the current time
+         var currentTime = new Date();
+
+         // Calculate the remaining seconds until the next refresh
+         var remainingSeconds = 60 - currentTime.getSeconds();
+
+         // Display the remaining seconds
+         document.getElementById('refresh-seconds').textContent = remainingSeconds;
+
+         // Refresh the page after 60 seconds (1 minute)
+         setTimeout(function() {
+            location.reload();
+         }, 60000);
+      }
+
+      // Call the refreshPage function on page load
+      refreshPage();
+   </script>
+   
    </body>
 </html>
 <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -216,21 +210,6 @@
    $(document).ready(function () {
      $('#myTable').DataTable();
    });
-</script>
-<script>
-$(document).ready(function(){
-$('.stats').on('change', function(){
-if (this.value == ''){
-$('.settimedelay').hide();
-}
-if (this.value == 'Done'){
-$('.settimedelay').show();
-}
-if (this.value == 'No Show'){
-$('.settimedelay').hide();
-}
-});
-});
 </script>
 <!-- Popper.JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>

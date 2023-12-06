@@ -1,0 +1,232 @@
+/* Media query for screen widths greater than or equal to 768px */
+@media (min-width: 768px) {
+   .navbar-brand.abs {
+      position: absolute;
+      width: auto;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+   }
+}
+
+/* Custom class */
+.custom {
+   display: inline-block;
+   width: 120px;
+   height: 50px;
+   background: url("../images/v16_28.png");
+   background-repeat: no-repeat;
+   background-position: center center;
+   background-size: cover;
+   opacity: 1;
+   position: relative;
+   left: -70px;
+   box-shadow: 6px 3px 4px rgba(0, 0, 0, 1);
+   overflow: hidden;
+}
+
+/* Styling for scrollbar */
+/* Width */
+::-webkit-scrollbar {
+   width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+   border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+   background: #4052a4;
+   border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+   background: #65cad7;
+}
+
+/* Custom classes with similar styles */
+.custom1 {
+   width: 120px;
+   height: 50px;
+   background: url("../images/v16_28.png");
+   background-repeat: no-repeat;
+   background-position: center center;
+   background-size: cover;
+   opacity: 1;
+   position: relative;
+   left: -35px;
+   box-shadow: 6px 3px 4px rgba(0, 0, 0, 1);
+   overflow: hidden;
+}
+
+.custom2 {
+   width: 120px;
+   height: 50px;
+   background: url("../images/v16_28.png");
+   background-repeat: no-repeat;
+   background-position: center center;
+   background-size: cover;
+   opacity: 1;
+   position: relative;
+   left: -5px;
+   box-shadow: 6px 3px 4px rgba(0, 0, 0, 1);
+   overflow: hidden;
+}
+
+.custom3 {
+   width: 120px;
+   height: 50px;
+   background: url("../images/v16_28.png");
+   background-repeat: no-repeat;
+   background-position: center center;
+   background-size: cover;
+   opacity: 1;
+   position: relative;
+   left: 30px;
+   box-shadow: 6px 3px 4px rgba(0, 0, 0, 1);
+   overflow: hidden;
+}
+
+.custom4 {
+   width: 120px;
+   height: 50px;
+   background: url("../images/v16_28.png");
+   background-repeat: no-repeat;
+   background-position: center center;
+   background-size: cover;
+   opacity: 1;
+   position: relative;
+   left: 300px;
+   box-shadow: 6px 3px 4px rgba(0, 0, 0, 1);
+   overflow: hidden;
+}
+
+/* Styling for active state */
+.custom:active,
+.custom1:active,
+.custom2:active,
+.custom3:active,
+.custom4:active {
+   background-color: #445c6d;
+   box-shadow: 0 5px #666;
+   transform: translateY(4px);
+}
+
+.vertical-center {
+   border: none;
+   margin-top: 4%;
+   margin-bottom: 10%;
+}
+
+.rounded-3 {
+   border: none;
+}
+
+.header_photo {
+   width: 100%;
+}
+
+.logo_img {
+   margin-left: 5%;
+   margin-top: 3%;
+   width: 300px;
+   max-width: 100%;
+}
+
+.signin_h2 {
+   text-align: center;
+   font-weight: bold;
+   font-size: 4rem;
+   color: #4052a4;
+   font-family: 'Montserrat';
+   position: relative;
+}
+
+.signin_p {
+   text-align: center;
+   font-weight: light;
+   font-size: 1rem;
+   color: #4052a4;
+   font-family: 'Montserrat';
+   position: relative;
+}
+
+.field-icon {
+   float: right;
+   margin-right: 10px;
+   margin-top: -33px;
+   position: relative;
+   z-index: 2;
+   font-size: 1em;
+}
+
+.btn_change {
+   border: none;
+   background-color: transparent;
+   background-repeat: no-repeat;
+}
+
+.form-group {
+   padding: 30px 0;
+   background-color: #006dcc;
+}
+
+.form-control {
+   border-radius: 30px;
+   padding-right: 5%;
+   padding-left: 5%;
+   padding-top: 2%;
+   padding-bottom: 2%;
+   background-color: white !important;
+   font-family: 'Montserrat';
+   color: #4052a4;
+}
+
+.fa-eye {
+   font-size: 1em;
+}
+
+.btn_form {
+   padding-right: 20%;
+   padding-left: 20%;
+   border-radius: 30px;
+}
+
+.btn_form:hover {
+   color: white;
+}
+
+.register_p {
+   font-family: 'Montserrat';
+   color: #4052a4;
+   font-weight: light;
+}
+
+.register_link_btn {
+   font-family: 'Montserrat';
+   color: #65cad7;
+   transition: 0.2s;
+   font-weight: bold;
+   text-decoration: none;
+}
+
+@media (max-width: 1000px) {
+   .logo_img {
+      width: 300px;
+      max-width: 50%;
+   }
+   .header_photo {
+      width: 100%;
+      display: none;
+   }
+}
+
+.register_p {
+   font-family: 'Montserrat';
+   color: #4052a4;
+   font-weight: light;
+   text-decoration: none;
+}

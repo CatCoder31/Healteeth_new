@@ -126,8 +126,8 @@
                <tr>
                    <td class='text-center'><?php echo $i++; ?></td>
                    <td class='text-center'><?php echo date("F d, Y", strtotime($row['date_sched'])) ?></td>
-                   <td class='text-center'><?php echo $row['time_sched_start'].' - '.$row['time_sched_end'] ?></td>
-                   <td class='text-center'><?php echo $row['breaktime_start'].' - '.$row['breaktime_end'] ?></td>
+                   <td class='text-center'><?php echo date("h:i A", strtotime($row['time_sched_start'])).' - '.date("h:i A", strtotime($row['time_sched_end'])) ?></td>
+                   <td class='text-center'><?php echo date("h:i A", strtotime($row['breaktime_start'])).' - '.date("h:i A", strtotime($row['breaktime_end'])) ?></td>
                    <td class='text-center'>
                        <a href='schedule_update.php?sched_Id=<?php echo $row['sched_Id']; ?>' class='btn btn-success' title='Delete'><i class='fa fa-pencil-square-o fa-lg'></i></a>
                        <a href='#' class='btn btn-danger' data-toggle='modal' data-target='#<?php echo $row['sched_Id']; ?>'><i class='fa fa-trash-o fa-lg' aria-hidden='true'></i></a>

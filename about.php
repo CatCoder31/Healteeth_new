@@ -13,7 +13,8 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>Home</title>
+      <title>About Us | HealTeeth</title>
+<link rel="icon" type="image/x-icon" href="assets/healteeth.ico">
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
@@ -341,7 +342,7 @@ Healthteeth dentists offer specialized care for all dental needs at our full-ser
 OUR <span style="color: #fff">STORY</span>
 </h1>
 <p class="header_p">
-our story is one of passion and dedication to revolutionizing dental care. With specialized dentists, state-of-the-art technology, and a welcoming environment, we provide comprehensive services tailored to your needs. Our mission is to ensure your dental health, comfort, and confidence, so you can enjoy a beautiful smile that brings joy to your life.
+Our story is one of passion and dedication to revolutionizing dental care. With specialized dentists, state-of-the-art technology, and a welcoming environment, we provide comprehensive services tailored to your needs. Our mission is to ensure your dental health, comfort, and confidence, so you can enjoy a beautiful smile that brings joy to your life.
 </p>
 </div>
 </div>
